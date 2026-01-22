@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="Google Sheet.css">
+</head>
+<body>
+  <div class="container">
+    <form method="post" action="https://script.google.com/macros/s/AKfycbz2E6k-dp8VRPaHIchyXJTbw2maHoBz8wzKdcpGuga9hw8fHxle7IKt5dkfJzKpnls9/exec" name="contact-form">
+      <h4>Contact Us</h4>
+      <div class="form-group">
+  <label for="targetSheet">取貨方式：</label>
+  <select name="targetSheet" id="targetSheet" required>
+    <option value="匯款自取">匯款自取</option>
+    <option value="現金自取">現金自取</option>
+    <option value="711店取">711店取</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="name">取件人姓名：</label>
+  <input type="text" id="name" name="取件人姓名">
+</div>
+
+<div class="form-group">
+  <label for="phone">取件人手機：</label>
+  <input type="text" id="phone" name="取件人手機">
+</div>
+<div id="loadingProducts" style="color:white; margin-bottom:10px;">
+  ⏳ 載入商品中，請稍候...
+</div>
+<!-- 商品區 -->
+<div class="form-group">
+  
+  <label>商品項目：</label>
+  <div id="product-list"></div> <!-- JS 會自動加商品進來 -->
+</div>
+
+<!-- 商品與金額欄位（自動填入） -->
+<input type="hidden" id="product" name="商品">
+<input type="hidden" id="total" name="訂單金額">
+<label>商品金額：</label>
+<span id="totalDisplay" class="price-display">$0</span>
+<input type="hidden" id="temperature" name="溫層" value="常溫">
+
+<div class="form-group">
+  <!--<label for="fee">運費金額：</label>-->
+  <!-- 顯示用 -->
+<div class="form-group">
+  <label>運費金額：</label>
+  <span id="feeDisplay" class="price-display">$0</span>
+</div>
+
+<!-- 送出用（不顯示） -->
+<input type="hidden" id="fee" name="運費金額">
+
+</div>
+
+<div class="form-group">
+  <label for="gmail">gmail：</label>
+  <input type="text" id="gmail" name="gmail">
+</div>
+
+<div class="form-group" id="storeCodeField">
+  <label for="storeCode">取件門市號碼(6碼)：</label>
+  <input type="text" id="storeCode" name="取件門市號碼(6碼)">
+</div>
+
+<div class="form-group" id="bankCodeField">
+  <label for="bankCode">匯款帳號後五碼：</label>
+  <input type="text" id="bankCode" name="匯款帳號後五碼">
+</div>
+
+      <button type="submit" id="submit-button">Submit</button>
+<span id="loading-indicator" style="display:none; color: gray; margin-left: 10px;">送出中...</span>
+
+	</form>
+  </div>
+  <script src="Google Sheet.js"></script>
+</body>
+</html>

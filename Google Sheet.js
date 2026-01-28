@@ -1,4 +1,4 @@
-const scriptURL = 'https://script.google.com/macros/s/AKfycbz2E6k-dp8VRPaHIchyXJTbw2maHoBz8wzKdcpGuga9hw8fHxle7IKt5dkfJzKpnls9/exec';
+const scriptURL = 'https://script.google.com/macros/s/AKfycbzs6P12BcSAufuc4FxLEMRg-tRAfmzY5gfjmKlp_lSPCeN1BfyYFfEGkyCXF82Ix9Yj/exec';
 const form = document.forms['contact-form'];
 
 let productDivs = [];
@@ -137,6 +137,17 @@ document.addEventListener('DOMContentLoaded', () => {
     setFee(0);
   }
 }
+const storeSearchBtn = document.querySelector('.store-search-btn');
+const storeCodeInput2 = document.getElementById('storeCode');
+
+if (storeSearchBtn && storeCodeInput) {
+  storeSearchBtn.addEventListener('click', () => {
+    // 使用者點查詢門市後
+    setTimeout(() => {
+      storeCodeInput2.focus();
+    }, 500);
+  });
+}
 
 const loadingText = document.getElementById('loadingProducts');
   fetch(scriptURL)
@@ -223,17 +234,19 @@ fetch(scriptURL, { method: 'POST', body: new FormData(form) })
   .then(() => {
     if (hasSubmitted) return;
     hasSubmitted = true;
+const selectedMethod = document.getElementById('targetSheet').value;
 
     alert('✅ 訂單已送出');
 
     form.reset();
 
     const select = document.getElementById('targetSheet');
-   setFee(select.value === '匯款自取' ? 0 : 38);
 
+select.value = selectedMethod; // ✅ 設回送出時的取貨方式
 
     updateFieldVisibility();
-    updateRestrictions();
+    updateRestrictions();   
+    setFee(select.value === '匯款自取' ? 0 : 38);
     document.querySelectorAll('.count').forEach(el => el.textContent = '0');
     updateTotalAndProduct();
   })

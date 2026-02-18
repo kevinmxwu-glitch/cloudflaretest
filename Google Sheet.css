@@ -1,74 +1,122 @@
-*{
-	box-sizing: border-box;
-	padding: 0;
-	margin: 0;
-	font-family: 'poppins', sans-serif;
-	font-size: 14px;
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: 'poppins', sans-serif;
 }
-body{
-	height: 100vh;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f2f2f2;
 }
-.container{
-	width: 500px;
-	padding: 30px;
-	border: 1px solid #eeeeee;
-	border-radius: 10px;
-	background-color: gray;
+
+/* 外框卡片 */
+.container {
+  width: 90%;
+  max-width: 520px;  
+  padding: 32px;
+  border-radius: 12px;
+  background: rgb(148, 148, 149);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
-h4{
-	margin-bottom: 10px;
-	font-size: 24px;
-	color: white;
+
+
+/* 標題 */
+h4 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: white;
+  text-align: center;
 }
-input{
-	width: 100%;
-	padding: 10px;
-	margin-bottom: 10px;
+
+/* 每一組欄位 */
+.form-group {
+  margin-bottom: 16px;
 }
-textarea{
-	width: 100%;
-	padding: 10px;
+
+/* label */
+label {
+  display: block;
+  margin-bottom: 6px;
+  color: #333333;
+  font-size: 13px;
 }
+
+/* 輸入框 */
+input, select {
+  width: 100%;
+  padding: 12px 10px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  min-height: 42px;  
+  line-height: 1.4;
+}
+
+/* placeholder 顏色 */
+::placeholder {
+  color: #aaa;
+}
+
+/* 商品區 */
 .product {
   margin-bottom: 10px;
   color: white;
 }
+
+/* +/- 按鈕 */
 .product button {
   margin: 0 5px;
-}
-.product select {
-  margin-left: 10px;
-}
-.price-display {
-  display: inline-block;
-  font-size: 18px;
-  font-weight: bold;
-  color: #ffd700;
-  margin-top: 5px;
+  padding: 3px 8px;
 }
 
-#submit{
-	border: none;
-	background-color: orangered;
-	color: white;
-	width: 200px;
-	margin-top: 10px;
-	border-radius: 5px;
+/* 金額顯示 */
+.price-display {
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffd700;
+  margin-top: 4px;
 }
-#submit:hover{
-	background-color: #333333;
-}
+
+/* 查詢門市按鈕 */
 .store-search-btn {
   padding: 10px 12px;
-  background: #ff6600;
+  background: #f36404;
   color: white;
   text-decoration: none;
-  border-radius: 5px;
+  border-radius: 6px;
   white-space: nowrap;
 }
+
 .store-search-btn:hover {
   background: #333;
+}
+
+/* 送出按鈕 */
+#submit-button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  background: #f36404;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+#submit-button:hover {
+  background: #222;
+}
+
+/* loading 字 */
+#loading-indicator {
+  display: block;
+  margin-top: 8px;
+  font-size: 13px;
 }

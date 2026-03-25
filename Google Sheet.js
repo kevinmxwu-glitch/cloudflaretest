@@ -197,12 +197,12 @@ document.addEventListener('DOMContentLoaded', () => {
       storeCodeField.style.display = 'block';
       bankCodeField.style.display = 'none';
       setFee(38);
-    } 
+    }
     else if (method === '匯款自取') {
       storeCodeField.style.display = 'none';
       bankCodeField.style.display = 'block';
       setFee(0);
-    } 
+    }
     else if (method === '現金自取') {
       storeCodeField.style.display = 'none';
       bankCodeField.style.display = 'none';
@@ -290,7 +290,7 @@ form.addEventListener('submit', e => {
       select.value = selectedMethod;
 
       updateFieldVisibility();
-      updateRestrictions();   
+      updateRestrictions();
       setFee(select.value === '匯款自取' ? 0 : 38);
 
       document.querySelectorAll('.count').forEach(el => el.textContent = '0');

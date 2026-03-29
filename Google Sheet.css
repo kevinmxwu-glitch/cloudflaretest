@@ -3,8 +3,16 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'MyFont';
+  font-weight: 400;
 }
-
+@font-face {
+  font-family: 'MyFont';
+  src: url('fonts/KozGoPr6NRegular.otf');
+}
+html {
+  scroll-behavior: smooth;
+}
 /* ===== 整體結構 ===== */
 .layout {
   min-height: 100vh;
@@ -83,7 +91,66 @@
   object-fit: cover;
   border-radius: 10px;
 }
+/* ===== 側邊選單 ===== */
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -260px;   /* ⭐預設藏起來 */
+  width: 260px;
+  height: 100vh;
+  background: #343C55;
+  padding: 0;
 
+  display: flex;              /* ⭐新增 */
+  justify-content: center;    /* ⭐水平 */
+  align-items: center;        /* ⭐垂直 */
+  transition: 0.3s;
+  z-index: 8000;
+}
+
+/* 打開狀態 */
+.side-menu.active {
+  left: 0;
+}
+
+/* 選單內容 */
+.side-menu ul {
+  list-style: none;
+}
+
+.side-menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  display: block;
+  padding: 0;
+  width: 100%;        /* ⭐關鍵 */
+  padding: 16px 80px; /* ⭐讓整行可點 */
+}
+.side-menu a:hover {
+  color: #E83928;
+}
+/* ===== 遮罩 ===== */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0, 0, 0, 0.502);
+
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+
+  z-index: 7999;
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
 /* ===== 響應式 ===== */
 @media (max-width: 1024px) {
 
@@ -106,6 +173,26 @@
     width: 100%;
     padding: 24px 60px;
   }
+
+  .side-menu {
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: auto;
+    padding: 30px 0px;
+    display: flex;
+    justify-content: center;  /* 水平置中 */
+    /*align-items: center;      /* 垂直置中 */
+    padding-top: 100px;
+  }
+.side-menu a {
+  padding: 12px 40px; /* ⭐讓整行可點 */
+}
+  .side-menu.active {
+    top: 0;
+  }
+
+  
 }
 
 

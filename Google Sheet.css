@@ -27,10 +27,9 @@ html {
 }
 /* ===== Header ===== */
 .header {
-  background: #ff6b6b;
+  /*background: #ff6b6b;*/
   padding: 36px 20px;
   text-align: center;
-  font-size: 20px;
 }
 
 /* ===== 中間區域（sidebar + main） ===== */
@@ -49,7 +48,7 @@ html {
 /* ===== Main ===== */
 .main {
   flex: 1;
-  background: #ffe66d;
+  /*background: #ffe66d;*/
   padding: 24px 180px;
 }
 

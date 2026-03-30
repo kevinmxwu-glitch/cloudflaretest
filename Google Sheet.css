@@ -64,11 +64,64 @@ html {
   padding: 20px;
   border-radius: 6px;
 }
+/* 讓 #visit 可以疊層 */
+#visit {
+  position: relative;
+  overflow: hidden;
+}
 
+/* 背景影片容器 */
+.video-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden; /* ⭐避免露邊 */
+}
+
+.video-bg video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transform: translate(-50%, -50%);
+}
+
+/* 內容在上面 */
+#visit .header,
+#visit .main,
+#visit .footer {
+  position: relative;
+  z-index: 1;
+}
+.video-desktop {
+  display: block;
+}
+
+.video-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .video-desktop {
+    display: none;
+  }
+  .video-mobile {
+    display: block;
+  }.video-bg video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
 /* ===== 整組容器 ===== */
 .upDownGroup {
   position: relative;
-  height: 200vh;
+  min-height: 200vh;
   /* 要比一個畫面高，才能有滾動空間 */
 }
 
@@ -91,7 +144,16 @@ html {
   margin-top: -100vh;
   /* ⭐關鍵：往上蓋 */
 }
+/* ⭐控制商品層顯示/隱藏 */
+.upDownContent {
+  transform: translateY(0);
+  transition: transform 0.5s ease;
+}
 
+/* ⭐隱藏商品（露出底層） */
+.upDownContent.hide {
+  transform: translateY(100%);
+}
 /* 商品區塊 */
 .upDownPanel {
   height: 100vh;
@@ -101,7 +163,7 @@ html {
 /* ===== Footer ===== */
 .footer {
   background: #1a1a1a;
-  padding: 30px 40px;
+  padding: 24px 36px;
 
   display: flex;
   flex-wrap: wrap;
@@ -111,7 +173,7 @@ html {
 }
 
 .footer img {
-  height: 60px;
+  height: 48px;
   width: auto;
   object-fit: contain;
   padding: 5px;
@@ -268,7 +330,16 @@ html {
     opacity: 1;
     pointer-events: auto;
   }
-
+  .footer {
+  padding: 15px 20px;
+}
+.footer img {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+  padding: 2px;
+  border-radius: 4px;
+}
 
 }
 

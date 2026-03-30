@@ -45,7 +45,17 @@ overlay.addEventListener("click", () => {
   overlay.classList.remove("active");
 });
 
-// 點選單 → 關閉
+const visitLink = document.querySelector('a[href="#visit"]');
+const group = document.querySelector('.upDownGroup');
+visitLink.addEventListener('click', (e) => {
+  e.preventDefault();
+
+  window.scrollTo({
+    top: group.offsetTop + window.innerHeight,
+    behavior: "smooth"
+  });
+  
+});
 document.querySelectorAll(".side-menu a").forEach(link => {
   link.addEventListener("click", () => {
     sideMenu.classList.remove("active");

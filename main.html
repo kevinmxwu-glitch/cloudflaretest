@@ -25,6 +25,7 @@
       <li><a href="#works">作品介紹</a></li>
       <li><a href="#about">關於我們</a></li>
       <li><a href="#shop">周邊商品</a></li>
+      <li><a href="#visit">參觀資訊</a></li>
     </ul>
   </nav>
   <div class="layout">
@@ -32,7 +33,16 @@
 
       <!-- 👇 展覽（底層） -->
       <div class="upDownBg">
-        <div class="page">
+        <div class="page" id="visit">
+          <div class="video-bg">
+            <video class="video-desktop" autoplay muted loop playsinline>
+              <source src="video/main/visit_loop_desktop.mp4">
+            </video>
+
+            <video class="video-mobile" autoplay muted loop playsinline>
+              <source src="video/main/visit_loop_mobile.mp4">
+            </video>
+          </div>
           <header class="header">展覽 Header</header>
           <main class="main">
             <div class="demo-box">展覽1</div>
@@ -56,7 +66,7 @@
       <!-- 👇 商品（上層） -->
       <div class="upDownContent">
         <div class="upDownPanel">
-          <div class="page">
+          <div class="page" id="shop">
             <header class="header">商品 Header</header>
             <main class="main">
               <div class="demo-box">商品1</div>

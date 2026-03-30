@@ -19,7 +19,12 @@ html {
   display: flex;
   flex-direction: column;
 }
-
+.page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%; 
+}
 /* ===== Header ===== */
 .header {
   background: #ff6b6b;
@@ -55,7 +60,36 @@ html {
   padding: 20px;
   border-radius: 6px;
 }
+/* ===== 整組容器 ===== */
+.upDownGroup {
+  position: relative;
+  height: 200vh; /* 要比一個畫面高，才能有滾動空間 */
+}
 
+/* 👇 展覽資訊（底層固定） */
+.upDownBg {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+
+  background: #222;
+  color: white;
+
+  z-index: 1;
+}
+
+/* 👇 商品（上層滑動） */
+.upDownContent {
+  position: relative;
+  z-index: 2;
+  margin-top: -100vh;   /* ⭐關鍵：往上蓋 */
+}
+
+/* 商品區塊 */
+.upDownPanel {
+  height: 100vh;
+  background: #f5f5f5;
+}
 /* ===== Footer ===== */
 .footer {
   background: #1a1a1a;

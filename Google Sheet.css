@@ -157,7 +157,16 @@ h1 {
 .arrow-btn:hover .arrow {
   transform: translateX(6px);
 }
+.visit-layout {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+}
 
+/* 桌機版 */
+.visit-title { order: 1; flex: 1; }
+.button-group { order: 2; }
+.visit-right { order: 3; flex: 1; }
 /* 讓 #visit 可以疊層 */
 #visit {
   position: relative;
@@ -386,9 +395,9 @@ h1 {
     order: 1; /* 標題 */
   }
 
-  .visit-right {
-    order: 2; /* PDF */
-  }
+  .visit-title { order: 1; }
+  .visit-right { order: 2; }
+  .button-group { order: 3; }
 
   .button-group {
     order: 3; /* 按鈕 */

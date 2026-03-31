@@ -13,7 +13,7 @@ load.appendChild(source);
 load.play();
 
 //載入
-var loader = document.getElementsByClassName("loaderPC");
+var loader = document.getElementsByClassName("loader");
 
 function fadeOut() {
   if (load.style.opacity  > 0) {

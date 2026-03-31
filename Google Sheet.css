@@ -5,6 +5,7 @@
   padding: 0;
   font-family: 'MyFont';
   font-weight: 400;
+  letter-spacing: 0.1em;
 }
 
 @font-face {
@@ -15,7 +16,12 @@
 html {
   scroll-behavior: smooth;
 }
-
+h1 {
+  font-size: 40px;
+  color: #343C55;
+  font-weight: 700;
+  padding: 0;
+}
 /* ===== 整體結構 ===== */
 .layout {
   min-height: 100vh;
@@ -43,39 +49,126 @@ html {
   display: flex;
 }
 
-/* ===== Sidebar ===== 
-.sidebar {
-  width: 220px;
-  background: #4ecdc4;
-  padding: 20px;
-}*/
-
 /* ===== Main ===== */
 .main {
   flex: 1;
   /*background: #ffe66d;*/
   padding: 24px 180px;
 }
-
-/* 測試用區塊 */
-.demo-box {
-  background: #ffffff;
-  margin-bottom: 10px;
-  padding: 20px;
-  border-radius: 6px;
+#shop {
+  position: relative;
+  overflow: hidden;
 }
+
+/* ⭐背景圖 */
+.shop-bg {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;   /* ⭐關鍵：鋪滿 */
+  z-index: 0;
+}
+
+/* ⭐內容在上面 */
+#shop .header,
+#shop .main {
+  position: relative;
+  z-index: 1;
+}
+.demo-box {
+  /*background: #ffffff;*/
+  margin-bottom: 0px;
+  padding: 0px;
+  /*border-radius: 6px;*/
+}
+/* ⭐整個左右區塊 */
+.visit-layout {
+  display: flex;
+  gap: 40px;
+  align-items: stretch; /* ⭐讓左右等高 */
+}
+
+/* 左邊 */
+.visit-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* ⭐讓按鈕貼底 */
+}
+
+/* 右邊 */
+.visit-right {
+  flex: 1;
+  display: flex;
+}
+
+/* PDF */
+.pdf-box {
+  width: 100%;
+  height: 64vh; /* ⭐吃滿右側 */
+  padding: 10px 0 0 0;
+
+}
+
+.pdf-box iframe {
+  width: 100%;
+  height: 100%;
+  
+}.button-group {
+  display: flex;
+  flex-direction: column; /* 上下排列 */
+  /*align-items: flex-end;   ⭐靠右 */
+
+  gap: 20px; /* ⭐取代 <br> */
+}
+.arrow-btn {
+  width: 200px;
+  height: 50px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center; /* ⭐讓內容置中 */
+  background: #E83928;
+  color: white;
+  font-size: 14px;
+  gap: 10px;
+  border: none;
+  border-radius: 46px; /* ⭐圓角 */
+
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+
+/* hover效果 */
+.arrow-btn:hover {
+  background: #c92f20;
+}
+
+/* 箭頭 */
+.arrow {
+  transition: transform 0.3s;
+}
+
+/* 滑過時箭頭往右 */
+.arrow-btn:hover .arrow {
+  transform: translateX(6px);
+}
+
 /* 讓 #visit 可以疊層 */
 #visit {
   position: relative;
   overflow: hidden;
 }
 
-/* 背景影片容器 */
 .video-bg {
   position: absolute;
   inset: 0;
   z-index: 0;
-  overflow: hidden; /* ⭐避免露邊 */
+  overflow: hidden; 
 }
 
 .video-bg video {
@@ -91,7 +184,6 @@ html {
   transform: translate(-50%, -50%);
 }
 
-/* 內容在上面 */
 #visit .header,
 #visit .main,
 #visit .footer {
@@ -121,40 +213,37 @@ html {
 /* ===== 整組容器 ===== */
 .upDownGroup {
   position: relative;
-  min-height: 200vh;
+  height: 200vh;
   /* 要比一個畫面高，才能有滾動空間 */
 }
 
-/* 👇 展覽資訊（底層固定） */
+/* 展覽資訊（底層固定） */
 .upDownBg {
   position: sticky;
   top: 0;
   height: 100vh;
 
   background: #222;
-  color: white;
+  color: rgb(0, 0, 0);
 
   z-index: 1;
 }
 
-/* 👇 商品（上層滑動） */
+/* 商品（上層滑動） */
 .upDownContent {
   position: relative;
   z-index: 2;
   margin-top: -100vh;
-  /* ⭐關鍵：往上蓋 */
 }
-/* ⭐控制商品層顯示/隱藏 */
 .upDownContent {
   transform: translateY(0);
   transition: transform 0.5s ease;
 }
 
-/* ⭐隱藏商品（露出底層） */
 .upDownContent.hide {
   transform: translateY(100%);
 }
-/* 商品區塊 */
+
 .upDownPanel {
   height: 100vh;
   background: #f5f5f5;
@@ -202,30 +291,22 @@ html {
   position: fixed;
   top: 0;
   left: -260px;
-  /* ⭐預設藏起來 */
   width: 260px;
   height: 100vh;
   background: #343C55;
   padding: 0;
 
   display: flex;
-  /* ⭐新增 */
   justify-content: center;
-  /* ⭐水平 */
   align-items: center;
-  /* ⭐垂直 */
   transition: 0.2s;
   z-index: 8000;
 
   z-index: -1;
-  /* ⭐在最底層 */
   opacity: 0;
-  /* ⭐看不到 */
   pointer-events: none;
-  /* ⭐不能點 */
 }
 
-/* 打開狀態 */
 .side-menu.active {
   left: 0;
   z-index: 8000;
@@ -245,9 +326,7 @@ html {
   display: block;
   padding: 0;
   width: 100%;
-  /* ⭐關鍵 */
   padding: 16px 80px;
-  /* ⭐讓整行可點 */
 }
 
 .side-menu a:hover {
@@ -267,7 +346,6 @@ html {
   opacity: 0;
   visibility: hidden;
   transition: 0.3s;
-  /*transition-delay: 0.15s;  ⭐延遲出現 */
   z-index: -2;
 }
 
@@ -300,7 +378,37 @@ html {
     width: 100%;
     padding: 24px 60px;
   }
+  h1{
+  font-size: 32px;
+}
+/* ⭐左邊拆排序 */
+  .demo-box {
+    order: 1; /* 標題 */
+  }
 
+  .visit-right {
+    order: 2; /* PDF */
+  }
+
+  .button-group {
+    order: 3; /* 按鈕 */
+  }
+.visit-layout {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+.button-group {
+  align-items: center;
+
+  gap: 5px; /* ⭐取代 <br> */
+}
+  .pdf-box {
+  width: 100%;
+  height: 40vh; /* ⭐吃滿右側 */
+  padding: 0;
+
+}
   .side-menu {
     top: -100%;
     left: 0;
@@ -309,19 +417,15 @@ html {
     padding: 30px 0px;
     display: flex;
     justify-content: center;
-    /* 水平置中 */
-    /*align-items: center;      /* 垂直置中 */
     padding-top: 100px;
 
     z-index: -1;
-    /* ⭐一樣壓到底 */
     opacity: 0;
     pointer-events: none;
   }
 
   .side-menu a {
     padding: 12px 40px;
-    /* ⭐讓整行可點 */
   }
 
   .side-menu.active {

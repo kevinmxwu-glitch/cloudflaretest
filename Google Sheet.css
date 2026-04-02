@@ -1,4 +1,4 @@
-/* ===== 全站基本 ===== */
+/* #region===== 全站基本 ===== */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -16,13 +16,8 @@
 html {
   scroll-behavior: smooth;
 }
-h1 {
-  font-size: 40px;
-  color: #343C55;
-  font-weight: 700;
-  padding: 0;
-}
-/* ===== 整體結構 ===== */
+/* #endregion */
+/* #region===== Layout ===== */
 .layout {
   min-height: 100vh;
   display: flex;
@@ -38,213 +33,114 @@ h1 {
 
 /* ===== Header ===== */
 .header {
-  /*background: #ff6b6b;*/
   padding: 36px 20px;
   text-align: center;
-}
-
-/* ===== 中間區域（sidebar + main） ===== */
-.content-area {
-  flex: 1;
-  display: flex;
 }
 
 /* ===== Main ===== */
 .main {
   flex: 1;
-  /*background: #ffe66d;*/
   padding: 24px 180px;
 }
-#shop {
-  position: relative;
-  overflow: hidden;
-}
 
-/* ⭐背景圖 */
-.shop-bg {
-  position: absolute;
-  inset: 0;
-
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;   /* ⭐關鍵：鋪滿 */
-  z-index: 0;
-}
-
-/* ⭐內容在上面 */
-#shop .header,
-#shop .main {
-  position: relative;
-  z-index: 1;
-}
-.demo-box {
-  /*background: #ffffff;*/
-  margin-bottom: 0px;
-  padding: 0px;
-  /*border-radius: 6px;*/
-}
-/* ⭐整個左右區塊 */
-.visit-layout {
-  display: flex;
-  gap: 40px;
-  align-items: stretch; /* ⭐讓左右等高 */
-}
-
-/* 左邊 */
-.visit-left {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* ⭐讓按鈕貼底 */
-}
-
-/* 右邊 */
-.visit-right {
-  flex: 1;
-  display: flex;
-}
-
-/* PDF */
-.pdf-box {
-  width: 100%;
-  height: 64vh; /* ⭐吃滿右側 */
-  padding: 10px 0 0 0;
-
-}
-
-.pdf-box iframe {
-  width: 100%;
-  height: 100%;
-  
-}.button-group {
-  display: flex;
-  flex-direction: column; /* 上下排列 */
-  /*align-items: flex-end;   ⭐靠右 */
-
-  gap: 20px; /* ⭐取代 <br> */
-}
-.arrow-btn {
-  width: 200px;
+/* ===== Menu Icon ===== */
+.menu-icon {
+  position: fixed;
+  top: 30px;
+  left: 24px;
+  width: 50px;
   height: 50px;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center; /* ⭐讓內容置中 */
-  background: #E83928;
-  color: white;
-  font-size: 14px;
-  gap: 10px;
-  border: none;
-  border-radius: 46px; /* ⭐圓角 */
-
-  cursor: pointer;
-  transition: 0.3s;
+  z-index: 9999;
 }
 
-
-/* hover效果 */
-.arrow-btn:hover {
-  background: #c92f20;
-}
-
-/* 箭頭 */
-.arrow {
-  transition: transform 0.3s;
-}
-
-/* 滑過時箭頭往右 */
-.arrow-btn:hover .arrow {
-  transform: translateX(6px);
-}
-.visit-layout {
-  display: flex;
-  gap: 10px;
-  align-items: stretch;
-}
-
-/* 桌機版 */
-.visit-title { order: 1; flex: 1; }
-.button-group { order: 2; }
-.visit-right { order: 3; flex: 1; }
-/* 讓 #visit 可以疊層 */
-#visit {
-  position: relative;
-  overflow: hidden;
-}
-
-.video-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden; 
-}
-
-.video-bg video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-
+.menu-icon img {
   width: 100%;
   height: 100%;
-
   object-fit: cover;
-
-  transform: translate(-50%, -50%);
+  border-radius: 10px;
 }
 
-#visit .header,
-#visit .main,
-#visit .footer {
-  position: relative;
-  z-index: 1;
+/* ===== Side Menu ===== */
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 260px;
+  height: 100vh;
+  background: #343C55;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: 0.2s;
+
+  z-index: -1;
+  opacity: 0;
+  pointer-events: none;
 }
-.video-desktop {
+
+.side-menu.active {
+  left: 0;
+  z-index: 8000;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.side-menu ul {
+  list-style: none;
+}
+
+.side-menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
   display: block;
+  padding: 16px 80px;
 }
 
-.video-mobile {
-  display: none;
+.side-menu a:hover {
+  color: #E83928;
 }
 
-@media (max-width: 768px) {
-  .video-desktop {
-    display: none;
-  }
-  .video-mobile {
-    display: block;
-  }.video-bg video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+/* ===== Overlay ===== */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.502);
+
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+
+  z-index: -2;
 }
-/* ===== 整組容器 ===== */
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 7999;
+}
+/* #endregion*/
+/* #region===== 上下滑動結構 ===== */
 .upDownGroup {
   position: relative;
   height: 200vh;
-  /* 要比一個畫面高，才能有滾動空間 */
 }
 
-/* 展覽資訊（底層固定） */
 .upDownBg {
   position: sticky;
   top: 0;
   height: 100vh;
 
-  background: #222;
-  color: rgb(0, 0, 0);
-
   z-index: 1;
 }
 
-/* 商品（上層滑動） */
 .upDownContent {
   position: relative;
   z-index: 2;
   margin-top: -100vh;
-}
-.upDownContent {
+
   transform: translateY(0);
   transition: transform 0.5s ease;
 }
@@ -255,10 +151,153 @@ h1 {
 
 .upDownPanel {
   height: 100vh;
-  background: #f5f5f5;
+}
+/* #endregion*/
+/* #region===== Visit ===== */
+#visit {
+  position: relative;
+  overflow: hidden;
 }
 
-/* ===== Footer ===== */
+/* 背景影片 */
+.video-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.video-bg video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+}
+
+/* 影片切換 */
+.video-desktop {
+  display: block;
+}
+
+.video-mobile {
+  display: none;
+}
+
+#visit .header,
+#visit .main,
+#visit .footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* Layout */
+.visit-layout {
+  display: flex;
+  gap: 40px;
+}
+
+.visit-layout h1 {
+  font-size: 40px;
+  color: #343C55;
+  font-weight: 700;
+}
+
+/* 左半 */
+.visit-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* 標題 */
+.visit-title {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 按鈕 */
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* 右半 */
+.visit-right {
+  flex: 1;
+  display: flex;
+}
+
+/* PDF */
+.pdf-box {
+  width: 100%;
+  height: 70vh;
+}
+
+.pdf-box iframe {
+  width: 100%;
+  height: 100%;
+}
+/* #endregion*/
+/* #region按鈕樣式 */
+.arrow-btn {
+  width: 200px;
+  height: 50px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #E83928;
+  color: white;
+  font-size: 14px;
+
+  gap: 10px;
+  border: none;
+  border-radius: 46px;
+
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.arrow-btn:hover {
+  background: #c92f20;
+}
+
+.arrow {
+  transition: transform 0.3s;
+}
+
+.arrow-btn:hover .arrow {
+  transform: translateX(6px);
+}
+/* #endregion */
+/* #region===== Shop ===== */
+#shop {
+  position: relative;
+  overflow: hidden;
+}
+
+.shop-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+#shop .header,
+#shop .main {
+  position: relative;
+  z-index: 1;
+}
+/* #endregion*/
+/* #region===== Footer ===== */
 .footer {
   background: #1a1a1a;
   padding: 24px 36px;
@@ -277,185 +316,98 @@ h1 {
   padding: 5px;
   border-radius: 6px;
 }
-
-/* ===== 左上角 icon ===== */
-.menu-icon {
-  position: fixed;
-  top: 30px;
-  left: 24px;
-  width: 50px;
-  height: 50px;
-  z-index: 9999;
-}
-
-.menu-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 10px;
-}
-
-/* ===== 側邊選單 ===== */
-.side-menu {
-  position: fixed;
-  top: 0;
-  left: -260px;
-  width: 260px;
-  height: 100vh;
-  background: #343C55;
-  padding: 0;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: 0.2s;
-  z-index: 8000;
-
-  z-index: -1;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.side-menu.active {
-  left: 0;
-  z-index: 8000;
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* 選單內容 */
-.side-menu ul {
-  list-style: none;
-}
-
-.side-menu a {
-  color: white;
-  text-decoration: none;
-  font-size: 18px;
-  display: block;
-  padding: 0;
-  width: 100%;
-  padding: 16px 80px;
-}
-
-.side-menu a:hover {
-  color: #E83928;
-}
-
-/* ===== 遮罩 ===== */
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-
-  background: rgba(0, 0, 0, 0.502);
-
-  opacity: 0;
-  visibility: hidden;
-  transition: 0.3s;
-  z-index: -2;
-}
-
-.overlay.active {
-  opacity: 1;
-  visibility: visible;
-  z-index: 7999;
-}
-
-/* ===== 響應式 ===== */
+/* #endregion*/
+/* #region===== 1024RWD ===== */
 @media (max-width: 1024px) {
-
-  .content-area {
-    flex-direction: column;
-  }
-
   .main {
-    width: 100%;
     padding: 24px 120px;
   }
-
 }
-
+/* #endregion*/
+/* #region===== 768RWD ===== */
 @media (max-width: 768px) {
-  .content-area {
-    flex-direction: column;
-  }
-
-  .main {
-    width: 100%;
-    padding: 24px 60px;
-  }
-  h1{
-  font-size: 32px;
+  .header {
+  padding: 44px 20px;
 }
-/* ⭐左邊拆排序 */
-  .demo-box {
-    order: 1; /* 標題 */
+  .main {
+    padding: 0px 60px 20px 60px;
+  }
+  /* 影片切換 */
+  .video-desktop {
+    display: none;
   }
 
-  .visit-title { order: 1; }
-  .visit-right { order: 2; }
-  .button-group { order: 3; }
+  .video-mobile {
+    display: block;
+  }
+
+  .visit-layout {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .visit-layout h1 {
+    font-size: 28px;
+  }
+
+  .visit-left {
+    display: contents;
+  }
+
+  .visit-title {
+    order: 1;
+  }
+
+  .visit-right {
+    order: 2;
+  }
 
   .button-group {
-    order: 3; /* 按鈕 */
+    order: 3;
   }
-.visit-layout {
-    flex-direction: column;
+
+  .visit-right {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .pdf-box {
+    width: 100%;
+    max-width: 400px;
+    height: 50vh;
+    padding: 10px 20px;
+  }
+
+  .button-group {
+    align-items: center;
     gap: 10px;
   }
 
-.button-group {
-  align-items: center;
-
-  gap: 5px; /* ⭐取代 <br> */
-}
-  .pdf-box {
-  width: 100%;
-  height: 40vh; /* ⭐吃滿右側 */
-  padding: 0;
-
-}
   .side-menu {
     top: -100%;
     left: 0;
     width: 100%;
     height: auto;
-    padding: 30px 0px;
-    display: flex;
-    justify-content: center;
     padding-top: 100px;
-
-    z-index: -1;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .side-menu a {
-    padding: 12px 40px;
   }
 
   .side-menu.active {
     top: 0;
-    z-index: 8000;
-    opacity: 1;
-    pointer-events: auto;
   }
+
+  /* footer */
   .footer {
-  padding: 15px 20px;
-}
-.footer img {
-  height: 36px;
-  width: auto;
-  object-fit: contain;
-  padding: 2px;
-  border-radius: 4px;
-}
+    padding: 15px 20px;
+  }
 
+  .footer img {
+    height: 36px;
+    padding: 2px;
+  }
 }
-
+/* #endregion*/
 
 
 /* 外框卡片 */

@@ -143,7 +143,7 @@ html {
   position: relative;
   z-index: 3;
   margin-top: -100vh;
-
+pointer-events: none;
   transform: translateY(0);
   transition: transform 0.5s ease;
 }
@@ -177,6 +177,7 @@ html {
 }
 
 .bg.A.hide {
+  pointer-events: none; 
   opacity: 0;
 }
 /* #endregion*/
@@ -184,11 +185,14 @@ html {
   position: relative;
   overflow: hidden;
 }
-#about {
+#visit {
   position: relative;
   overflow: hidden;
 }
-
+#shop,
+#works {
+  pointer-events: auto;
+}
 /* #region===== Visit ===== */
 #visit {
   position: relative;

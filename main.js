@@ -44,7 +44,7 @@ overlay.addEventListener("click", () => {
   sideMenu.classList.remove("active");
   overlay.classList.remove("active");
 });
-
+/*
 const visitLink = document.querySelector('a[href="#visit2"]');
 const group = document.querySelector('.upDownGroup');
 visitLink.addEventListener('click', (e) => {
@@ -56,7 +56,7 @@ visitLink.addEventListener('click', (e) => {
     behavior: "smooth"
   });
   
-});
+});*/
 document.querySelectorAll(".side-menu a").forEach(link => {
   link.addEventListener("click", () => {
     sideMenu.classList.remove("active");

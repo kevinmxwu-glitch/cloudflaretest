@@ -16,10 +16,11 @@
 html {
   scroll-behavior: smooth;
 }
+
 /* #endregion */
 /* #region===== Layout ===== */
 .layout {
-  min-height: 100vh;
+  min-height: 400vh;
   display: flex;
   flex-direction: column;
 }
@@ -121,11 +122,14 @@ html {
   visibility: visible;
   z-index: 7999;
 }
+
 /* #endregion*/
 /* #region===== 上下滑動結構 ===== */
 .upDownGroup {
   position: relative;
-  height: 200vh;
+  height: 400vh;
+  z-index: 1;
+   isolation: isolate; 
 }
 
 .upDownBg {
@@ -133,12 +137,11 @@ html {
   top: 0;
   height: 100vh;
 
-  z-index: 1;
+  z-index: 2;
 }
-
 .upDownContent {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   margin-top: -100vh;
 
   transform: translateY(0);
@@ -146,13 +149,46 @@ html {
 }
 
 .upDownContent.hide {
-  transform: translateY(100%);
+  transform: translateY(200%);
 }
 
 .upDownPanel {
   height: 100vh;
 }
+.final-fixed {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  z-index: 20;
+  background: black;
+}.bg {
+  position: absolute;
+  inset: 0;
+}
+
+.bg.A {
+  z-index: 2;
+  background: red; /* A畫面 */
+}
+
+.bg.B {
+  z-index: 1;
+  background: blue; /* B畫面 */
+}
+
+.bg.A.hide {
+  opacity: 0;
+}
 /* #endregion*/
+#works {
+  position: relative;
+  overflow: hidden;
+}
+#about {
+  position: relative;
+  overflow: hidden;
+}
+
 /* #region===== Visit ===== */
 #visit {
   position: relative;
@@ -165,6 +201,7 @@ html {
   inset: 0;
   z-index: 0;
   overflow: hidden;
+  background-color: #FFF;
 }
 
 .video-bg video {
@@ -175,6 +212,7 @@ html {
   height: 100%;
   object-fit: cover;
   transform: translate(-50%, -50%);
+  opacity: 0.6;
 }
 
 /* 影片切換 */
@@ -197,12 +235,15 @@ html {
 .visit-layout {
   display: flex;
   gap: 40px;
+  height: 100%;
+  padding: 0 0 20px 0;
 }
 
 .visit-layout h1 {
   font-size: 40px;
   color: #343C55;
   font-weight: 700;
+
 }
 
 /* 左半 */
@@ -235,13 +276,16 @@ html {
 /* PDF */
 .pdf-box {
   width: 100%;
-  height: 70vh;
+  height: 100%;
+
 }
 
 .pdf-box iframe {
   width: 100%;
+  border-radius: 20px;
   height: 100%;
 }
+
 /* #endregion*/
 /* #region按鈕樣式 */
 .arrow-btn {
@@ -275,6 +319,7 @@ html {
 .arrow-btn:hover .arrow {
   transform: translateX(6px);
 }
+
 /* #endregion */
 /* #region===== Shop ===== */
 #shop {
@@ -286,16 +331,221 @@ html {
   position: absolute;
   inset: 0;
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: cover;
   z-index: 0;
+  background-color: #000000;
+}
+
+.shop-bg img {
+  width: 100%;
+  height: 100%;
+  /*mix-blend-mode: overlay ;*/
+  /*opacity:0.8;
+  filter: blur(0px);
+  transform: scale(1.05); /* 防止邊緣露出 */
+}
+
+.shop-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  /*background: rgba(0, 0, 0, 1); /* ← 半透明色 */
+  mix-blend-mode: saturation;
+  z-index: 1;
+}
+
+.shop-words {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* 每個字 */
+.shop-words .w {
+  position: absolute;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  opacity: 0.25;
+  /**/
+
+  color: #121212;
+  /* #E83928; 黑色版 */
+
+}
+
+.w1 {
+  top: 10%;
+  left: 8%;
+}
+
+.w2 {
+  top: 20%;
+  left: 70%;
+}
+
+.w3 {
+  top: 35%;
+  left: 15%;
+}
+
+.w4 {
+  top: 50%;
+  left: 60%;
+}
+
+.w5 {
+  top: 65%;
+  left: 20%;
+}
+
+.w6 {
+  top: 75%;
+  left: 75%;
+}
+
+.w7 {
+  top: 15%;
+  left: 40%;
+}
+
+.w8 {
+  top: 40%;
+  left: 80%;
+}
+
+.w9 {
+  top: 70%;
+  left: 45%;
+}
+
+.w10 {
+  top: 85%;
+  left: 10%;
+}
+
+.w11 {
+  top: 5%;
+  left: 55%;
+}
+
+.w12 {
+  top: 60%;
+  left: 5%;
+}
+
+.shop-corner-text {
+  position: absolute;
+  z-index: 4;
+
+  font-size: 20px;
+  line-height: 1.6;
+  letter-spacing: -0.02em;
+
+  color: #00000087;
+  /*color:#000000;*/
+  opacity: 0.85;
+
+  max-width: 300px;
+
+  pointer-events: none;
+}
+
+.top-right {
+  top: -10px;
+  right: 40px;
+  text-align: right;
+}
+
+.bottom-left {
+  bottom: -10px;
+  left: 40px;
+  text-align: left;
+}
+
+
+.shop-visual {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  pointer-events: none;
+}
+
+.shop-visual img {
+  width: 30vw;
+  min-width: 240px;
+  max-width: 420px;
+
+  transform: scale(1.2);
+  /* 放大一點 */
+}
+
+.shop-title-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+  z-index: 5;
+
+  font-size: 16vw;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #E83928;
+
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.shop-title-bg br {
+  display: none;
+}
+
+.shop-corner-images {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+.shop-corner-images img {
+  width: 50vw;
+  max-width: 1600px;
+  min-width: 600px;
+}
+
+.img-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+}
+.shop-cta {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  /* 水平靠右 */
+  align-items: flex-end;
+  /* 垂直靠下 */
+
+  z-index: 10;
 }
 
 #shop .header,
 #shop .main {
   position: relative;
-  z-index: 1;
+  z-index: 10;
 }
+
 /* #endregion*/
 /* #region===== Footer ===== */
 .footer {
@@ -316,6 +566,7 @@ html {
   padding: 5px;
   border-radius: 6px;
 }
+
 /* #endregion*/
 /* #region===== 1024RWD ===== */
 @media (max-width: 1024px) {
@@ -323,15 +574,18 @@ html {
     padding: 24px 120px;
   }
 }
+
 /* #endregion*/
 /* #region===== 768RWD ===== */
 @media (max-width: 768px) {
   .header {
-  padding: 44px 20px;
-}
+    padding: 44px 20px;
+  }
+
   .main {
     padding: 0px 60px 20px 60px;
   }
+
   /* 影片切換 */
   .video-desktop {
     display: none;
@@ -406,7 +660,49 @@ html {
     height: 36px;
     padding: 2px;
   }
+
+  .shop-bg img {
+    width: auto;
+    height: 100%;
+  }
+
+  .shop-title-bg br {
+    display: block;
+  }
+
+  .shop-title-bg {
+    white-space: normal;
+    text-align: center;
+    font-size: clamp(40px, 30vw, 140px);
+    line-height: 0.9;
+    padding: 0 0 120px 0;
+  }
+  .top-right {
+  top: -10px;
+  right: -20px;
+  text-align: right;
 }
+
+.bottom-left {
+  bottom: -10px;
+  left: -20px;
+  text-align: left;
+}
+.shop-corner-images img {
+  width: 80vw;
+  max-width: 1600px;
+  min-width: 600px;
+}
+.img-center {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+}
+
+}
+
 /* #endregion*/
 
 

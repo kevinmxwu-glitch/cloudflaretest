@@ -1,7 +1,7 @@
 const menuIcon = document.querySelector(".menu-icon");
 const sideMenu = document.querySelector(".side-menu");
 const overlay = document.querySelector(".overlay");
-
+history.scrollRestoration = 'manual';//重整回到最上面
 // 🖥️ 電腦版：滑入 icon 開啟
 menuIcon.addEventListener("mouseenter", () => {
   if (window.innerWidth > 768) {
@@ -45,13 +45,14 @@ overlay.addEventListener("click", () => {
   overlay.classList.remove("active");
 });
 
-const visitLink = document.querySelector('a[href="#visit"]');
+const visitLink = document.querySelector('a[href="#visit2"]');
 const group = document.querySelector('.upDownGroup');
 visitLink.addEventListener('click', (e) => {
+  
   e.preventDefault();
 
   window.scrollTo({
-    top: group.offsetTop + window.innerHeight,
+    top: group.offsetTop + window.innerHeight*3,
     behavior: "smooth"
   });
   
@@ -62,3 +63,26 @@ document.querySelectorAll(".side-menu a").forEach(link => {
     overlay.classList.remove("active");
   });
 });
+
+const bgA = document.querySelector(".bg.A");
+
+window.addEventListener("scroll", () => {
+
+  // 當滑到第3屏（visit區）
+  if (window.scrollY > window.innerHeight * 2) {
+    bgA.classList.add("hide"); // 顯示B
+  } else {
+    bgA.classList.remove("hide"); // 顯示A
+  }
+});/*window.addEventListener("load", () => {
+  if (window.location.hash) {
+    const id = window.location.hash.replace("#", "");
+    const target = document.getElementById(id);
+
+    if (target) {
+      setTimeout(() => {
+        target.scrollIntoView({ behavior: "smooth" });
+      }, 300);
+    }
+  }
+});*/

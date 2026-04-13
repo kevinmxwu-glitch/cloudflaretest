@@ -10,7 +10,7 @@
 <body>
   <div class="container">
     <form method="post"
-      action="https://script.google.com/macros/s/AKfycbyaNNONN5xTv8B9emafwWh9T7pEhOhqufTORmJxwrOavAAXYksbwN_ggVePIlYcYGpD/exec"
+      action="https://script.google.com/macros/s/AKfycbwfqFJNfQb_0Hn4R3ek2gzGskS-Wb4MSMp6oQRjpjScu0csp8cBoK-NYeUDTLWiqO-G/exec"
       name="contact-form">
       <!-- 左上角 icon -->
       <div class="menu-icon">
@@ -54,16 +54,27 @@
       </div>
       <!-- 商品區 -->
       <div class="form-group">
+  <label>單品：</label>
+  <div id="product-list"></div>
+</div>
 
-        <label>商品項目：</label>
-        <div id="product-list"></div> <!-- JS 會自動加商品進來 -->
-      </div>
+<div class="form-group">
+  <label>優惠組合：</label>
+  <div id="combo-list"></div>
+</div>
 
-      <!-- 商品與金額欄位（自動填入） -->
-      <input type="hidden" id="product" name="商品">
-      <input type="hidden" id="total" name="訂單金額">
-      <label>商品金額：</label>
-      <span id="totalDisplay" class="price-display">$0</span>
+<div class="form-group">
+  <label>購物車內容：</label>
+  <div id="cartDisplay" style="color:white; line-height:1.6;">尚未選購商品</div>
+</div>
+
+<input type="hidden" id="product" name="商品">
+<input type="hidden" id="productCode" name="商品代碼">
+<input type="hidden" id="productDisplayField" name="商品顯示">
+<input type="hidden" id="total" name="訂單金額">
+
+<label>商品金額：</label>
+<span id="totalDisplay" class="price-display">$0</span>
       <input type="hidden" id="temperature" name="溫層" value="常溫">
 
       <div class="form-group">

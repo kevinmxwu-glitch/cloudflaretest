@@ -1,118 +1,109 @@
-const scriptURL = 'https://script.google.com/macros/s/AKfycbyaNNONN5xTv8B9emafwWh9T7pEhOhqufTORmJxwrOavAAXYksbwN_ggVePIlYcYGpD/exec';
+const scriptURL = 'https://script.google.com/macros/s/AKfycbwfqFJNfQb_0Hn4R3ek2gzGskS-Wb4MSMp6oQRjpjScu0csp8cBoK-NYeUDTLWiqO-G/exec';
 const form = document.forms['contact-form'];
 
 let productDivs = [];
+let comboDivs = [];
+let stockMap = {};
+let priceMap = {};
 
 /* ======================
-   共用工具函式（全域）
+   組合設定
 ====================== */
-function getStockLabel(stock, initial) {
+const cart = {};
+const products = [
+  { id: "sock", name: "刺繡中筒襪" },
+  { id: "cup", name: "杯套" },
+  { id: "hook", name: "壓克力登山扣" },
+  { id: "poster", name: "典藏款燙銀海報" },
+  { id: "card", name: "可伸縮卡套" }
+];
+
+const combos = [
+  {
+    id: "comboA",
+    name: "優惠組合包A(全套)",
+    price: 750,
+    items: [
+      { id: "sock", qty: 1 },
+      { id: "cup", qty: 1 },
+      { id: "hook", qty: 1 },
+      { id: "poster", qty: 1 },
+      { id: "card", qty: 1 }
+    ]
+  },
+  {
+    id: "comboB",
+    name: "優惠組合包B(海報+杯套+卡套)",
+    price: 450,
+    items: [
+      { id: "poster", qty: 1 },
+      { id: "cup", qty: 1 },
+      { id: "card", qty: 1 }
+    ]
+  },
+  {
+    id: "comboC",
+    name: "優惠組合包C(襪+海報)",
+    price: 350,
+    items: [
+      { id: "sock", qty: 1 },
+      { id: "poster", qty: 1 }
+    ]
+  },
+  {
+    id: "comboD",
+    name: "優惠組合包D(襪+登山扣)",
+    price: 320,
+    items: [
+      { id: "sock", qty: 1 },
+      { id: "hook", qty: 1 }
+    ]
+  }
+  
+];
+function updateOrder() {
+  let displayList = [];
+  let codeList = [];
+  let total = 0;
+
+  for (let id in cart) {
+    const qty = cart[id];
+    if (qty <= 0) continue;
+
+    const product = products.find(p => p.id === id);
+    const combo = combos.find(c => c.id === id);
+
+    if (product) {
+      displayList.push(`${product.name} x${qty}`);
+      codeList.push(`${product.id} x${qty}`);
+      total += product.price * qty;
+    }
+
+    if (combo) {
+      displayList.push(`${combo.name} x${qty}`);
+      codeList.push(`${combo.id} x${qty}`);
+      total += combo.price * qty;
+    }
+  }
+
+  document.getElementById("product").value = displayList.join(", ");
+  document.getElementById("productCode").value = codeList.join(", ");
+  document.getElementById("total").value = total;
+  document.getElementById("totalDisplay").innerText = `$${total}`;
+}
+/* ======================
+   共用工具函式
+====================== */
+function getStockLabel(stock, initial = stock) {
   if (stock <= 0) return "無庫存";
-
   const ratio = initial > 0 ? stock / initial : 0;
-
   if (ratio > 0.5) return "庫存充足";
   return "庫存少量";
-}
-
-function updateTotalAndProduct() {
-  let total = 0;
-  let details = [];
-
-  productDivs.forEach(product => {
-    const name = product.dataset.name;
-    const price = parseInt(product.dataset.price);
-    const count = parseInt(product.querySelector('.count').textContent);
-    if (count > 0) {
-      total += price * count;
-      details.push(`${name} x${count}`);
-    }
-  });
-
-  document.getElementById('total').value = total;
-  document.getElementById('product').value = details.join(', ');
-  document.getElementById('totalDisplay').textContent = `$${total}`;
 }
 
 function setFee(value) {
   document.getElementById('fee').value = value;
   document.getElementById('feeDisplay').textContent = `$${value}`;
-}
-
-function bindProductButtons() {
-  productDivs.forEach(product => {
-    const plus = product.querySelector('.plus');
-    const minus = product.querySelector('.minus');
-    const count = product.querySelector('.count');
-
-    const stock = parseInt(product.dataset.stock || '0');
-    if (stock <= 0) {
-      plus.disabled = true;
-      minus.disabled = true;
-    }
-
-    plus.onclick = () => {
-      const stock = parseInt(product.dataset.stock || '0');
-      let current = parseInt(count.textContent);
-      if (current < stock && !plus.disabled) {
-        count.textContent = current + 1;
-        updateTotalAndProduct();
-      }
-    };
-
-    minus.onclick = () => {
-      let current = parseInt(count.textContent);
-      if (current > 0 && !minus.disabled) {
-        count.textContent = current - 1;
-        updateTotalAndProduct();
-      }
-    };
-  });
-}
-
-function updateRestrictions() {
-  const method = document.getElementById('targetSheet').value;
-
-  productDivs.forEach(product => {
-    const only = product.dataset.only;
-    const plus = product.querySelector('.plus');
-    const minus = product.querySelector('.minus');
-    const count = product.querySelector('.count');
-
-    if (only && only !== method) {
-      plus.disabled = true;
-      minus.disabled = true;
-      count.textContent = '0';
-    } else {
-      plus.disabled = false;
-      minus.disabled = false;
-    }
-  });
-
-  updateTotalAndProduct();
-}
-
-function resetFailedProduct(productName, remain) {
-  productDivs.forEach(product => {
-    if (product.dataset.name === productName) {
-      product.querySelector('.count').textContent = '0';
-
-      product.dataset.stock = remain;
-
-      const initial = parseInt(product.dataset.initial || "0");
-      const label = getStockLabel(remain, initial);
-
-      const stockInfo = product.querySelector('.stock-info');
-      stockInfo.textContent = `（${label}）`;
-
-      if (remain <= 0) {
-        product.querySelector('.plus').disabled = true;
-        product.querySelector('.minus').disabled = true;
-      }
-    }
-  });
-
-  updateTotalAndProduct();
 }
 
 function showError(msg) {
@@ -124,34 +115,434 @@ function showError(msg) {
   loadingIndicator.style.display = 'none';
 }
 
+function getComboStock(combo) {
+  let max = Infinity;
+
+  combo.items.forEach(item => {
+    const product = products.find(p => p.id === item.id);
+    if (!product) {
+      max = 0;
+      return;
+    }
+
+    const remain = Number(stockMap[product.name] || 0);
+    const possible = Math.floor(remain / item.qty);
+    max = Math.min(max, possible);
+  });
+
+  return max === Infinity ? 0 : max;
+}
+
 /* ======================
-   ⭐新增：載入商品函式
+   計算購物車
+====================== */
+/*function updateTotalAndProduct() {
+  let total = 0;
+
+  const displayDetails = [];
+  const expandedMap = {};
+
+  // 單品
+  productDivs.forEach(product => {
+    const name = product.dataset.name;
+    const price = parseInt(product.dataset.price, 10);
+    const count = parseInt(product.querySelector('.count').textContent, 10) || 0;
+
+    if (count > 0) {
+      total += price * count;
+      displayDetails.push(`${name} x${count}`);
+
+      if (!expandedMap[name]) expandedMap[name] = 0;
+      expandedMap[name] += count;
+    }
+  });
+
+  // 組合
+  comboDivs.forEach(comboDiv => {
+    const comboName = comboDiv.dataset.name;
+    const comboPrice = parseInt(comboDiv.dataset.price, 10);
+    const count = parseInt(comboDiv.querySelector('.count').textContent, 10) || 0;
+
+    if (count > 0) {
+      total += comboPrice * count;
+      displayDetails.push(`${comboName} x${count}`);
+
+      const combo = combos.find(c => c.name === comboName);
+      if (combo) {
+        combo.items.forEach(item => {
+          if (!expandedMap[item.name]) expandedMap[item.name] = 0;
+          expandedMap[item.name] += item.qty * count;
+        });
+      }
+    }
+  });
+
+  const expandedDetails = Object.entries(expandedMap).map(([name, qty]) => `${name} x${qty}`);
+
+  document.getElementById('total').value = total;
+  document.getElementById('product').value = expandedDetails.join(', ');
+  document.getElementById('productDisplayField').value = displayDetails.join(', ');
+  document.getElementById('totalDisplay').textContent = `$${total}`;
+
+  const cartDisplay = document.getElementById('cartDisplay');
+  cartDisplay.textContent = displayDetails.length > 0 ? displayDetails.join('，') : '尚未選購商品';
+}*/
+function updateTotalAndProduct() {
+  let total = 0;
+  const displayDetails = [];
+  const codeDetails = [];
+
+  // 單品
+  productDivs.forEach(product => {
+    const name = product.dataset.name;
+    const code = product.dataset.code;
+    const price = parseInt(product.dataset.price, 10) || 0;
+    const count = parseInt(product.querySelector('.count').textContent, 10) || 0;
+
+    if (count > 0) {
+      total += price * count;
+      displayDetails.push(`${name} x${count}`);
+      codeDetails.push(`${code} x${count}`);
+    }
+  });
+
+  // 組合
+  comboDivs.forEach(comboDiv => {
+    const comboName = comboDiv.dataset.name;
+    const comboCode = comboDiv.dataset.code;
+    const comboPrice = parseInt(comboDiv.dataset.price, 10) || 0;
+    const count = parseInt(comboDiv.querySelector('.count').textContent, 10) || 0;
+
+    if (count > 0) {
+      total += comboPrice * count;
+      displayDetails.push(`${comboName} x${count}`);
+      codeDetails.push(`${comboCode} x${count}`);
+    }
+  });
+
+  document.getElementById('total').value = total;
+  document.getElementById('product').value = displayDetails.join(', ');
+  document.getElementById('productCode').value = codeDetails.join(', ');
+  document.getElementById('totalDisplay').textContent = `$${total}`;
+
+  const cartDisplay = document.getElementById('cartDisplay');
+  if (cartDisplay) {
+    cartDisplay.textContent = displayDetails.length > 0
+      ? displayDetails.join('，')
+      : '尚未選購商品';
+  }
+}
+/* ======================
+   單品按鈕
+====================== */
+/*function bindProductButtons() {
+  productDivs.forEach(product => {
+    const plus = product.querySelector('.plus');
+    const minus = product.querySelector('.minus');
+    const count = product.querySelector('.count');
+
+    plus.onclick = () => {
+      const stock = parseInt(product.dataset.stock || '0', 10);
+      let current = parseInt(count.textContent, 10) || 0;
+
+      if (current < stock && !plus.disabled) {
+        count.textContent = current + 1;
+        updateTotalAndProduct();
+        refreshComboStocks();
+      }
+    };
+
+    minus.onclick = () => {
+      let current = parseInt(count.textContent, 10) || 0;
+
+      if (current > 0 && !minus.disabled) {
+        count.textContent = current - 1;
+        updateTotalAndProduct();
+        refreshComboStocks();
+      }
+    };
+  });
+}*/
+function bindProductButtons() {
+  productDivs.forEach(product => {
+    const plus = product.querySelector('.plus');
+    const minus = product.querySelector('.minus');
+    const count = product.querySelector('.count');
+
+    plus.onclick = () => {
+      if (plus.disabled) return;
+      let current = parseInt(count.textContent, 10) || 0;
+      count.textContent = current + 1;
+      updateTotalAndProduct();
+      refreshAllStocks();
+    };
+
+    minus.onclick = () => {
+      if (minus.disabled) return;
+      let current = parseInt(count.textContent, 10) || 0;
+      if (current > 0) {
+        count.textContent = current - 1;
+        updateTotalAndProduct();
+        refreshAllStocks();
+      }
+    };
+  });
+}
+/* ======================
+   組合按鈕
+====================== */
+/*function bindComboButtons() {
+  comboDivs.forEach(comboDiv => {
+    const plus = comboDiv.querySelector('.plus');
+    const minus = comboDiv.querySelector('.minus');
+    const count = comboDiv.querySelector('.count');
+
+    plus.onclick = () => {
+      const stock = parseInt(comboDiv.dataset.stock || '0', 10);
+      let current = parseInt(count.textContent, 10) || 0;
+
+      if (current < stock && !plus.disabled) {
+        count.textContent = current + 1;
+        updateTotalAndProduct();
+      }
+    };
+
+    minus.onclick = () => {
+      let current = parseInt(count.textContent, 10) || 0;
+
+      if (current > 0 && !minus.disabled) {
+        count.textContent = current - 1;
+        updateTotalAndProduct();
+      }
+    };
+  });
+}*/
+function bindComboButtons() {
+  comboDivs.forEach(comboDiv => {
+    const plus = comboDiv.querySelector('.plus');
+    const minus = comboDiv.querySelector('.minus');
+    const count = comboDiv.querySelector('.count');
+
+    plus.onclick = () => {
+      if (plus.disabled) return;
+      let current = parseInt(count.textContent, 10) || 0;
+      count.textContent = current + 1;
+      updateTotalAndProduct();
+      refreshAllStocks();
+    };
+
+    minus.onclick = () => {
+      if (minus.disabled) return;
+      let current = parseInt(count.textContent, 10) || 0;
+      if (current > 0) {
+        count.textContent = current - 1;
+        updateTotalAndProduct();
+        refreshAllStocks();
+      }
+    };
+  });
+}
+/* ======================
+   重新計算組合庫存
+====================== */
+/*function refreshComboStocks() {
+  comboDivs.forEach(comboDiv => {
+    const combo = combos.find(c => c.name === comboDiv.dataset.name);
+    if (!combo) return;
+
+    const plus = comboDiv.querySelector('.plus');
+    const minus = comboDiv.querySelector('.minus');
+    const countEl = comboDiv.querySelector('.count');
+    const stockInfo = comboDiv.querySelector('.stock-info');
+
+    const comboCount = parseInt(countEl.textContent, 10) || 0;
+
+    let remain = Infinity;
+    combo.items.forEach(item => {
+      const singleDiv = Array.from(productDivs).find(p => p.dataset.name === item.name);
+      const singleSelected = singleDiv ? parseInt(singleDiv.querySelector('.count').textContent, 10) || 0 : 0;
+      const singleRemain = Number(stockMap[item.name] || 0) - singleSelected;
+      const possible = Math.floor(singleRemain / item.qty);
+      remain = Math.min(remain, possible);
+    });
+
+    remain = remain === Infinity ? 0 : Math.max(0, remain);
+    comboDiv.dataset.stock = remain;
+
+    stockInfo.textContent = `（${getStockLabel(remain, remain || 1)}）`;
+
+    plus.disabled = remain <= comboCount;
+    minus.disabled = comboCount <= 0;
+  });
+}*/
+function getUsedStockMap() {
+  const used = {};
+
+  products.forEach(p => {
+    used[p.name] = 0;
+  });
+
+  // 單品占用
+  productDivs.forEach(product => {
+    const name = product.dataset.name;
+    const count = parseInt(product.querySelector('.count').textContent, 10) || 0;
+    used[name] = (used[name] || 0) + count;
+  });
+
+  // 組合占用
+  comboDivs.forEach(comboDiv => {
+    const comboId = comboDiv.dataset.code;
+    const comboCount = parseInt(comboDiv.querySelector('.count').textContent, 10) || 0;
+    if (comboCount <= 0) return;
+
+    const combo = combos.find(c => c.id === comboId);
+    if (!combo) return;
+
+    combo.items.forEach(item => {
+      const product = products.find(p => p.id === item.id);
+      if (!product) return;
+
+      used[product.name] = (used[product.name] || 0) + item.qty * comboCount;
+    });
+  });
+
+  return used;
+}function refreshProductStocks() {
+  const usedMap = getUsedStockMap();
+
+  productDivs.forEach(product => {
+    const name = product.dataset.name;
+    const plus = product.querySelector('.plus');
+    const minus = product.querySelector('.minus');
+    const countEl = product.querySelector('.count');
+    const stockInfo = product.querySelector('.stock-info');
+
+    const currentCount = parseInt(countEl.textContent, 10) || 0;
+    const totalStock = Number(stockMap[name] || 0);
+const initialStock = Number(product.dataset.initial || totalStock);
+
+    // 目前這個商品已被購物車吃掉的總量
+    const usedTotal = Number(usedMap[name] || 0);
+
+    // 對這個單品自己而言，可再加的量
+    const remainForThisProduct = totalStock - (usedTotal - currentCount);
+
+    stockInfo.textContent = `（${getStockLabel(remainForThisProduct, initialStock)}）`;
+
+    plus.disabled = currentCount >= remainForThisProduct;
+    minus.disabled = currentCount <= 0;
+  });
+}
+function refreshComboStocks() {
+  const usedMap = getUsedStockMap();
+
+  comboDivs.forEach(comboDiv => {
+    const comboId = comboDiv.dataset.code;
+    const combo = combos.find(c => c.id === comboId);
+    if (!combo) return;
+
+    const plus = comboDiv.querySelector('.plus');
+    const minus = comboDiv.querySelector('.minus');
+    const countEl = comboDiv.querySelector('.count');
+    const stockInfo = comboDiv.querySelector('.stock-info');
+
+    const comboCount = parseInt(countEl.textContent, 10) || 0;
+
+    let remain = Infinity;
+
+    combo.items.forEach(item => {
+      const product = products.find(p => p.id === item.id);
+      if (!product) return;
+
+      const productName = product.name;
+      const totalStock = Number(stockMap[productName] || 0);
+      const usedTotal = Number(usedMap[productName] || 0);
+
+      // 把目前這個組合自己已占用的部分加回來，避免自己卡死自己
+      const alreadyUsedByThisCombo = item.qty * comboCount;
+      const availableForCombo = totalStock - (usedTotal - alreadyUsedByThisCombo);
+
+      const possible = Math.floor(availableForCombo / item.qty);
+      remain = Math.min(remain, possible);
+    });
+
+    remain = remain === Infinity ? 0 : Math.max(0, remain);
+
+    stockInfo.textContent = `（${getStockLabel(remain, remain || 1)}）`;
+
+    plus.disabled = comboCount >= remain;
+    minus.disabled = comboCount <= 0;
+  });
+}
+function refreshAllStocks() {
+  refreshProductStocks();
+  refreshComboStocks();
+}
+/* ======================
+   限制條件
+====================== */
+function updateRestrictions() {
+  const method = document.getElementById('targetSheet').value;
+
+  productDivs.forEach(product => {
+    const only = product.dataset.only;
+    const plus = product.querySelector('.plus');
+    const minus = product.querySelector('.minus');
+    const count = product.querySelector('.count');
+    const stock = parseInt(product.dataset.stock || '0', 10);
+
+    if (only && only !== method) {
+      plus.disabled = true;
+      minus.disabled = true;
+      count.textContent = '0';
+    } else {
+      plus.disabled = stock <= parseInt(count.textContent, 10);
+      minus.disabled = parseInt(count.textContent, 10) <= 0;
+    }
+  });
+
+  comboDivs.forEach(comboDiv => {
+    comboDiv.querySelector('.count').textContent = '0';
+  });
+
+  updateTotalAndProduct();
+refreshAllStocks();
+}
+
+/* ======================
+   載入商品
 ====================== */
 function loadProducts() {
   const loadingText = document.getElementById('loadingProducts');
   const productList = document.getElementById('product-list');
+  const comboList = document.getElementById('combo-list');
 
-  // ⭐ 先隱藏舊商品，顯示 loading
   productList.style.display = 'none';
+  comboList.style.display = 'none';
   loadingText.style.display = 'block';
 
   fetch(scriptURL)
     .then(res => res.json())
     .then(data => {
       productList.innerHTML = '';
+      comboList.innerHTML = '';
+
+      stockMap = {};
+      priceMap = {};
 
       data.forEach(item => {
+        stockMap[item.name] = Number(item.stock || 0);
+        priceMap[item.name] = Number(item.price || 0);
+
         const div = document.createElement('div');
         div.className = 'product';
-        div.dataset.name = item.name;
-        div.dataset.price = item.price;
-        div.dataset.stock = item.stock;
-        div.dataset.initial = item.initial;
+        const productInfo = products.find(p => p.name === item.name);
 
-        if (item.name.includes('商品C')) {
-          div.dataset.only = '匯款自取';
-        }
-
+div.dataset.name = item.name;
+div.dataset.code = productInfo ? productInfo.id : item.name;
+div.dataset.price = item.price;
+div.dataset.stock = item.stock;
+div.dataset.initial = item.initial;
         div.innerHTML = `
           <span>${item.name} $${item.price}</span>
           <button type="button" class="minus">-</button>
@@ -163,32 +554,59 @@ function loadProducts() {
         productList.appendChild(div);
       });
 
-      productDivs = document.querySelectorAll('.product');
-      bindProductButtons();
-      updateRestrictions();
+      combos.forEach(combo => {
+  const comboStock = getComboStock(combo);
 
-      // ⭐ 載入完成 → 顯示商品、隱藏 loading
+  const div = document.createElement('div');
+  div.className = 'combo-product';
+  div.dataset.name = combo.name;
+  div.dataset.code = combo.id;
+  div.dataset.price = combo.price;
+  div.dataset.stock = comboStock;
+
+  const comboDesc = combo.items.map(item => {
+    const product = products.find(p => p.id === item.id);
+    return `${product ? product.name : item.id} x${item.qty}`;
+  }).join(' + ');
+
+  div.innerHTML = `
+    <span>${combo.name} $${combo.price}</span>
+    <button type="button" class="minus">-</button>
+    <span class="count">0</span>
+    <button type="button" class="plus">+</button>
+    <span class="stock-info">（${getStockLabel(comboStock, comboStock || 1)}）</span>
+    <div style="font-size:12px; color:#ccc; margin-top:4px;">內含：${comboDesc}</div>
+  `;
+
+  comboList.appendChild(div);
+});
+      productDivs = document.querySelectorAll('.product');
+      comboDivs = document.querySelectorAll('.combo-product');
+
+      bindProductButtons();
+bindComboButtons();
+updateRestrictions();
+updateTotalAndProduct();
+refreshAllStocks();
+
       loadingText.style.display = 'none';
       productList.style.display = 'block';
+      comboList.style.display = 'block';
     })
     .catch(err => {
       console.error("載入商品失敗：", err);
-
       loadingText.textContent = "❌ 商品載入失敗，請重新整理";
     });
 }
 
-
 /* ======================
    初始化
 ====================== */
-
 document.addEventListener('DOMContentLoaded', () => {
   const select = document.getElementById('targetSheet');
   const storeCodeField = document.getElementById('storeCodeField');
   const bankCodeField = document.getElementById('bankCodeField');
   const storeCodeInput = storeCodeField.querySelector('input');
-  const bankCodeInput = bankCodeField.querySelector('input');
 
   function updateFieldVisibility() {
     const method = select.value;
@@ -197,13 +615,11 @@ document.addEventListener('DOMContentLoaded', () => {
       storeCodeField.style.display = 'block';
       bankCodeField.style.display = 'none';
       setFee(38);
-    }
-    else if (method === '匯款自取') {
+    } else if (method === '匯款自取') {
       storeCodeField.style.display = 'none';
       bankCodeField.style.display = 'block';
       setFee(0);
-    }
-    else if (method === '現金自取') {
+    } else {
       storeCodeField.style.display = 'none';
       bankCodeField.style.display = 'none';
       setFee(0);
@@ -221,7 +637,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ⭐改為呼叫函式 */
   loadProducts();
 
   select.addEventListener('change', () => {
@@ -235,7 +650,6 @@ document.addEventListener('DOMContentLoaded', () => {
 /* ======================
    表單送出
 ====================== */
-
 form.addEventListener('submit', e => {
   e.preventDefault();
 
@@ -251,7 +665,7 @@ form.addEventListener('submit', e => {
   const bankCode = document.getElementById('bankCode').value.trim();
   const gmail = document.getElementById('gmail').value.trim();
   const targetSheet = document.getElementById('targetSheet').value;
-  const total = parseInt(document.getElementById('total').value || "0");
+  const total = parseInt(document.getElementById('total').value || "0", 10);
 
   const nameIsValid = /^[\u4e00-\u9fa5a-zA-Z0-9]{1,10}$/.test(name);
   const phoneIsValid = /^09\d{8}$/.test(phone);
@@ -280,10 +694,7 @@ form.addEventListener('submit', e => {
       const selectedMethod = document.getElementById('targetSheet').value;
 
       alert('✅ 訂單已送出');
-
       form.reset();
-
-      /* ⭐關鍵：重新抓最新庫存 */
       loadProducts();
 
       const select = document.getElementById('targetSheet');
@@ -291,9 +702,7 @@ form.addEventListener('submit', e => {
 
       updateFieldVisibility();
       updateRestrictions();
-      setFee(select.value === '匯款自取' ? 0 : 38);
-
-      document.querySelectorAll('.count').forEach(el => el.textContent = '0');
+      setFee(select.value === '711店取' ? 38 : 0);
       updateTotalAndProduct();
     })
     .catch(err => {
@@ -309,11 +718,13 @@ form.addEventListener('submit', e => {
     });
 });
 
+/* ======================
+   選單
+====================== */
 const menuIcon = document.querySelector(".menu-icon");
 const sideMenu = document.querySelector(".side-menu");
 const overlay = document.querySelector(".overlay");
 
-// 🖥️ 電腦版：滑入 icon 開啟
 menuIcon.addEventListener("mouseenter", () => {
   if (window.innerWidth > 768) {
     sideMenu.classList.add("active");
@@ -321,7 +732,6 @@ menuIcon.addEventListener("mouseenter", () => {
   }
 });
 
-// 🖥️ 滑出 menu → 關閉
 sideMenu.addEventListener("mouseleave", () => {
   if (window.innerWidth > 768) {
     sideMenu.classList.remove("active");
@@ -329,7 +739,6 @@ sideMenu.addEventListener("mouseleave", () => {
   }
 });
 
-// 🖥️ 滑出 icon 也關閉（避免卡住）
 menuIcon.addEventListener("mouseleave", () => {
   if (window.innerWidth > 768) {
     setTimeout(() => {
@@ -341,8 +750,6 @@ menuIcon.addEventListener("mouseleave", () => {
   }
 });
 
-
-// 📱 手機版：點擊開關
 menuIcon.addEventListener("click", () => {
   if (window.innerWidth <= 768) {
     sideMenu.classList.toggle("active");
@@ -350,12 +757,10 @@ menuIcon.addEventListener("click", () => {
   }
 });
 
-// 點遮罩 → 關閉
 overlay.addEventListener("click", () => {
   sideMenu.classList.remove("active");
   overlay.classList.remove("active");
 });
-
 
 document.querySelectorAll(".side-menu a").forEach(link => {
   link.addEventListener("click", () => {

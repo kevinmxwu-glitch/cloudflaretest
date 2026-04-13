@@ -185,10 +185,6 @@ pointer-events: none;
   position: relative;
   overflow: hidden;
 }
-#visit {
-  position: relative;
-  overflow: hidden;
-}
 #shop,
 #works {
   pointer-events: auto;
@@ -500,7 +496,7 @@ pointer-events: none;
   transform: translate(-50%, -50%);
   z-index: 5;
 
-  font-size: 16vw;
+  font-size: 13vw;
   font-weight: 800;
   letter-spacing: 0.02em;
   color: #E83928;
@@ -817,4 +813,27 @@ select {
   display: block;
   margin-top: 8px;
   font-size: 13px;
+}#product-list,
+#combo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.product,
+.combo-product {
+  margin-bottom: 10px;
+  color: white;
+  padding: 8px 0;
+}
+
+.product button,
+.combo-product button {
+  margin: 0 5px;
+  padding: 3px 8px;
+}
+
+.combo-product {
+  border-top: 1px solid rgba(255,255,255,0.15);
+  padding-top: 12px;
 }

@@ -21,7 +21,7 @@ const products = [
 const combos = [
   {
     id: "comboA",
-    name: "優惠組合包A(全套)",
+    name: "在那出現之後(All大禮包)",
     price: 750,
     items: [
       { id: "sock", qty: 1 },
@@ -33,7 +33,7 @@ const combos = [
   },
   {
     id: "comboB",
-    name: "優惠組合包B(海報+杯套+卡套)",
+    name: "逛街之前(海報+杯套+卡套)",
     price: 450,
     items: [
       { id: "poster", qty: 1 },
@@ -43,7 +43,7 @@ const combos = [
   },
   {
     id: "comboC",
-    name: "優惠組合包C(襪+海報)",
+    name: "襪哩勒之後(襪子+海報)",
     price: 350,
     items: [
       { id: "sock", qty: 1 },
@@ -52,7 +52,7 @@ const combos = [
   },
   {
     id: "comboD",
-    name: "優惠組合包D(襪+登山扣)",
+    name: "登山露營之前(襪子+登山扣)",
     price: 320,
     items: [
       { id: "sock", qty: 1 },
@@ -226,11 +226,12 @@ function updateTotalAndProduct() {
   document.getElementById('totalDisplay').textContent = `$${total}`;
 
   const cartDisplay = document.getElementById('cartDisplay');
-  if (cartDisplay) {
-    cartDisplay.textContent = displayDetails.length > 0
-      ? displayDetails.join('，')
-      : '尚未選購商品';
-  }
+
+if (cartDisplay) {
+  cartDisplay.innerHTML = displayDetails.length > 0
+    ? displayDetails.join('<br>')
+    : '尚未選購商品';
+}
 }
 /* ======================
    單品按鈕
@@ -502,8 +503,22 @@ function updateRestrictions() {
   });
 
   comboDivs.forEach(comboDiv => {
-    comboDiv.querySelector('.count').textContent = '0';
-  });
+  const plus = comboDiv.querySelector('.plus');
+  const minus = comboDiv.querySelector('.minus');
+
+  const combo = combos.find(c => c.id === comboDiv.dataset.code);
+
+  // 如果之後你有做「限定取貨方式」才用
+  // const only = combo.only;
+
+  // if (only && only !== method) {
+  //   plus.disabled = true;
+  //   minus.disabled = true;
+  // } else {
+  //   plus.disabled = false;
+  //   minus.disabled = false;
+  // }
+});
 
   updateTotalAndProduct();
 refreshAllStocks();
@@ -512,7 +527,7 @@ refreshAllStocks();
 /* ======================
    載入商品
 ====================== */
-function loadProducts() {
+/*function loadProducts() {
   const loadingText = document.getElementById('loadingProducts');
   const productList = document.getElementById('product-list');
   const comboList = document.getElementById('combo-list');
@@ -597,8 +612,85 @@ refreshAllStocks();
       console.error("載入商品失敗：", err);
       loadingText.textContent = "❌ 商品載入失敗，請重新整理";
     });
-}
+}*/
+function loadProducts() {
+  const loadingText = document.getElementById('loadingProducts');
+  const productList = document.getElementById('product-list');
+  const comboList = document.getElementById('combo-list');
 
+  loadingText.style.display = 'block';
+
+  fetch(scriptURL)
+    .then(res => res.json())
+    .then(data => {
+      stockMap = {};
+      priceMap = {};
+
+      // 建立試算表商品資料 map
+      data.forEach(item => {
+        stockMap[item.name] = Number(item.stock || 0);
+        priceMap[item.name] = Number(item.price || 0);
+      });
+
+      // 直接抓 HTML 現有單品卡片
+      productDivs = document.querySelectorAll('#product-list .product');
+
+      productDivs.forEach(div => {
+        const name = div.dataset.name;
+        const code = div.dataset.code;
+        const item = data.find(d => d.name === name);
+
+        if (!item) {
+          div.querySelector('.product-price').textContent = '暫無資料';
+          div.querySelector('.stock-info').textContent = '（無庫存資料）';
+          return;
+        }
+
+        div.dataset.price = item.price;
+        div.dataset.stock = item.stock;
+        div.dataset.initial = item.initial;
+        div.dataset.code = code;
+
+        div.querySelector('.product-price').textContent = `$${item.price}`;
+        div.querySelector('.stock-info').textContent =
+          `（${getStockLabel(item.stock, item.initial)}）`;
+        div.querySelector('.stock-info').classList.remove('is-loading');
+        div.querySelector('.product-qty').classList.remove('is-loading');
+      });
+
+      // 直接抓 HTML 現有組合卡片
+      comboDivs = document.querySelectorAll('#combo-list .combo-product');
+
+      comboDivs.forEach(div => {
+        const comboId = div.dataset.code;
+        const combo = combos.find(c => c.id === comboId);
+        if (!combo) return;
+
+        const comboStock = getComboStock(combo);
+
+        div.dataset.price = combo.price;
+        div.dataset.stock = comboStock;
+
+        div.querySelector('.product-price').textContent = `$${combo.price}`;
+        div.querySelector('.stock-info').textContent =
+          `（${getStockLabel(comboStock, comboStock || 1)}）`;
+        div.querySelector('.stock-info').classList.remove('is-loading');
+        div.querySelector('.product-qty').classList.remove('is-loading');
+      });
+
+      bindProductButtons();
+      bindComboButtons();
+      updateRestrictions();
+      updateTotalAndProduct();
+      refreshAllStocks();
+
+      loadingText.style.display = 'none';
+    })
+    .catch(err => {
+      console.error("載入商品失敗：", err);
+      loadingText.textContent = "❌ 商品載入失敗，請重新整理";
+    });
+}
 /* ======================
    初始化
 ====================== */
@@ -657,7 +749,6 @@ form.addEventListener('submit', e => {
   const loadingIndicator = document.getElementById('loading-indicator');
   submitBtn.disabled = true;
   submitBtn.textContent = '送出中...';
-  loadingIndicator.style.display = 'inline';
 
   const name = document.getElementById('name').value.trim();
   const phone = document.getElementById('phone').value.trim();
@@ -717,7 +808,79 @@ form.addEventListener('submit', e => {
       loadingIndicator.style.display = 'none';
     });
 });
+/* ======================
+   浮動購物車按鈕
+====================== */
+const floatingCartBtn = document.getElementById("floating-cart-btn");
+const cartPanel = document.querySelector(".cart-panel");
+const shopPage = document.getElementById("shop-page");
 
+function isMobileOrTablet() {
+  return window.innerWidth <= 1024;
+}
+
+function updateFloatingCartBtn() {
+  if (!floatingCartBtn || !cartPanel || !shopPage) return;
+
+  // 桌機不顯示
+  if (!isMobileOrTablet()) {
+    floatingCartBtn.style.display = "none";
+    floatingCartBtn.classList.remove("is-docked");
+    floatingCartBtn.style.top = "";
+    return;
+  }
+
+  floatingCartBtn.style.display = "inline-flex";
+
+  const cartRect = cartPanel.getBoundingClientRect();
+  const shopRect = shopPage.getBoundingClientRect();
+
+  // 按鈕原本固定在 viewport 右下
+  const fixedBottom = 20;
+  const btnHeight = floatingCartBtn.offsetHeight || 48;
+  const viewportHeight = window.innerHeight;
+
+  // 按鈕底部在 viewport 中的 top 位置
+  const fixedTopInViewport = viewportHeight - fixedBottom - btnHeight;
+
+  // 如果購物車已經進到按鈕範圍，就把按鈕停在購物車上方
+  if (cartRect.top <= fixedTopInViewport + btnHeight + 12) {
+    floatingCartBtn.classList.add("is-docked");
+
+    // 計算成 shopPage 內的 absolute top
+    const topInsideShop =
+      window.scrollY + cartRect.top - window.scrollY - shopRect.top - btnHeight - 12;
+
+    floatingCartBtn.style.top = `${Math.max(topInsideShop, 0)}px`;
+  } else {
+    floatingCartBtn.classList.remove("is-docked");
+    floatingCartBtn.style.top = "";
+  }
+}
+
+if (floatingCartBtn && cartPanel) {
+  floatingCartBtn.addEventListener("click", () => {
+    cartPanel.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  });
+
+  window.addEventListener("scroll", updateFloatingCartBtn);
+  window.addEventListener("resize", updateFloatingCartBtn);
+  window.addEventListener("load", updateFloatingCartBtn);
+}
+const backToTopDivider = document.getElementById("back-to-top-divider");
+
+
+if (backToTopDivider && shopPage) {
+  backToTopDivider.addEventListener("click", () => {
+    shopPage.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  });
+}
 /* ======================
    選單
 ====================== */

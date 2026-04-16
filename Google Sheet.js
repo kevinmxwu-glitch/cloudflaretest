@@ -1,4 +1,4 @@
-const scriptURL = 'https://script.google.com/macros/s/AKfycbwfqFJNfQb_0Hn4R3ek2gzGskS-Wb4MSMp6oQRjpjScu0csp8cBoK-NYeUDTLWiqO-G/exec';
+const scriptURL = 'https://script.google.com/macros/s/AKfycbyiHc4uEbpbjeohNdyxo0mPnl4cnO60z8A1KIDm5UxuIXSqiL0X_qTq9Jtn2PlQX_no/exec';
 const form = document.forms['contact-form'];
 
 let productDivs = [];
@@ -22,7 +22,7 @@ const combos = [
   {
     id: "comboA",
     name: "在那出現之後(All大禮包)",
-    price: 750,
+    price: 680,
     items: [
       { id: "sock", qty: 1 },
       { id: "cup", qty: 1 },
@@ -34,7 +34,7 @@ const combos = [
   {
     id: "comboB",
     name: "逛街之前(海報+杯套+卡套)",
-    price: 450,
+    price: 400,
     items: [
       { id: "poster", qty: 1 },
       { id: "cup", qty: 1 },
@@ -44,7 +44,7 @@ const combos = [
   {
     id: "comboC",
     name: "襪哩勒之後(襪子+海報)",
-    price: 350,
+    price: 320,
     items: [
       { id: "sock", qty: 1 },
       { id: "poster", qty: 1 }
@@ -53,7 +53,7 @@ const combos = [
   {
     id: "comboD",
     name: "登山露營之前(襪子+登山扣)",
-    price: 320,
+    price: 300,
     items: [
       { id: "sock", qty: 1 },
       { id: "hook", qty: 1 }
@@ -881,6 +881,29 @@ if (backToTopDivider && shopPage) {
     });
   });
 }
+function updateProductGridColumns() {
+  const productList = document.getElementById("product-list");
+  if (!productList) return;
+
+  const items = Array.from(productList.querySelectorAll(".product"));
+  if (items.length < 2) return;
+
+  // 取第一列有幾個商品
+  const firstTop = items[0].offsetTop;
+  let columns = 0;
+
+  for (const item of items) {
+    if (item.offsetTop === firstTop) {
+      columns++;
+    } else {
+      break;
+    }
+  }
+
+  productList.classList.toggle("three-columns", columns === 3);
+}
+window.addEventListener("load", updateProductGridColumns);
+window.addEventListener("resize", updateProductGridColumns);
 /* ======================
    選單
 ====================== */
@@ -930,4 +953,55 @@ document.querySelectorAll(".side-menu a").forEach(link => {
     sideMenu.classList.remove("active");
     overlay.classList.remove("active");
   });
-});
+});function updateSaleBanner() {
+  const banner = document.querySelector(".sale-banner");
+  const left = banner.querySelector(".sale-left");
+  const right = banner.querySelector(".sale-right");
+  const center = banner.querySelector(".sale-center");
+
+  const pattern = "ONSALE";
+
+  // 先清空
+  left.textContent = "";
+  right.textContent = "";
+
+  const bannerWidth = banner.offsetWidth;
+  const centerWidth = center.offsetWidth;
+
+  // 剩下可用空間
+  const sideWidth = (bannerWidth - centerWidth) / 2;
+
+  // 建一個測量用span
+  const test = document.createElement("span");
+  test.style.visibility = "hidden";
+  test.style.position = "absolute";
+  document.body.appendChild(test);
+
+  let str = "";
+  let width = 0;
+
+  // ⭐ 左邊填滿
+  while (width < sideWidth) {
+    str += pattern;
+    test.textContent = str;
+    width = test.offsetWidth;
+  }
+
+  // ⭐ 如果超出 → 裁掉字元
+  while (width > sideWidth) {
+    str = str.slice(0, -1);
+    test.textContent = str;
+    width = test.offsetWidth;
+  }
+
+  left.textContent = str;
+  right.textContent = str;
+
+  document.body.removeChild(test);
+}
+
+// 初始化
+window.addEventListener("load", updateSaleBanner);
+
+// 視窗改變時更新
+window.addEventListener("resize", updateSaleBanner);

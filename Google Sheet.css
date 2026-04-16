@@ -181,6 +181,8 @@ pointer-events: none;
   opacity: 0;
 }
 /* #endregion*/
+#exhibit,
+#event,
 #works {
   position: relative;
   overflow: hidden;
@@ -545,7 +547,23 @@ pointer-events: none;
   position: relative;
   z-index: 10;
 }
+/* #endregion*/
+/* #region===== 主頁商品主視覺偽3D ===== */
+#shop {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
 
+.shop-visual {
+  transform-style: preserve-3d;
+}
+
+.shop-visual img {
+  transition: transform 0.12s ease-out;
+  transform-origin: center center;
+  will-change: transform;
+  pointer-events: auto;
+}
 /* #endregion*/
 /* #region===== Footer ===== */
 .footer {
@@ -812,6 +830,32 @@ letter-spacing: 0.1em;
   pointer-events: none;
   z-index: 1;
 }
+@media (max-width: 1230px) {
+  #shop-page::before {
+
+  top: 5%;
+  right: -35%;
+
+}
+}
+@media (max-width: 1024px) {
+  #shop-page::before {
+    top: auto;
+    bottom: 240px;   /* 放到下半部 */
+    right: -400px;    /* 靠購物車右側 */
+
+
+  }
+}
+
+@media (max-width: 768px) {
+  #shop-page::before {
+    bottom: 360px;
+    right: -360px;
+
+
+  }
+}
 .shop-left .form-group + .form-group {
   margin-top: 44px;
 }
@@ -819,6 +863,7 @@ letter-spacing: 0.1em;
   #shop-page .main {
   padding: 0 60px 60px 60px;
 }
+
 }
 /* #endregion */
 
@@ -856,6 +901,49 @@ letter-spacing: 0.1em;
 .cart-panel {
   position: sticky;
   top: 100px;
+}
+.bird-images {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+.bird-images img {
+  width: 10vw;
+  max-width: 800px;
+  min-width: 200px;
+}
+
+.bird-img-center {
+  position: absolute;
+  top: 4%;
+  left: 56%;
+
+  transform: translate(-50%, -50%);
+}
+.sale-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  overflow: hidden;
+
+  font-size: 14px;
+  white-space: nowrap;
+  color:#EFEFEF;
+
+  margin-bottom: 2px;
+}
+
+.sale-left,
+.sale-right {
+  overflow: hidden;letter-spacing: 0.2em;
+}
+
+.sale-center {
+  flex-shrink: 0;
+  padding: 0 12px;letter-spacing: 0.1em;
 }
 /* #endregion */
 
@@ -928,7 +1016,12 @@ select {
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 20px;
 }
-
+.product,
+.combo-product {
+  position: relative;
+  isolation: isolate;
+  z-index: 1;
+}
 .product,
 .combo-product {
   color: #EFEFEF;
@@ -986,6 +1079,9 @@ select {
   width: 50%;
   height: 100%;
   flex-shrink: 0;
+  position: relative;
+  isolation: isolate;
+  z-index: 0;
 }
 
 .product-img img {
@@ -997,7 +1093,8 @@ select {
 }
 .card-special {
   position: relative;
-  overflow: visible; /* 不裁掉裝飾圖 */
+  overflow: visible;
+  z-index: 0;
 }
 
 .card-special .card-bg-deco {
@@ -1007,17 +1104,20 @@ select {
   height: 360%;
   object-fit: contain;
   transform: translate(-50%, -30%);
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
 }
 
 .card-special .card-main-img {
   position: relative;
-  z-index: 0;
+  z-index: 2;
   width: 120%;
   height: 120%;
-  object-fit: contain;   /* 這張不要 cover，避免主體被裁 */
+  object-fit: cover;
   transform: translate(-10%, -5%);
+}
+.three-columns .card-special .card-bg-deco {
+  transform: translate(1000%, -1000%);
 }
 /* 右側內容 */
 .product-info {
@@ -1028,6 +1128,8 @@ select {
   justify-content: space-between;
   padding: 30px 0px 0 0;
 
+  position: relative;
+  z-index: 5;
 }
 
 

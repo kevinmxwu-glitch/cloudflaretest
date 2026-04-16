@@ -786,6 +786,19 @@ form.addEventListener('submit', e => {
 
       alert('✅ 訂單已送出');
       form.reset();
+      // 清空所有商品數量
+      productDivs.forEach(product => {
+        product.querySelector('.count').textContent = '0';
+      });
+
+      // 清空所有組合數量
+      comboDivs.forEach(combo => {
+        combo.querySelector('.count').textContent = '0';
+      });
+
+      // 同步清空購物車相關欄位
+      updateTotalAndProduct();
+      refreshAllStocks();
       loadProducts();
 
       const select = document.getElementById('targetSheet');

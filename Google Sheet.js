@@ -59,7 +59,7 @@ const combos = [
       { id: "hook", qty: 1 }
     ]
   }
-  
+
 ];
 function updateOrder() {
   let displayList = [];
@@ -227,11 +227,11 @@ function updateTotalAndProduct() {
 
   const cartDisplay = document.getElementById('cartDisplay');
 
-if (cartDisplay) {
-  cartDisplay.innerHTML = displayDetails.length > 0
-    ? displayDetails.join('<br>')
-    : '尚未選購商品';
-}
+  if (cartDisplay) {
+    cartDisplay.innerHTML = displayDetails.length > 0
+      ? displayDetails.join('<br>')
+      : '尚未選購商品';
+  }
 }
 /* ======================
    單品按鈕
@@ -408,7 +408,7 @@ function getUsedStockMap() {
   });
 
   return used;
-}function refreshProductStocks() {
+} function refreshProductStocks() {
   const usedMap = getUsedStockMap();
 
   productDivs.forEach(product => {
@@ -420,7 +420,7 @@ function getUsedStockMap() {
 
     const currentCount = parseInt(countEl.textContent, 10) || 0;
     const totalStock = Number(stockMap[name] || 0);
-const initialStock = Number(product.dataset.initial || totalStock);
+    const initialStock = Number(product.dataset.initial || totalStock);
 
     // 目前這個商品已被購物車吃掉的總量
     const usedTotal = Number(usedMap[name] || 0);
@@ -503,25 +503,25 @@ function updateRestrictions() {
   });
 
   comboDivs.forEach(comboDiv => {
-  const plus = comboDiv.querySelector('.plus');
-  const minus = comboDiv.querySelector('.minus');
+    const plus = comboDiv.querySelector('.plus');
+    const minus = comboDiv.querySelector('.minus');
 
-  const combo = combos.find(c => c.id === comboDiv.dataset.code);
+    const combo = combos.find(c => c.id === comboDiv.dataset.code);
 
-  // 如果之後你有做「限定取貨方式」才用
-  // const only = combo.only;
+    // 限定取貨方式才用
+    // const only = combo.only;
 
-  // if (only && only !== method) {
-  //   plus.disabled = true;
-  //   minus.disabled = true;
-  // } else {
-  //   plus.disabled = false;
-  //   minus.disabled = false;
-  // }
-});
+    // if (only && only !== method) {
+    //   plus.disabled = true;
+    //   minus.disabled = true;
+    // } else {
+    //   plus.disabled = false;
+    //   minus.disabled = false;
+    // }
+  });
 
   updateTotalAndProduct();
-refreshAllStocks();
+  refreshAllStocks();
 }
 
 /* ======================
@@ -835,15 +835,15 @@ function updateFloatingCartBtn() {
   const cartRect = cartPanel.getBoundingClientRect();
   const shopRect = shopPage.getBoundingClientRect();
 
-  // 按鈕原本固定在 viewport 右下
+
   const fixedBottom = 20;
   const btnHeight = floatingCartBtn.offsetHeight || 48;
   const viewportHeight = window.innerHeight;
 
-  // 按鈕底部在 viewport 中的 top 位置
+
   const fixedTopInViewport = viewportHeight - fixedBottom - btnHeight;
 
-  // 如果購物車已經進到按鈕範圍，就把按鈕停在購物車上方
+
   if (cartRect.top <= fixedTopInViewport + btnHeight + 12) {
     floatingCartBtn.classList.add("is-docked");
 
@@ -888,7 +888,7 @@ function updateProductGridColumns() {
   const items = Array.from(productList.querySelectorAll(".product"));
   if (items.length < 2) return;
 
-  // 取第一列有幾個商品
+
   const firstTop = items[0].offsetTop;
   let columns = 0;
 
@@ -953,7 +953,7 @@ document.querySelectorAll(".side-menu a").forEach(link => {
     sideMenu.classList.remove("active");
     overlay.classList.remove("active");
   });
-});function updateSaleBanner() {
+}); function updateSaleBanner() {
   const banner = document.querySelector(".sale-banner");
   const left = banner.querySelector(".sale-left");
   const right = banner.querySelector(".sale-right");
@@ -961,17 +961,16 @@ document.querySelectorAll(".side-menu a").forEach(link => {
 
   const pattern = "ONSALE";
 
-  // 先清空
   left.textContent = "";
   right.textContent = "";
 
   const bannerWidth = banner.offsetWidth;
   const centerWidth = center.offsetWidth;
 
-  // 剩下可用空間
+
   const sideWidth = (bannerWidth - centerWidth) / 2;
 
-  // 建一個測量用span
+
   const test = document.createElement("span");
   test.style.visibility = "hidden";
   test.style.position = "absolute";
@@ -980,14 +979,14 @@ document.querySelectorAll(".side-menu a").forEach(link => {
   let str = "";
   let width = 0;
 
-  // ⭐ 左邊填滿
+
   while (width < sideWidth) {
     str += pattern;
     test.textContent = str;
     width = test.offsetWidth;
   }
 
-  // ⭐ 如果超出 → 裁掉字元
+
   while (width > sideWidth) {
     str = str.slice(0, -1);
     test.textContent = str;

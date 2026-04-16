@@ -1,8 +1,8 @@
 const menuIcon = document.querySelector(".menu-icon");
 const sideMenu = document.querySelector(".side-menu");
 const overlay = document.querySelector(".overlay");
-history.scrollRestoration = 'manual';//重整回到最上面
-// 🖥️ 電腦版：滑入 icon 開啟
+history.scrollRestoration = 'manual';
+
 menuIcon.addEventListener("mouseenter", () => {
   if (window.innerWidth > 768) {
     sideMenu.classList.add("active");
@@ -10,7 +10,7 @@ menuIcon.addEventListener("mouseenter", () => {
   }
 });
 
-// 🖥️ 滑出 menu → 關閉
+
 sideMenu.addEventListener("mouseleave", () => {
   if (window.innerWidth > 768) {
     sideMenu.classList.remove("active");
@@ -18,7 +18,7 @@ sideMenu.addEventListener("mouseleave", () => {
   }
 });
 
-// 🖥️ 滑出 icon 也關閉（避免卡住）
+
 menuIcon.addEventListener("mouseleave", () => {
   if (window.innerWidth > 768) {
     setTimeout(() => {
@@ -31,7 +31,7 @@ menuIcon.addEventListener("mouseleave", () => {
 });
 
 
-// 📱 手機版：點擊開關
+
 menuIcon.addEventListener("click", () => {
   if (window.innerWidth <= 768) {
     sideMenu.classList.toggle("active");
@@ -39,7 +39,7 @@ menuIcon.addEventListener("click", () => {
   }
 });
 
-// 點遮罩 → 關閉
+
 overlay.addEventListener("click", () => {
   sideMenu.classList.remove("active");
   overlay.classList.remove("active");
@@ -98,7 +98,7 @@ const visualImages = [
 let currentIndex = 0;
 let isAnimating = false;
 let hoverTimer = null;
-let queuedDir = 0; // ⭐ 新增：記住觸發當下滑鼠在左還右
+let queuedDir = 0;
 const shopSection = document.querySelector("#shop");
 const shopVisualImg = document.querySelector(".shop-visual img");
 
@@ -135,37 +135,37 @@ if (shopSection && shopVisualImg) {
       `;
     });
 
-// ⭐ 超過門檻時，先把當下方向記住
-if (Math.abs(percentX) > threshold && !hoverTimer && !isAnimating) {
-  queuedDir = percentX > 0 ? 1 : -1;
 
-  hoverTimer = setTimeout(() => {
-    switchVisual(queuedDir, 1);
-    hoverTimer = null;
-  }, 180);
-}
+    if (Math.abs(percentX) > threshold && !hoverTimer && !isAnimating) {
+      queuedDir = percentX > 0 ? 1 : -1;
 
-// ⭐ 滑回中間 → 取消這次觸發
-if (Math.abs(percentX) < 0.6) {
-  clearTimeout(hoverTimer);
-  hoverTimer = null;
-  queuedDir = 0;
-}
+      hoverTimer = setTimeout(() => {
+        switchVisual(queuedDir, 1);
+        hoverTimer = null;
+      }, 180);
+    }
+
+
+    if (Math.abs(percentX) < 0.6) {
+      clearTimeout(hoverTimer);
+      hoverTimer = null;
+      queuedDir = 0;
+    }
   });
 
   shopSection.addEventListener("mouseleave", () => {
-  cancelAnimationFrame(rafId);
-  clearTimeout(hoverTimer);
-  hoverTimer = null;
-  queuedDir = 0;
+    cancelAnimationFrame(rafId);
+    clearTimeout(hoverTimer);
+    hoverTimer = null;
+    queuedDir = 0;
 
-  shopVisualImg.style.transform = `
+    shopVisualImg.style.transform = `
     translate3d(0, 0, 0)
     rotateX(0deg)
     rotateY(0deg)
     scale(1.2)
   `;
-});
+  });
 }
 function switchVisual(slideDir, step) {
   isAnimating = true;
@@ -174,7 +174,7 @@ function switchVisual(slideDir, step) {
   const rect = shopSection.getBoundingClientRect();
   const travelX = rect.width * 1.4;
 
-  // 舊圖離開
+
   shopVisualImg.style.transition = "transform 0.45s ease, opacity 0.3s";
   shopVisualImg.style.transform = `
     translate3d(${travelX * slideDir}px, 0, 40px)
@@ -187,7 +187,7 @@ function switchVisual(slideDir, step) {
     currentIndex = (currentIndex + step + visualImages.length) % visualImages.length;
     shopVisualImg.src = visualImages[currentIndex];
 
-    // ⭐ 新圖固定從反方向進來
+
     shopVisualImg.style.transition = "none";
     shopVisualImg.style.transform = `
       translate3d(${-travelX * slideDir}px, 0, 40px)

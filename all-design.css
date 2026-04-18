@@ -349,12 +349,12 @@ html {
   width: 100%;
   object-fit: cover;
   z-index: 0;
-  background-color: #00000000;
+  background-color: #41000049;
 }
 
 .shop-bg img {
   width: 100%;
-  height: 100vh;
+  height: 150%;
 
 }
 

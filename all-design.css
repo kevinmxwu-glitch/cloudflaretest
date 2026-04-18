@@ -575,24 +575,30 @@ html {
 /* #endregion*/
 /* #region===== Footer ===== */
 .footer {
-  background: #1a1a1a;
-  padding: 24px 36px;
+  background: #000000;
+  padding: 2px 36px;
 
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
 }
 
 .footer img {
-  height: 48px;
-  width: auto;
+  height: auto;
+  width: 80px;
   object-fit: contain;
-  padding: 5px;
-  border-radius: 6px;
-}
+  /*padding: 5px;*/
 
+}
+.footer .nma-logo {
+  height: auto;
+  width: 120px;
+  object-fit: contain;
+  /*padding: 5px;*/
+
+}
 /* #endregion*/
 /* #region===== 1024RWD ===== */
 @media (max-width: 1024px) {

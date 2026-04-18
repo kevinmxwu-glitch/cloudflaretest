@@ -608,6 +608,20 @@ html {
   .main {
     padding: 24px 120px;
   }
+    /* footer */
+  .footer {
+    padding: 8px 20px;
+    gap:2px 10px;
+  }
+
+  .footer img {
+    width: 50px;
+    padding: 0px;
+  }
+.footer .nma-logo {
+  width: 80px;
+
+}
 }
 
 /* #endregion*/

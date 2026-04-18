@@ -349,7 +349,7 @@ html {
   width: 100%;
   object-fit: cover;
   z-index: 0;
-  background-color: #beff5cf6;
+  background-color: #00000000;
 }
 
 .shop-bg img {
@@ -717,7 +717,7 @@ html {
 }
   .shop-bg img {
     width: 100%;
-    height: 100%s;
+    height: 100%;
   }
 
   .shop-title-bg br {

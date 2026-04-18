@@ -1,4 +1,4 @@
-const scriptURL = 'https://script.google.com/macros/s/AKfycbyiHc4uEbpbjeohNdyxo0mPnl4cnO60z8A1KIDm5UxuIXSqiL0X_qTq9Jtn2PlQX_no/exec';
+const scriptURL = 'https://script.google.com/macros/s/AKfycbwBUur_YYBQHmt7Tdc391mQ4RqqTj5wczgxhXHN7aXnDdP52fcgg-8tyXZxA8vDCg0n/exec';
 const form = document.forms['contact-form'];
 
 let productDivs = [];
@@ -21,39 +21,28 @@ const products = [
 const combos = [
   {
     id: "comboA",
-    name: "在那出現之後(All大禮包)",
-    price: 680,
+    name: "在那出現之後(襪子+登山扣+杯套+卡套)",
+    price: 550,
     items: [
       { id: "sock", qty: 1 },
       { id: "cup", qty: 1 },
       { id: "hook", qty: 1 },
-      { id: "poster", qty: 1 },
       { id: "card", qty: 1 }
     ]
   },
   {
     id: "comboB",
-    name: "逛街之前(海報+杯套+卡套)",
-    price: 400,
+    name: "逛街之前(杯套+卡套)",
+    price: 270,
     items: [
-      { id: "poster", qty: 1 },
       { id: "cup", qty: 1 },
       { id: "card", qty: 1 }
     ]
   },
   {
-    id: "comboC",
-    name: "襪哩勒之後(襪子+海報)",
-    price: 320,
-    items: [
-      { id: "sock", qty: 1 },
-      { id: "poster", qty: 1 }
-    ]
-  },
-  {
     id: "comboD",
     name: "登山露營之前(襪子+登山扣)",
-    price: 300,
+    price: 290,
     items: [
       { id: "sock", qty: 1 },
       { id: "hook", qty: 1 }
@@ -410,9 +399,11 @@ function getUsedStockMap() {
   return used;
 } function refreshProductStocks() {
   const usedMap = getUsedStockMap();
+  const method = document.getElementById('targetSheet').value;
 
   productDivs.forEach(product => {
     const name = product.dataset.name;
+    const only = product.dataset.only;
     const plus = product.querySelector('.plus');
     const minus = product.querySelector('.minus');
     const countEl = product.querySelector('.count');
@@ -421,33 +412,51 @@ function getUsedStockMap() {
     const currentCount = parseInt(countEl.textContent, 10) || 0;
     const totalStock = Number(stockMap[name] || 0);
     const initialStock = Number(product.dataset.initial || totalStock);
-
-    // 目前這個商品已被購物車吃掉的總量
     const usedTotal = Number(usedMap[name] || 0);
 
-    // 對這個單品自己而言，可再加的量
     const remainForThisProduct = totalStock - (usedTotal - currentCount);
 
     stockInfo.textContent = `（${getStockLabel(remainForThisProduct, initialStock)}）`;
 
+    // ⭐ 先判斷取貨方式限制
+    if (only && !only.split(',').includes(method)) {
+      plus.disabled = true;
+      minus.disabled = true;
+      countEl.textContent = '0';
+      stockInfo.textContent = '（僅供自取）';
+      return;
+    }
+
+    // ⭐ 再判斷庫存
     plus.disabled = currentCount >= remainForThisProduct;
     minus.disabled = currentCount <= 0;
   });
 }
 function refreshComboStocks() {
   const usedMap = getUsedStockMap();
+  const method = document.getElementById('targetSheet').value;
 
   comboDivs.forEach(comboDiv => {
     const comboId = comboDiv.dataset.code;
     const combo = combos.find(c => c.id === comboId);
     if (!combo) return;
 
+    const only = comboDiv.dataset.only;
     const plus = comboDiv.querySelector('.plus');
     const minus = comboDiv.querySelector('.minus');
     const countEl = comboDiv.querySelector('.count');
     const stockInfo = comboDiv.querySelector('.stock-info');
 
     const comboCount = parseInt(countEl.textContent, 10) || 0;
+
+    // ⭐ 先判斷取貨方式限制
+    if (only && !only.split(',').includes(method)) {
+      plus.disabled = true;
+      minus.disabled = true;
+      countEl.textContent = '0';
+      stockInfo.textContent = '（僅供自取）';
+      return;
+    }
 
     let remain = Infinity;
 
@@ -459,7 +468,6 @@ function refreshComboStocks() {
       const totalStock = Number(stockMap[productName] || 0);
       const usedTotal = Number(usedMap[productName] || 0);
 
-      // 把目前這個組合自己已占用的部分加回來，避免自己卡死自己
       const alreadyUsedByThisCombo = item.qty * comboCount;
       const availableForCombo = totalStock - (usedTotal - alreadyUsedByThisCombo);
 
@@ -492,7 +500,7 @@ function updateRestrictions() {
     const count = product.querySelector('.count');
     const stock = parseInt(product.dataset.stock || '0', 10);
 
-    if (only && only !== method) {
+    if (only && !only.split(',').includes(method)) {
       plus.disabled = true;
       minus.disabled = true;
       count.textContent = '0';
@@ -700,23 +708,37 @@ document.addEventListener('DOMContentLoaded', () => {
   const bankCodeField = document.getElementById('bankCodeField');
   const storeCodeInput = storeCodeField.querySelector('input');
 
-  function updateFieldVisibility() {
-    const method = select.value;
+ function updateFieldVisibility() {
+  const method = select.value;
+  const transferNote = document.getElementById('transferNote');
+  const pickupNote = document.getElementById('pickupNote');
 
-    if (method === '711店取') {
-      storeCodeField.style.display = 'block';
-      bankCodeField.style.display = 'none';
-      setFee(38);
-    } else if (method === '匯款自取') {
-      storeCodeField.style.display = 'none';
-      bankCodeField.style.display = 'block';
-      setFee(0);
-    } else {
-      storeCodeField.style.display = 'none';
-      bankCodeField.style.display = 'none';
-      setFee(0);
-    }
+  if (method === '711店取') {
+    storeCodeField.style.display = 'block';
+    bankCodeField.style.display = 'none';
+    setFee(38);
+
+    if (transferNote) transferNote.style.display = 'none';
+    if (pickupNote) pickupNote.style.display = 'none';
+
+  } else if (method === '匯款自取') {
+    storeCodeField.style.display = 'none';
+    bankCodeField.style.display = 'block';
+    setFee(0);
+
+    if (transferNote) transferNote.style.display = 'block';
+    if (pickupNote) pickupNote.style.display = 'none';
+
+  } else {
+    // 現金自取
+    storeCodeField.style.display = 'none';
+    bankCodeField.style.display = 'none';
+    setFee(0);
+
+    if (transferNote) transferNote.style.display = 'none';
+    if (pickupNote) pickupNote.style.display = 'block';
   }
+}
 
   const storeSearchBtn = document.querySelector('.store-search-btn');
   const storeCodeInput2 = document.getElementById('storeCode');

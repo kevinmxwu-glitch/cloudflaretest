@@ -917,6 +917,9 @@ html {
   background: transparent;
   border: none;
   backdrop-filter: none;
+  background:#81818100;
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
   padding: 0;
 }
 

@@ -63,8 +63,26 @@ document.querySelectorAll(".side-menu a").forEach(link => {
     overlay.classList.remove("active");
   });
 });
-
 const bgA = document.querySelector(".bg.A");
+const visitTrigger = document.querySelector("#visit2");
+
+function updateBgSwitch() {
+  if (!bgA || !visitTrigger) return;
+
+  const triggerTop = visitTrigger.getBoundingClientRect().top;
+  const triggerPoint = window.innerHeight ; // 進入畫面中線時切換
+
+  if (triggerTop <= triggerPoint) {
+    bgA.classList.add("hide");
+  } else {
+    bgA.classList.remove("hide");
+  }
+}
+
+window.addEventListener("scroll", updateBgSwitch);
+window.addEventListener("resize", updateBgSwitch);
+window.addEventListener("load", updateBgSwitch);
+/*const bgA = document.querySelector(".bg.A");
 
 window.addEventListener("scroll", () => {
 
@@ -74,7 +92,7 @@ window.addEventListener("scroll", () => {
   } else {
     bgA.classList.remove("hide"); // 顯示A
   }
-});/*window.addEventListener("load", () => {
+});*//*window.addEventListener("load", () => {
   if (window.location.hash) {
     const id = window.location.hash.replace("#", "");
     const target = document.getElementById(id);

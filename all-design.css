@@ -20,7 +20,7 @@ html {
 /* #endregion */
 /* #region===== Layout ===== */
 .layout {
-  min-height: 400vh;
+  min-height: 400svh;
   display: flex;
   flex-direction: column;
 }
@@ -67,7 +67,7 @@ html {
   top: 0;
   left: -260px;
   width: 260px;
-  height: 100vh;
+  height: 100svh;
   background: #343C55;
 
   display: flex;
@@ -127,7 +127,7 @@ html {
 /* #region===== 上下滑動結構 ===== */
 .upDownGroup {
   position: relative;
-  height: 400vh;
+  height: 400svh;
   z-index: 1;
   isolation: isolate;
 }
@@ -135,7 +135,7 @@ html {
 .upDownBg {
   position: sticky;
   top: 0;
-  height: 100vh;
+  height: 100svh;
 
   z-index: 2;
 }
@@ -143,7 +143,7 @@ html {
 .upDownContent {
   position: relative;
   z-index: 3;
-  margin-top: -100vh;
+  margin-top: -100svh;
   pointer-events: none;
   transform: translateY(0);
   transition: transform 0.5s ease;
@@ -154,13 +154,13 @@ html {
 }
 
 .upDownPanel {
-  height: 100vh;
+  height: 100svh;
 }
 
 .final-fixed {
   position: sticky;
   top: 0;
-  height: 100vh;
+  height: 100svh;
   z-index: 20;
   background: black;
 }
@@ -214,9 +214,9 @@ html {
   z-index: 0;
   overflow: hidden;
   background-color: #FFF;
-   height: 100vh;
+   height: 100%;
    width: 100%;
-  width: auto;
+
 }
 
 .video-bg video {
@@ -345,7 +345,7 @@ html {
 .shop-bg {
   position: absolute;
   inset: 0;
-  height: 100vh;
+  height: 100%;
   width: 100%;
   object-fit: cover;
   z-index: 0;
@@ -680,7 +680,7 @@ html {
   .pdf-box {
     width: 100%;
     max-width: 400px;
-    height: 50vh;
+    height: 50svh;
     padding: 10px 20px;
   }
 
@@ -764,7 +764,7 @@ html {
 /* #region===== 商品頁整體 ===== */
 
 #shop-page {
-  min-height: 100vh;
+  min-height: 100svh;
   position: relative;
   overflow: hidden;
 

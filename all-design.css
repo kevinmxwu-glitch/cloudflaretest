@@ -1538,7 +1538,7 @@ select {
   height: 100%;
 }
 body {
-  background: #1a2b08;
+  /*background: #1a2b08;*/
   
   width: 100vw; height: 100vh;
   cursor: grab;

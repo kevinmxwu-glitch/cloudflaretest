@@ -972,7 +972,16 @@ html {
   padding: 0 12px;
   letter-spacing: 0.1em;
 }
-
+@media (max-width: 768px){
+  .sale-left,
+.sale-right {
+  overflow: hidden;
+  letter-spacing: 0.1em;
+}
+  .sale-center {
+  padding: 0 2px;
+}
+}
 /* #endregion */
 /* #region===== 表單區塊 ===== */
 .cart-title {

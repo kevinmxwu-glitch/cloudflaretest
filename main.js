@@ -89,10 +89,10 @@ window.addEventListener("scroll", () => {
    主頁商品圖 偽3D滑鼠效果
 ====================== */
 const visualImages = [
-  "image/shop/登山扣去背.png",
-  "image/shop/襪子去背.png",
-  "image/shop/杯套去背.png",
-  "image/shop/卡套去背.png"
+  "image/shop/hook1.png",
+  "image/shop/sock1.png",
+  "image/shop/cup1.png",
+  "image/shop/card1.png"
 ];
 
 let currentIndex = 0;

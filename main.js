@@ -1243,3 +1243,26 @@ bindCustomSectionLink('a[href="#exhibit2"]', function () {
     jumpToMainSectionByHash(window.location.hash, false);
   }, 200);
 });
+
+
+
+
+const paramsKF = new URLSearchParams(window.location.search);
+const tagKF = params.get("tag");
+const textKF = params.get("text");
+const elementsKF = document.querySelectorAll(`.${tagKF}`);
+
+let targetKF = null;
+
+elementsKF.forEach(elKF => {
+  if (elKF.innerHTML.includes(textKF)) {
+    targetKF = elKF;
+  }
+});
+
+if (targetKF) {
+  targetKF.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+}

@@ -48,10 +48,10 @@ html {
 /* ===== Main ===== */
 .start-1 {
   position: absolute;
-  right: 10%;
-  top: 16%;
+  right: 0%;
+  top: 5%;
   text-align: right;
-  font-size: 33px;
+  font-size: 45px;
   letter-spacing: 2px;
   line-height: 130%;
   color: #e83928;
@@ -68,10 +68,10 @@ html {
 }
 .start-2 {
   position: absolute;
-  left: 10%;
-  bottom: 16%;
+  left: 0%;
+  bottom: 5%;
   text-align: left;
-  font-size: 33px;
+  font-size: 45px;
   letter-spacing: 2px;
   line-height: 130%;
   color: #e83928;
@@ -100,25 +100,10 @@ html {
 @keyframes jump {
   0%, 100%{
     transform: translateY(0px);
-    text-shadow:-0.5px -0.5px 0 #efefef,
-                0.5px -0.5px 0 #efefef,
-                -0.5px 0.5px 0 #efefef,
-                0.5px 0.5px 0 #efefef,
-                -0.5px -1px 0 #efefef,
-                0.5px -1px 0 #efefef,
-                -0.5px -2px 0 #efefef,
-                0.5px -2px 0 #efefef,
-                -0.5px -3px 0 #efefef,
-                0.5px -3px 0 #efefef,
-                -0.5px -4px 0 #efefef,
-                0.5px -4px 0 #efefef,
-                -0.5px -5px 0 #efefef,
-                0.5px -5px 0 #efefef;
     font-weight: 800;
   }
   50%{
     transform: translateY(-20px);
-    text-shadow: 0px 0px 0 #efefef;
     font-weight: 700;
   }
 }
@@ -133,7 +118,6 @@ html {
   letter-spacing: 2px;
   font-weight: 500;
   bottom: 5%;
-  opacity: 0;
 }
 
 /* 開分作品區 */

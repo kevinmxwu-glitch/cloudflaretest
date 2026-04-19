@@ -136,6 +136,9 @@ html {
     display: flex;
     justify-content: center;
  }
+ .arrowL, .arrowR {
+  opacity: 1;
+ }
 .prev, .next {
   cursor: pointer;
   width: auto;

@@ -47,6 +47,8 @@ fetch("https://script.google.com/macros/s/AKfycby1E_A5sVq0UCVlnjtLyyklGE1lSr-V1O
 
 let slideIndex = 0;
 let timer;
+const prev = document.getElementsByClassName("arrowL")[0];
+const next = document.getElementsByClassName("arrowR")[0];
 
 function showSlides() {
 const slides = document.getElementsByClassName("slide");
@@ -55,8 +57,21 @@ for (let i = 0; i < slides.length; i++) {
   slides[i].style.display = "none";
 }
 slideIndex++;
-if (slideIndex > slides.length) {slideIndex = slides.length}
-else if (slideIndex == 0) {slideIndex = slides.length}
+if (slideIndex >= slides.length) {
+  slideIndex = slides.length;
+  next.style.display = "none";
+  prev.style.display = "block";
+
+}
+else if (slideIndex <= 1) {
+  slideIndex = 1;
+  next.style.display = "block";
+  prev.style.display = "none";
+}
+else {
+  next.style.display = "block";
+  prev.style.display = "block";
+}
 for (let i = 0; i < dots.length; i++) {
   dots[i].classList.remove("active");
 }

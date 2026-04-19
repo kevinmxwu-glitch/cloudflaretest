@@ -224,31 +224,39 @@ document.querySelectorAll(".side-menu a").forEach(link => {
 
 //響應載入影片切換
 var load = document.getElementById('loadVideo');
-var source = document.createElement('source');
-if (window.innerWidth > 768) {
-  source.setAttribute('src', 'https://github.com/kevinmxwu-glitch/cloudflaretest/tree/main/video/loading/loading2.mp4');
-}
-else {
-  source.setAttribute('src', 'https://github.com/kevinmxwu-glitch/cloudflaretest/tree/main/video/loading/loading.mp4');
-  load.style.maxWidth = "100%";
-}
-source.setAttribute('type', 'video/mp4');
-load.appendChild(source);
-load.play();
-
-//響應背景影片切換
 var bg = document.getElementById('bgVideo');
+var sourceld = document.createElement('source');
 var source = document.createElement('source');
 if (window.innerWidth > 768) {
+  sourceld.setAttribute('src', 'https://github.com/kevinmxwu-glitch/cloudflaretest/tree/main/video/loading/loading2.mp4');
   source.setAttribute('src', 'https://github.com/kevinmxwu-glitch/cloudflaretest/tree/main/video/works/bg_desktop.mp4');
 }
 else {
+  sourceld.setAttribute('src', 'https://github.com/kevinmxwu-glitch/cloudflaretest/tree/main/video/loading/loading.mp4');
+  load.style.maxWidth = "100%";
   source.setAttribute('src', 'https://github.com/kevinmxwu-glitch/cloudflaretest/tree/main/video/works/bg_desktop.mp4');
   bg.style.maxWidth = "100%";
 }
+sourceld.setAttribute('type', 'video/mp4');
+load.appendChild(sourceld);
+load.play();
 source.setAttribute('type', 'video/mp4');
 bg.appendChild(source);
 bg.play();
+
+// //響應背景影片切換
+// var bg = document.getElementById('bgVideo');
+// var source = document.createElement('source');
+// if (window.innerWidth > 768) {
+//   source.setAttribute('src', 'https://github.com/kevinmxwu-glitch/cloudflaretest/tree/main/video/works/bg_desktop.mp4');
+// }
+// else {
+//   source.setAttribute('src', 'https://github.com/kevinmxwu-glitch/cloudflaretest/tree/main/video/works/bg_desktop.mp4');
+//   bg.style.maxWidth = "100%";
+// }
+// source.setAttribute('type', 'video/mp4');
+// bg.appendChild(source);
+// bg.play();
 
 
 //載入

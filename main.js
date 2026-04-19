@@ -666,7 +666,7 @@ var RAW = 'https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01
     .then(res => res.json())
     .then(data => {
       data.forEach(item => {
-        for(let i = 0; i < groupWork; i++){
+        for(let i = 0; i < groupWork.length; i++){
             if(item.group == groupWork[i]){
                 titleWork.push(item.title);
                 imgWork.push(item.cover);

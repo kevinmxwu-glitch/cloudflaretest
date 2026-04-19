@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title class="topic">在那出現之前</title>
+  <link rel="stylesheet" href="works.css">
+</head>
+
+<body>
+  <!-- 左上角 icon -->
+  <div class="menu-icon">
+    <img src="image/main/menu_icon.png" alt="menu">
+  </div>
+  <div class="group"></div>
+
+  <!-- 右下角
+   <div class="back-icon">
+    RETURN
+  </div> -->
+<!-- 遮罩 -->
+<div class="overlay"></div>
+
+<!-- 側邊選單 -->
+<nav class="side-menu">
+  <ul>
+    <li><a href="main.html#exhibit">展覽介紹</a></li>
+<li><a href="main.html#event">活動資訊</a></li>
+<li><a href="main.html#works">作品介紹</a></li>
+<li><a href="main.html#about">關於我們</a></li>
+<li><a href="main.html#shop">周邊商品</a></li>
+  </ul>
+</nav>
+  <div class="layout">
+
+    <!-- 頂部 -->
+    <header class="header">
+    </header>
+
+    <div class="content-area">
+
+      <!-- 側邊欄 
+      <aside class="sidebar">
+        Sidebar（分類 / 選單）
+      </aside>-->
+
+      <!-- 主內容 -->
+      <main class="main">
+        <div class="demo-box">
+          <ul>
+            <!-- <li><img src="image/works/title_blue_horizontal.png"></li> -->
+            <li class="title"></li>
+            <li class="type"></li>
+            <div class="slideshow-container">
+              <div class="workImg">
+                <a class="arrowL"></a>
+                <a class="arrowR"></a>
+              </div>
+            </div>
+            <div class="dots"></div>
+            <li class="artist"></li>
+            <li class="content"></li>
+          </ul>
+        </div>
+        
+      </main>
+
+    </div>
+
+  </div>
+  <div class="loader">
+    <video id="loadVideo" autoplay loop muted style="opacity: 5;"></video>
+  </div>
+  <div class="bg">
+    <video id="bgVideo" autoplay loop muted></video>
+  </div>
+  <script src="works.js"></script>
+</body>
+
+</html>

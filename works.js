@@ -240,7 +240,7 @@ load.play();
 var bg = document.getElementById('bgVideo');
 var source = document.createElement('source');
 if (window.innerWidth > 768) {
-  source.setAttribute('src', 'https://github.com/kevinmxwu-glitch/cloudflaretest/tree/main/video/works/bg_mobile.mp4');
+  source.setAttribute('src', 'https://github.com/kevinmxwu-glitch/cloudflaretest/tree/main/video/works/bg_desktop.mp4');
 }
 else {
   source.setAttribute('src', 'https://github.com/kevinmxwu-glitch/cloudflaretest/tree/main/video/works/bg_mobile.mp4');

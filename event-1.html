@@ -135,6 +135,43 @@
       width: 26px;
       background: #000;
     }
+    .bz-link-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  min-width: 200px;
+  height: 50px;
+  padding: 0 24px;
+
+  background: #E83928;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none;
+
+  border: none;
+  border-radius: 46px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.bz-link-btn:hover {
+  background: #c92f20;
+}
+
+.bz-link-btn .bz-link-arrow {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  flex-shrink: 0;
+  transition: transform 0.3s;
+}
+
+.bz-link-btn:hover .bz-link-arrow {
+  transform: translateX(6px);
+}
   </style>
 </head>
 
@@ -170,10 +207,11 @@
         <p class="meta-item"><strong>地點:</strong> 北藝大 研究大樓 R214</p>
         <p class="meta-item"><strong>參加方法:</strong> 免費，網路預約</p>
 
-        <a class="button"
+        <a class="bz-link-btn"
            href="https://forms.gle/TFqeLxQnVyKjomHE7"
            target="_blank">
           報名連結
+          <img class="bz-link-arrow" src="image/main/Arrow 1.svg" alt="">
         </a>
 
         <!-- navigation -->

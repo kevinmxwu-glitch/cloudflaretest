@@ -2415,17 +2415,20 @@ body.dragging { cursor: grabbing; }
       position: absolute;
       top: 470px;
       right: 30px;
-      background: #e05a3a;
+      background:#E83928;
       color: #fff;
       border: none;
       border-radius: 999px;
       padding: 14px 28px;
       font-family: 'Inter', sans-serif;
       font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 2px;
+ width: 200px;
+  height: 50px;
+       border: none;
+  border-radius: 46px;
       display: flex;
       align-items: center;
+  justify-content: center;
       gap: 10px;
       cursor: pointer;
       opacity: 0;
@@ -2433,7 +2436,17 @@ body.dragging { cursor: grabbing; }
       transform: translateY(10px);
       transition: opacity 0.4s ease, transform 0.4s ease;
       z-index: 5;
-    }
+    }.see-more-btn:hover {
+  background: #c92f20;
+}
+
+.see-more-btn .arrow {
+  transition: transform 0.3s;
+}
+
+.see-more-btn:hover .arrow {
+  transform: translateX(6px);
+}
     .see-more-btn.visible {
       opacity: 1;
       pointer-events: auto;
@@ -2493,3 +2506,41 @@ body.dragging { cursor: grabbing; }
     .mov-card:hover { transform: scale(1.06) translateY(-10px); z-index: 99 !important; }
 
 /* #endregion */
+/* 共用主站橘色箭頭按鈕 */
+.bz-link-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  min-width: 200px;
+  height: 50px;
+  padding: 0 24px;
+
+  background: #E83928;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none;
+
+  border: none;
+  border-radius: 46px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.bz-link-btn:hover {
+  background: #c92f20;
+}
+
+.bz-link-btn .bz-link-arrow {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  flex-shrink: 0;
+  transition: transform 0.3s;
+}
+
+.bz-link-btn:hover .bz-link-arrow {
+  transform: translateX(6px);
+}

@@ -1184,4 +1184,62 @@ bindCustomSectionLink('a[href="#exhibit2"]', function () {
   return window.innerWidth >= 1024
     ? document.querySelector('#layout-web .body-text')
     : document.querySelector('#layout-handy .body-text-wrap');
+});function jumpToMainSectionByHash(hash, smooth = true) {
+  const behavior = smooth ? 'smooth' : 'auto';
+
+  if (hash === '#works2') {
+    const target = window.innerWidth >= 1024
+      ? document.getElementById('works-cardzone-desktop')
+      : document.getElementById('works-cardzone-mobile');
+
+    if (!target) return;
+
+    const offset = window.innerWidth >= 1024 ? 120 : 80;
+    const y = window.scrollY + target.getBoundingClientRect().top - offset;
+
+    window.scrollTo({ top: y, behavior });
+    return;
+  }
+
+  if (hash === '#event2') {
+    const target = window.innerWidth >= 1024
+      ? document.getElementById('wcard-02')
+      : document.getElementById('hcard-02');
+
+    if (!target) return;
+
+    const offset = window.innerWidth >= 1024 ? 120 : 80;
+    const y = window.scrollY + target.getBoundingClientRect().top - offset;
+
+    window.scrollTo({ top: y, behavior });
+    return;
+  }
+
+  if (hash === '#exhibit2') {
+    const target = window.innerWidth >= 1024
+      ? document.querySelector('#layout-web .date-group')
+      : document.querySelector('#layout-handy .date-group');
+
+    if (!target) return;
+
+    const offset = window.innerWidth >= 1024 ? 120 : 80;
+    const y = window.scrollY + target.getBoundingClientRect().top - offset;
+
+    window.scrollTo({ top: y, behavior });
+    return;
+  }
+
+  if (hash === '#about2' || hash === '#shop' || hash === '#visit2') {
+    const target = document.querySelector(hash);
+    if (!target) return;
+
+    const y = window.scrollY + target.getBoundingClientRect().top;
+    window.scrollTo({ top: y, behavior });
+  }
+}window.addEventListener('load', () => {
+  if (!window.location.hash) return;
+
+  setTimeout(() => {
+    jumpToMainSectionByHash(window.location.hash, false);
+  }, 200);
 });

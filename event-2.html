@@ -179,6 +179,43 @@
       .hero { aspect-ratio: 16 / 11; }
       .content { font-size: 15px; }
     }
+    .bz-link-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  min-width: 200px;
+  height: 50px;
+  padding: 0 24px;
+
+  background: #E83928;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none;
+
+  border: none;
+  border-radius: 46px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.bz-link-btn:hover {
+  background: #c92f20;
+}
+
+.bz-link-btn .bz-link-arrow {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  flex-shrink: 0;
+  transition: transform 0.3s;
+}
+
+.bz-link-btn:hover .bz-link-arrow {
+  transform: translateX(6px);
+}
   </style>
 </head>
 <body>

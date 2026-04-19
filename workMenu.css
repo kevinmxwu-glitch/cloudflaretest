@@ -73,7 +73,7 @@ html {
   word-break: break-all;
   display: flex;
 
-  width:700px;
+  width:900px;
   overflow: scroll;
   scroll-behavior: auto;
   scrollbar-width: none;
@@ -122,13 +122,19 @@ html {
   padding: 20px;
 }
 .work-container:hover img{
-  max-width: 170px;
+  max-width: 150px;
   transition: 0.3s;
 }
 .work-container:hover ul li{
-  font-size: 16px;
+  
   color:#e83928;
   font-weight: bolder;
+}
+.work-container:hover .work-cover {
+  max-width: 100%;
+  padding-left: 0%;
+  padding-right: 0%;
+  transition: 0.3s;
 }
 
 .work-title {
@@ -148,7 +154,9 @@ html {
   color: #efefef;
 }
 .work-cover {
-  width: 100%;
+  max-width: 95%;
+  padding-left: 2.5%;
+  padding-right: 2.5%;
   justify-content: center;
   display: flex;
 }

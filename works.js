@@ -72,6 +72,10 @@ else {
   next.style.display = "block";
   prev.style.display = "block";
 }
+if(slides.length <= 1) {
+  next.style.display = "none";
+  prev.style.display = "none";
+}
 for (let i = 0; i < dots.length; i++) {
   dots[i].classList.remove("active");
 }

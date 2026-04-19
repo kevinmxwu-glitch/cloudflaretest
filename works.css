@@ -1,0 +1,523 @@
+/* ===== 全站基本 ===== */ 
+/* v */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'MyFont';
+  font-weight: 400;
+}
+/* v */
+@font-face {
+  font-family: 'MyFont';
+  src: url('fonts/KozGoPr6NRegular.otf');
+}
+/* v */
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+/* ===== 整體結構 ===== */
+/* v */
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== Header ===== */
+/* v */
+.header {
+  background-color: #11ffee00;
+  padding: 36px 20px;
+  text-align: center;
+  font-size: 20px;
+}
+
+/* ===== 中間區域（sidebar + main） ===== */
+/* v */
+.content-area {
+  flex: 1;
+  display: flex;
+  position: fixed;
+  top: 0px;
+  height: 100%;
+}
+
+/* v */
+.group {
+  opacity: 0%;
+}
+
+/* ===== Sidebar ===== 
+.sidebar {
+  width: 220px;
+  background: #4ecdc4;
+  padding: 20px;
+}*/
+
+/* ===== Main ===== */
+.main {
+  flex: 1;
+  background-color: #11ffee00;
+  padding: 24px 180px;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* 開分作品區 */
+.demo-box {
+  opacity: 0;
+  background: #efefef;
+  margin-bottom: 10px;
+  padding: 20px;
+  border-radius: 6px;
+  
+  word-break: break-all;
+  display: flex;
+
+  width:700px;
+  overflow: scroll;
+  scroll-behavior: auto;
+  scrollbar-width: none;
+}
+
+.demo-box ul{
+  display: flex;
+  width: 100vw;
+  flex-direction: column;
+  text-align: center;
+  list-style: none;
+}
+.title{
+  font-size: 40px;
+  font-weight: bold;
+  line-height: 85%;
+  text-align: left;
+  color: #e83928;
+  letter-spacing: 0.05cap;
+}
+.title::selection{
+  font-size: 40px;
+  font-weight: bolder;
+  line-height: 85%;
+  text-align: left;
+  background-color: #343C55;
+  color: #efefef;
+}
+.type{
+  text-align: right;
+  font-size: 15px;
+  line-height: 100%;
+  color: #a09e9a;
+}
+.type::selection{
+  font-size: 15px;
+  font-weight: bolder;
+  line-height: 85%;
+  background-color: #343C55;
+  color: #efefef;
+}
+.slideshow-container img{
+  width: 100%;
+  border-radius: 6px;
+  margin-bottom: -4%;
+}
+ .slideshow-container {
+    padding: 5px;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+ }
+.prev, .next {
+  cursor: pointer;
+  width: auto;
+  margin-top: -30px;
+  padding: 16px;
+  color: #343C55;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 70%;
+  transition: 0.3s ease;
+  user-select: none;
+  border-radius: 0 3px 3px 0;
+  position: absolute;
+  background-color: #efefef;
+  opacity: 50%;
+}
+.prev {
+  left: -3.5%;
+  top:50%;
+}
+.next {
+  right: -3.5%;
+  top:50%;
+}
+
+.workImg {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position:relative;
+}
+.slide.fade , .slide.fade img, .slide.fade iframe{
+  width: 100%;
+}
+
+.prev:hover, .next:hover {
+  color: #efefef;
+  background-color: #e83928;
+  opacity: 100%;
+  line-height: 70%;
+  border-radius: 100%;
+  font-size: 30px;
+  font-weight: bolder;
+}
+
+.dots {
+  text-align: center;
+  padding: 10px;
+}
+
+.dot {
+  cursor: pointer;
+  height: 10px;
+  width: 10px;
+  margin: 0 5px;
+  background-color: #343C55;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.4s ease;
+}
+
+.active{
+  background-color: #efefef;
+  box-shadow: 0 0 5px #e83928;
+}
+
+.dot:hover {
+  background-color: #e83928;
+}
+
+.artist{
+  text-align: left;
+  line-height: 110%;
+  font-size: 15px;
+  font-weight: bolder;
+  color: #e83928;
+}
+.artist::selection{
+  font-weight: bolder;
+  line-height: 85%;
+  background-color: #e83928;
+  color: #efefef;
+}
+.content{
+  margin-top: 15px;
+  line-height: 150%;
+  color: #343C55;
+}
+.content::selection{
+  font-weight: bolder;
+  line-height: 85%;
+  text-align: left;
+  background-color: #343C55;
+  color: #efefef;
+}
+
+
+/* 開分載入中 */
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  pointer-events: none
+}
+.loader video{
+  position: absolute;
+  min-height: 100%;
+  min-width: 100%;
+  
+}
+/* 開分背景 */
+.bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+  pointer-events: none
+  
+}
+.bg video{
+  position: absolute;
+  min-height: 100%;
+  min-width: 100%;
+}
+
+
+/* ===== Footer =====
+.footer {
+  background: #1a1a1a;
+  padding: 30px 40px;
+
+  display: flex;
+  flex-wrap: wrap;          
+  justify-content: center; 
+  align-items: center;
+  gap: 20px;                
+}
+.footer img {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  padding: 5px;
+  border-radius: 6px;
+} */
+
+/* ===== 左上角 icon ===== */
+/* v */
+.menu-icon {
+  position: fixed;
+  top: 30px;
+  left: 24px;
+  width: 50px;
+  height: 50px;
+  z-index: 9999;
+}
+
+/* v */
+.menu-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* ===== 右下角 icon =====
+.back-icon {
+  position: fixed;
+  bottom: 30px;
+  right: 24px;
+  width: 50px;
+  height: 50px;
+  z-index: 9999;
+}
+
+.back-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  background-color: #343C55;
+} */
+
+/* ===== 側邊選單 ===== */
+/* v */
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -260px;   /* ⭐預設藏起來 */
+  width: 260px;
+  height: 100vh;
+  background: #343C55;
+  padding: 0;
+
+  display: flex;              /* ⭐新增 */
+  justify-content: center;    /* ⭐水平 */
+  align-items: center;        /* ⭐垂直 */
+  transition: 0.3s;
+  z-index: 8000;
+}
+
+/* 打開狀態 */
+/* v */
+.side-menu.active {
+  left: 0;
+}
+
+/* 選單內容 */
+/* v */
+.side-menu ul {
+  list-style: none;
+}
+
+/* v */
+.side-menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  display: block;
+  padding: 0;
+  width: 100%;        /* ⭐關鍵 */
+  padding: 16px 80px; /* ⭐讓整行可點 */
+}
+
+/* v */
+.side-menu a:hover {
+  color: #E83928;
+}
+/* ===== 遮罩 ===== */
+/* v */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0, 0, 0, 0.502);
+
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+
+  z-index: 7999;
+}
+
+/* v */
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+/* ===== 響應式 ===== */
+@media (max-width: 1024px) {
+  /* v */
+  .content-area {
+    flex-direction: column;
+    overflow: scroll;
+    scroll-behavior: auto;
+    scrollbar-width: none;
+  }
+  /* v */
+  .main {
+    flex: 1;
+    background-color: #11ffee00;
+    padding: 24px 120px;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* 開分作品區 */
+  .demo-box {
+    width: 100%;
+  }
+  
+  .title{
+    font-size: 33px;
+    line-height: 90%;
+  }
+  .type{
+    font-size: 15px;
+  }
+  .slideshow-container img{
+    width: 100%;
+  }
+  
+}
+@media (max-width: 768px) {
+.content-area {
+    flex-direction: column;
+    overflow: scroll;
+    scroll-behavior: auto;
+    scrollbar-width: none;
+  }
+
+  .main {
+    width: 100vw;
+    padding: 24px 30px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .menu-icon {
+    opacity: 70%;
+  }
+
+  .side-menu {
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: auto;
+    padding: 30px 0px;
+    display: flex;
+    justify-content: center;  /* 水平置中 */
+    /*align-items: center;      /* 垂直置中 */
+    padding-top: 100px;
+  }
+.side-menu a {
+  padding: 12px 40px; /* ⭐讓整行可點 */
+}
+  .side-menu.active {
+    top: 0;
+  }
+
+  .demo-box{
+    width: 100vw;
+    padding: 20px 7px;
+    overflow: scroll;
+    scroll-behavior: auto;
+    scrollbar-width: none;
+  }
+  .demo-box ul {
+    width: 100%;
+  }
+  .title{
+    word-break: keep-all;
+    font-size: 26px;
+    font-weight: bold;
+    line-height: 90%;
+    text-align: left;
+  }
+  .type{
+    text-align: right;
+  }
+  .slideshow-container img{
+    width: 100%;
+    border-radius: 6px;
+    margin-bottom: -5%;
+  }
+  .prev {
+    left: 1%;
+    font-size: 12px;
+    line-height: 70%;
+    margin-top: 12%;
+    font-weight: bolder;
+    opacity: 0.5;
+    background-color: #efefef;
+  }
+  .next {
+    right: 1%;
+    font-size: 12px;
+    line-height: 70%;
+    margin-top: 12%;
+    font-weight: bolder;
+    opacity: 0.5;
+    background-color: #efefef;
+  }
+  .prev:hover, .next:hover {
+    opacity: 100%;
+    line-height: 70%;
+    border-radius: 100%;
+    font-size: 15px;
+    font-weight: bolder;
+    background-color: #e83928;
+  }
+
+}
+
+
+
+

@@ -226,10 +226,10 @@ document.querySelectorAll(".side-menu a").forEach(link => {
 var load = document.getElementById('loadVideo');
 var source = document.createElement('source');
 if (window.innerWidth > 768) {
-  source.setAttribute('src', 'video/loading/loading2.mp4');
+  source.setAttribute('src', 'https://github.com/kevinmxwu-glitch/cloudflaretest/tree/main/video/loading/loading2.mp4');
 }
 else {
-  source.setAttribute('src', 'video/loading/loading.mp4');
+  source.setAttribute('src', 'https://github.com/kevinmxwu-glitch/cloudflaretest/tree/main/video/loading/loading.mp4');
   load.style.maxWidth = "100%";
 }
 source.setAttribute('type', 'video/mp4');
@@ -240,10 +240,10 @@ load.play();
 var bg = document.getElementById('bgVideo');
 var source = document.createElement('source');
 if (window.innerWidth > 768) {
-  source.setAttribute('src', 'video/works/bg_desktop.mp4');
+  source.setAttribute('src', 'https://github.com/kevinmxwu-glitch/cloudflaretest/tree/main/video/works/bg_desktop.mp4');
 }
 else {
-  source.setAttribute('src', 'video/works/bg_mobile.mp4');
+  source.setAttribute('src', 'https://github.com/kevinmxwu-glitch/cloudflaretest/tree/main/video/works/bg_mobile.mp4');
   bg.style.maxWidth = "100%";
 }
 source.setAttribute('type', 'video/mp4');

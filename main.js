@@ -1243,3 +1243,43 @@ bindCustomSectionLink('a[href="#exhibit2"]', function () {
     jumpToMainSectionByHash(window.location.hash, false);
   }, 200);
 });
+
+const stripWork = document.getElementsByClassName("card-strip")[0];
+const groupWork = ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10", "A11", "A12", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9"]
+var fetchsuccess = 0;
+fetch("https://script.google.com/macros/s/AKfycby1E_A5sVq0UCVlnjtLyyklGE1lSr-V1OHcgpDfQfuLVBCnzDTs6oL1Re4d5GUJlANiiw/exec")
+.then(res => res.json())
+.then(data => {
+  var num = 0;
+  data.forEach(item => {
+    for(let i = 0; i < groupWork; i++){
+        if(item.group == groupWork[i]){
+            const cardWork = document.createElement("div");
+            cardWork.setAttribute('class', 'strip-card');
+            cardWork.setAttribute('data-idx', 'i');
+
+            const slogoWork = document.createElement("img");
+            slogoWork.setAttribute('class', 's-logo');
+            slogoWork.setAttribute('src', 'https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/standW_horizon_B.png');
+            slogoWork.setAttribute('alt', 'Logo');
+            cardWork.appendChild(slogoWork);
+
+            const sframeWork = document.createElement("div");
+            sframeWork.setAttribute('class', 's-frame');
+            cardWork.appendChild(sframeWork);
+
+            const coverWork = document.createElement("img");
+            coverWork.setAttribute('src', item.cover);
+            coverWork.setAttribute('alt', item.group);
+            sframeWork.appendChild(coverWork);
+
+            const stitleWork = document.createElement("div");
+            stitleWork.setAttribute('class', 's-title');
+            stitleWork.innerHTML = item.title;
+            cardWork.appendChild(stitleWork);
+
+            stripWork.appendChild(cardWork);
+        }
+    }
+  });
+});

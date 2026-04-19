@@ -658,44 +658,28 @@ var RAW = 'https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01
     var NULL_IMG = "https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/cards/nullfront.jpg";
     var LOGO_URL = "https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/standW_horizon_B.png";
 
-    const groupWork = ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10", "A11", "A12", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9"];
-    let titleWork = new Array(21);
-    let imgWork = new Array(21);
-    
-    fetch("https://script.google.com/macros/s/AKfycby1E_A5sVq0UCVlnjtLyyklGE1lSr-V1OHcgpDfQfuLVBCnzDTs6oL1Re4d5GUJlANiiw/exec")
-    .then(res => res.json())
-    .then(data => {
-      data.forEach(item => {
-        for(let i = 0; i < groupWork.length; i++){
-            if(item.group && item.group == groupWork[i]){
-                titleWork[i] = item.title;
-                imgWork[i] = item.cover;
-            }
-        }
-      });
-    });
     var ART_CARDS = [
-      { code: "A1",  name: titleWork[0],  url: imgWork[0] },
-      { code: "A2",  name: titleWork[1],  url: imgWork[1] },
-      { code: "A3",  name: titleWork[2],  url: imgWork[2] },
-      { code: "A4",  name: titleWork[3],  url: imgWork[3] },
-      { code: "A5",  name: titleWork[4],  url: imgWork[4] },
-      { code: "A6",  name: titleWork[5],  url: imgWork[5] },
-      { code: "A7",  name: titleWork[6],  url: imgWork[6] },
-      { code: "A8",  name: titleWork[7],  url: imgWork[7] },
-      { code: "A9",  name: titleWork[8],  url: imgWork[8] },
-      { code: "A10", name: titleWork[9],  url: imgWork[9] },
-      { code: "A11", name: titleWork[10], url: imgWork[10] },
-      { code: "A12", name: titleWork[11], url: imgWork[11] },
-      { code: "B1",  name: titleWork[12], url: imgWork[12] },
-      { code: "B2",  name: titleWork[13], url: imgWork[13] },
-      { code: "B3",  name: titleWork[14], url: imgWork[14] },
-      { code: "B4",  name: titleWork[15], url: imgWork[15] },
-      { code: "B5",  name: titleWork[16], url: imgWork[16] },
-      { code: "B6",  name: titleWork[17], url: imgWork[17] },
-      { code: "B7",  name: titleWork[18], url: imgWork[18] },
-      { code: "B8",  name: titleWork[19], url: imgWork[19] },
-      { code: "B9",  name: titleWork[20], url: imgWork[20] },
+      { code: "A1",  name: "",  url: "" },
+      { code: "A2",  name: "",  url: "" },
+      { code: "A3",  name: "",  url: "" },
+      { code: "A4",  name: "",  url: "" },
+      { code: "A5",  name: "",  url: "" },
+      { code: "A6",  name: "",  url: "" },
+      { code: "A7",  name: "",  url: "" },
+      { code: "A8",  name: "",  url: "" },
+      { code: "A9",  name: "",  url: "" },
+      { code: "A10", name: "",  url: "" },
+      { code: "A11", name: "", url: "" },
+      { code: "A12", name: "", url: "" },
+      { code: "B1",  name: "", url: "" },
+      { code: "B2",  name: "", url: "" },
+      { code: "B3",  name: "", url: "" },
+      { code: "B4",  name: "", url: "" },
+      { code: "B5",  name: "", url: ""] },
+      { code: "B6",  name: "", url: "" },
+      { code: "B7",  name: "", url: "" },
+      { code: "B8",  name: "", url: "" },
+      { code: "B9",  name: "", url: "" },
     ];
 
     var _pickedIdx = Math.floor(Math.random() * ART_CARDS.length);
@@ -712,7 +696,6 @@ var RAW = 'https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01
       fetch("https://script.google.com/macros/s/AKfycby1E_A5sVq0UCVlnjtLyyklGE1lSr-V1OHcgpDfQfuLVBCnzDTs6oL1Re4d5GUJlANiiw/exec")
       .then(res => res.json())
       .then(data => {
-        var num = 0;
         data.forEach(item => {
           for(let i = 0; i < groupWork.length; i++){
               if(item.group == groupWork[i]){

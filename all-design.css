@@ -47,6 +47,12 @@ img {
   height: 100vh;
   min-width: 100%;
 }
+a{
+  text-decoration: none;
+}
+a:link, a:visited, a:hover, a:active{
+  
+}
 /* #endregion */
 /* #region===== start =====*/
 /* ===== 共用文字風格 ===== */

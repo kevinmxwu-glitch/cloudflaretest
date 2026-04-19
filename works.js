@@ -238,16 +238,18 @@ load.play();
 
 //響應背景影片切換
 var bg = document.getElementById('bgVideo');
+bg.innerHTML = <source src="https://github.com/kevinmxwu-glitch/cloudflaretest/tree/main/video/works/bg_mobile.mp4" media="(max-width: 768px)" type="video/mp4">
+  <source src="https://github.com/kevinmxwu-glitch/cloudflaretest/tree/main/video/works/bg_desktop.mp4" media="(min-width: 769px)" type="video/mp4">
 var source = document.createElement('source');
-if (window.innerWidth > 768) {
-  source.setAttribute('src', 'https://github.com/kevinmxwu-glitch/cloudflaretest/tree/main/video/works/bg_desktop.mp4');
-}
-else {
-  source.setAttribute('src', 'https://github.com/kevinmxwu-glitch/cloudflaretest/tree/main/video/works/bg_mobile.mp4');
-  bg.style.maxWidth = "100%";
-}
-source.setAttribute('type', 'video/mp4');
-bg.appendChild(source);
+// if (window.innerWidth > 768) {
+//   source.setAttribute('src', 'https://github.com/kevinmxwu-glitch/cloudflaretest/tree/main/video/works/bg_desktop.mp4');
+// }
+// else {
+//   source.setAttribute('src', 'https://github.com/kevinmxwu-glitch/cloudflaretest/tree/main/video/works/bg_mobile.mp4');
+//   bg.style.maxWidth = "100%";
+// }
+// source.setAttribute('type', 'video/mp4');
+// bg.appendChild(source);
 bg.play();
 
 

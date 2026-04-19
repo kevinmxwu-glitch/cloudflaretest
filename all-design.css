@@ -29,6 +29,24 @@ img {
   -webkit-user-drag: none;
   user-drag: none;
 }
+/* 開分載入中 */
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  pointer-events: none
+}
+.loader video{
+  position: absolute;
+  min-height: 100%;
+  min-width: 100%;
+}
 /* #endregion */
 /* #region===== Layout ===== */
 .layout {

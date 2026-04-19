@@ -658,28 +658,44 @@ var RAW = 'https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01
     var NULL_IMG = "https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/cards/nullfront.jpg";
     var LOGO_URL = "https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/standW_horizon_B.png";
 
+    const groupWork = ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10", "A11", "A12", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9"]
+    const titleWork = [];
+    const imgWork = [];
+    
+    fetch("https://script.google.com/macros/s/AKfycby1E_A5sVq0UCVlnjtLyyklGE1lSr-V1OHcgpDfQfuLVBCnzDTs6oL1Re4d5GUJlANiiw/exec")
+    .then(res => res.json())
+    .then(data => {
+      data.forEach(item => {
+        for(let i = 0; i < groupWork; i++){
+            if(item.group == groupWork[i]){
+                titleWork.push(item.title);
+                imgWork.push(item.cover);
+            }
+        }
+      });
+    });
     var ART_CARDS = [
-      { code: "A1",  name: "守望塔 DAKA - Watchtower",          url: "https://i.pinimg.com/736x/15/10/51/151051efc7df1eb665a233d3bbc16235.jpg" },
-      { code: "A2",  name: "臨界",                               url: "https://i.pinimg.com/736x/87/2a/e4/872ae454707f8e00ecb8c2a54d6c6158.jpg" },
-      { code: "A3",  name: "",                                    url: NULL_IMG },
-      { code: "A4",  name: "CYBERF**K 2.0",                     url: NULL_IMG },
-      { code: "A5",  name: "北方不再場",                          url: "https://i.pinimg.com/736x/48/15/03/48150390eac405a9f14cb2a71c1fbc34.jpg" },
-      { code: "A6",  name: "",                                    url: NULL_IMG },
-      { code: "A7",  name: "讓我看看",                            url: NULL_IMG },
-      { code: "A8",  name: "",                                    url: NULL_IMG },
-      { code: "A9",  name: "A long, long cloud on the horizon",  url: "https://i.pinimg.com/736x/18/70/3c/18703ce6c8e214da311613079c2f2842.jpg" },
-      { code: "A10", name: "",                                    url: NULL_IMG },
-      { code: "A11", name: "不知道要放哪裡就放這裡吧",             url: "https://i.pinimg.com/736x/e4/bb/93/e4bb93d8649b2579b055f3c09c847571.jpg" },
-      { code: "A12", name: "月薪108000",                          url: "https://i.pinimg.com/736x/ba/c1/50/bac1504f90199b8d9fc32cb74f779c9d.jpg" },
-      { code: "B1",  name: "菌絲覆生計畫",                        url: NULL_IMG },
-      { code: "B2",  name: "Is There Anyone Home?",              url: "https://i.pinimg.com/736x/71/52/65/715265d105743dba14e7066fc300388a.jpg" },
-      { code: "B3",  name: "眼冒金星Seeing star",                 url: NULL_IMG },
-      { code: "B4",  name: "lasso",                              url: "https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/cards/B4front.jpg" },
-      { code: "B5",  name: "跟你說一個故事",                      url: "https://i.pinimg.com/736x/a0/36/a2/a036a2dfbc6b1e7e6d777cc633a25040.jpg" },
-      { code: "B6",  name: "click clack crack",                  url: "https://i.pinimg.com/736x/6d/72/b5/6d72b5df13a142d3188928fce67b3162.jpg" },
-      { code: "B7",  name: "P. E. G.",                           url: "https://i.pinimg.com/736x/29/dc/d4/29dcd43f38a49985dcbfddbfc42ca676.jpg" },
-      { code: "B8",  name: "鏡界 Re-reflection",                  url: "https://i.pinimg.com/736x/c5/8a/bb/c58abbc23249c7ad4b5c9efd4aea2f11.jpg" },
-      { code: "B9",  name: "éthéré",                             url: NULL_IMG },
+      { code: "A1",  name: titleWork[0],  url: imgWork[0] },
+      { code: "A2",  name: titleWork[1],  url: imgWork[1] },
+      { code: "A3",  name: titleWork[2],  url: imgWork[2] },
+      { code: "A4",  name: titleWork[3],  url: imgWork[3] },
+      { code: "A5",  name: titleWork[4],  url: imgWork[4] },
+      { code: "A6",  name: titleWork[5],  url: imgWork[5] },
+      { code: "A7",  name: titleWork[6],  url: imgWork[6] },
+      { code: "A8",  name: titleWork[7],  url: imgWork[7] },
+      { code: "A9",  name: titleWork[8],  url: imgWork[8] },
+      { code: "A10", name: titleWork[9],  url: imgWork[9] },
+      { code: "A11", name: titleWork[10], url: imgWork[10] },
+      { code: "A12", name: titleWork[11], url: imgWork[11] },
+      { code: "B1",  name: titleWork[12], url: imgWork[12] },
+      { code: "B2",  name: titleWork[13], url: imgWork[13] },
+      { code: "B3",  name: titleWork[14], url: imgWork[14] },
+      { code: "B4",  name: titleWork[15], url: imgWork[15] },
+      { code: "B5",  name: titleWork[16], url: imgWork[16] },
+      { code: "B6",  name: titleWork[17], url: imgWork[17] },
+      { code: "B7",  name: titleWork[18], url: imgWork[18] },
+      { code: "B8",  name: titleWork[19], url: imgWork[19] },
+      { code: "B9",  name: titleWork[20], url: imgWork[20] },
     ];
 
     var _pickedIdx = Math.floor(Math.random() * ART_CARDS.length);
@@ -1244,43 +1260,3 @@ bindCustomSectionLink('a[href="#exhibit2"]', function () {
   }, 200);
 });
 
-const stripWork = document.getElementsByClassName("card-strip")[0];
-const groupWork = ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10", "A11", "A12", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9"]
-var fetchsuccess = 0;
-fetch("https://script.google.com/macros/s/AKfycby1E_A5sVq0UCVlnjtLyyklGE1lSr-V1OHcgpDfQfuLVBCnzDTs6oL1Re4d5GUJlANiiw/exec")
-.then(res => res.json())
-.then(data => {
-  var num = 0;
-  data.forEach(item => {
-    for(let i = 0; i < groupWork; i++){
-        if(item.group == groupWork[i]){
-            const cardWork = document.createElement("div");
-            cardWork.setAttribute('class', 'strip-card');
-            cardWork.setAttribute('data-idx', 'i');
-
-            const slogoWork = document.createElement("img");
-            slogoWork.setAttribute('class', 's-logo');
-            slogoWork.setAttribute('src', 'https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/standW_horizon_B.png');
-            slogoWork.setAttribute('alt', 'Logo');
-            cardWork.appendChild(slogoWork);
-
-            const sframeWork = document.createElement("div");
-            sframeWork.setAttribute('class', 's-frame');
-            cardWork.appendChild(sframeWork);
-
-            const coverWork = document.createElement("img");
-            coverWork.setAttribute('src', item.cover);
-            coverWork.setAttribute('alt', item.group);
-            sframeWork.appendChild(coverWork);
-            cardWork.appendChild(sframeWork);
-
-            const stitleWork = document.createElement("div");
-            stitleWork.setAttribute('class', 's-title');
-            stitleWork.innerHTML = item.title;
-            cardWork.appendChild(stitleWork);
-
-            stripWork.appendChild(cardWork);
-        }
-    }
-  });
-});

@@ -658,10 +658,26 @@ var RAW = 'https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01
     var NULL_IMG = "https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/cards/nullfront.jpg";
     var LOGO_URL = "https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/standW_horizon_B.png";
 
+    const groupWork = ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10", "A11", "A12", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9"]
+    let titleWork = new Array(21);
+    let imgWork = new Array(21);
+    fetch("https://script.google.com/macros/s/AKfycby1E_A5sVq0UCVlnjtLyyklGE1lSr-V1OHcgpDfQfuLVBCnzDTs6oL1Re4d5GUJlANiiw/exec")
+    .then(res => res.json())
+    .then(data => {
+      data.forEach(item => {
+        for(let i = 0; i < groupWork.length; i++){
+            if(item.group == groupWork[i]){
+                titleWork[i] = toString(item.title);
+                imgWork[i] = toString(item.cover);
+            }
+        }
+      });
+    });
+
     var ART_CARDS = [
-      { code: "A1",  name: "守望塔 DAKA - Watchtower",          url: "https://i.pinimg.com/736x/15/10/51/151051efc7df1eb665a233d3bbc16235.jpg" },
-      { code: "A2",  name: "臨界",                               url: "https://i.pinimg.com/736x/87/2a/e4/872ae454707f8e00ecb8c2a54d6c6158.jpg" },
-      { code: "A3",  name: "",                                    url: NULL_IMG },
+      { code: "A1",  name: titleWork[0],          url: "https://i.pinimg.com/736x/15/10/51/151051efc7df1eb665a233d3bbc16235.jpg" },
+      { code: "A2",  name: titleWork[1],                               url: "https://i.pinimg.com/736x/87/2a/e4/872ae454707f8e00ecb8c2a54d6c6158.jpg" },
+      { code: "A3",  name: titleWork[2],                                    url: NULL_IMG },
       { code: "A4",  name: "CYBERF**K 2.0",                     url: NULL_IMG },
       { code: "A5",  name: "北方不再場",                          url: "https://i.pinimg.com/736x/48/15/03/48150390eac405a9f14cb2a71c1fbc34.jpg" },
       { code: "A6",  name: "",                                    url: NULL_IMG },

@@ -51,7 +51,7 @@ for (let i = 0; i < slides.length; i++) {
   slides[i].style.display = "none";
 }
 slideIndex++;
-if (slideIndex > slides.length) {slideIndex = 1}
+if (slideIndex > slides.length) {slideIndex = slides.length}
 else if (slideIndex == 0) {slideIndex = slides.length}
 for (let i = 0; i < dots.length; i++) {
   dots[i].classList.remove("active");
@@ -61,6 +61,7 @@ slides[slideIndex-1].style.display = "block";
 dots[slideIndex-1].classList.add("active");
 }
 catch{}
+clearTimeout(timer);
 timer = setTimeout(showSlides, 5000); // Change image every 3 seconds
 }
 

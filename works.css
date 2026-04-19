@@ -254,6 +254,7 @@ html {
 }
 /* 開分背景 */
 .bg {
+  opacity: 1;
   position: fixed;
   top: 0;
   left: 0;
@@ -267,6 +268,7 @@ html {
   
 }
 .bg video{
+  opacity: 1;
   position: absolute;
   min-height: 100%;
   min-width: 100%;

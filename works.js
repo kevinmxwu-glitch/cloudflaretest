@@ -109,8 +109,8 @@ function checkVid(itemvid, num) {
     const dotsbtn = document.getElementsByClassName("dots")[0];
     divInside.setAttribute('class', 'slide fade');
     const vidInside = document.createElement("iframe");
-    vidInside.setAttribute('width', "560");
-    vidInside.setAttribute('height', "315");
+    vidInside.setAttribute('width', "960");
+    vidInside.setAttribute('height', "540");
     vidInside.setAttribute('src', itemvid);
     vidInside.setAttribute('title', "Youtube video player");
     vidInside.setAttribute('frameborder', "0");

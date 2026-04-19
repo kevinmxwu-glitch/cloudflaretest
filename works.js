@@ -2,6 +2,10 @@ const menuIcon = document.querySelector(".menu-icon");
 const sideMenu = document.querySelector(".side-menu");
 const overlay = document.querySelector(".overlay");
 const demobox = document.getElementsByClassName("demo-box")[0];
+var path = window.location.pathname;
+var filename = path.substring(path.lastIndexOf('/') + 1);
+var modifiedFile = filename.replace(".html", "");
+document.getElementsByClassName("group")[0].innerHTML = modifiedFile;
 var fetchsuccess = 0;
 fetch("https://script.google.com/macros/s/AKfycby1E_A5sVq0UCVlnjtLyyklGE1lSr-V1OHcgpDfQfuLVBCnzDTs6oL1Re4d5GUJlANiiw/exec")
 .then(res => res.json())
@@ -148,8 +152,10 @@ function checkArtist(item) {
 
 function checkTitle(item) {
   const tt = document.getElementsByClassName("title")[0];
+  const tpc = document.getElementsByClassName("topic")[0];
   if(item.title) {
     tt.innerHTML = item.title;
+    tpc.innerHTML = item.title + " - 在那出現之前";
   }
 }
 

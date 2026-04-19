@@ -320,7 +320,7 @@ img {
 /* #region===== 上下滑動結構 ===== */
 .upDownGroup {
   position: relative;
-  height: 400vh;
+  height: 800vh;
   z-index: 1;
   isolation: isolate;
 }
@@ -350,7 +350,7 @@ img {
   height: 100vh;
 }
 .upDownPanel2 {
-  height: 100vh;
+  height: 500vh;
 }
 
 .final-fixed {
@@ -2115,7 +2115,7 @@ body.dragging { cursor: grabbing; }
     }
 
     /* ─── DESKTOP 1440 × 3800 ─── */
-    #layout-web { width: 1440px; height: 3200px; background: #ffffff; }
+    #layout-web { width: 1440px; height: 3200px; background: #ffffff00; }
     #layout-web .bg-layer { position: absolute; object-fit: cover; will-change: transform; }
     #layout-web .bg-gray  { left: -123px; top: -16px; width: 1685px; height: 3300px; z-index: 0; }
     #layout-web .bg-red   { left: -359px; top: -332px; width: 1920px; height: 3500px; z-index: 1; }

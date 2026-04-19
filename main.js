@@ -1145,4 +1145,43 @@ var RAW = 'https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01
     applyLayout();
     window.addEventListener('resize', applyLayout);
 
-   
+   function bindCustomSectionLink(linkSelector, getTarget) {
+  const link = document.querySelector(linkSelector);
+  if (!link) return;
+
+  link.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    const target = getTarget();
+    if (!target) return;
+
+    const offset = window.innerWidth >= 1024 ? 120 : 80;
+    const y = window.scrollY + target.getBoundingClientRect().top - offset;
+
+    window.scrollTo({
+      top: y,
+      behavior: 'smooth'
+    });
+  });
+}
+
+// 作品介紹（你原本 works2 可沿用）
+bindCustomSectionLink('a[href="#works2"]', function () {
+  return window.innerWidth >= 1024
+    ? document.getElementById('works-cardzone-desktop')
+    : document.getElementById('works-cardzone-mobile');
+});
+
+// 活動資訊：跳到第一張活動卡
+bindCustomSectionLink('a[href="#event2"]', function () {
+  return window.innerWidth >= 1024
+    ? document.getElementById('wcard-02')
+    : document.getElementById('hcard-02');
+});
+
+// 展覽介紹：跳到展覽資訊區
+bindCustomSectionLink('a[href="#exhibit2"]', function () {
+  return window.innerWidth >= 1024
+    ? document.querySelector('#layout-web .body-text')
+    : document.querySelector('#layout-handy .body-text-wrap');
+});

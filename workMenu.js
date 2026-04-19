@@ -189,6 +189,7 @@ function updateBgVideoSource() {
 
   bg.load();
   bg.play();
+  
 }
 
 // ✅ 加在這裡

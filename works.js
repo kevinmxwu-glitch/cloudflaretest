@@ -287,7 +287,7 @@ function updateBgVideoSource() {
       : 'video/works/bg_mobile.mp4';
 
   // 如果來源沒變，就不要重設
-  if (currentBgSrc === newSrc) return;
+  //if (currentBgSrc === newSrc) return;
 
   currentBgSrc = newSrc;
 
@@ -307,6 +307,7 @@ function updateBgVideoSource() {
 
   bg.load();
   bg.play();
+  
 }
 
 // ✅ 加在這裡

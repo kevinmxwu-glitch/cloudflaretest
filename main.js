@@ -1272,6 +1272,7 @@ fetch("https://script.google.com/macros/s/AKfycby1E_A5sVq0UCVlnjtLyyklGE1lSr-V1O
             coverWork.setAttribute('src', item.cover);
             coverWork.setAttribute('alt', item.group);
             sframeWork.appendChild(coverWork);
+            cardWork.appendChild(sframeWork);
 
             const stitleWork = document.createElement("div");
             stitleWork.setAttribute('class', 's-title');

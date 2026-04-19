@@ -283,8 +283,8 @@ function updateBgVideoSource() {
 
   const newSrc =
     window.innerWidth > 768
-      ? 'video/start/start_desktop.mp4'
-      : 'video/start/start_mobile.mp4';
+      ? 'video/start/bg_desktop.mp4'
+      : 'video/start/bg_mobile.mp4';
 
   // 如果來源沒變，就不要重設
   if (currentBgSrc === newSrc) return;

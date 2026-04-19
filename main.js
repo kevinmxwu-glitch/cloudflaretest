@@ -659,8 +659,8 @@ var RAW = 'https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01
     var LOGO_URL = "https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/standW_horizon_B.png";
 
     const groupWork = ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10", "A11", "A12", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9"];
-    const titleWork = [];
-    const imgWork = [];
+    let titleWork = new Array(21);
+    let imgWork = new Array(21);
     
     fetch("https://script.google.com/macros/s/AKfycby1E_A5sVq0UCVlnjtLyyklGE1lSr-V1OHcgpDfQfuLVBCnzDTs6oL1Re4d5GUJlANiiw/exec")
     .then(res => res.json())
@@ -668,8 +668,8 @@ var RAW = 'https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01
       data.forEach(item => {
         for(let i = 0; i < groupWork.length; i++){
             if(item.group == groupWork[i]){
-                titleWork.push(item.title);
-                imgWork.push(item.cover);
+                titleWork[i] = item.title;
+                imgWork[i] = item.cover;
             }
         }
       });

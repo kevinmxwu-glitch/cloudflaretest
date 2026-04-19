@@ -53,34 +53,82 @@ document.querySelectorAll(".side-menu a").forEach(link => {
   });
 });
 
+const load = document.getElementById('loadVideo');
+let currentLoadSrc = '';
 
-//響應載入影片切換
-var load = document.getElementById('loadVideo');
-var source = document.createElement('source');
-if (window.innerWidth > 768) {
-  source.setAttribute('src', 'video/loading/loading2.mp4');
-}
-else {
-  source.setAttribute('src', 'video/loading/loading.mp4');
-  load.style.maxWidth = "100%";
-}
-source.setAttribute('type', 'video/mp4');
-load.appendChild(source);
-load.play();
+function updateLoadVideoSource() {
+  if (!load) return;
 
-//響應背景影片切換
-var bg = document.getElementById('bgVideo');
-var source = document.createElement('source');
-if (window.innerWidth > 768) {
-  source.setAttribute('src', 'video/start/start_desktop.mp4');
+  const newSrc =
+    window.innerWidth > 768
+      ? 'video/loading/loading2.mp4'
+      : 'video/loading/loading.mp4';
+
+  if (currentLoadSrc === newSrc) return;
+
+  currentLoadSrc = newSrc;
+
+  load.pause();
+  load.innerHTML = '';
+
+  const newSource = document.createElement('source');
+  newSource.src = newSrc;
+  newSource.type = 'video/mp4';
+  load.appendChild(newSource);
+
+  if (window.innerWidth <= 768) {
+    load.style.maxWidth = "100%";
+  } else {
+    load.style.maxWidth = "";
+  }
+
+  load.load();
+  load.play();
 }
-else {
-  source.setAttribute('src', 'video/start/start_mobile.mp4');
-  bg.style.maxWidth = "100%";
+
+const bg = document.getElementById('bgVideo');
+let currentBgSrc = '';
+
+function updateBgVideoSource() {
+  if (!bg) return;
+
+  const newSrc =
+    window.innerWidth > 768
+      ? 'video/start/start_desktop.mp4'
+      : 'video/start/start_mobile2.mp4';
+
+  // 如果來源沒變，就不要重設
+  if (currentBgSrc === newSrc) return;
+
+  currentBgSrc = newSrc;
+
+  bg.pause();
+  bg.innerHTML = '';
+
+  const newSource = document.createElement('source');
+  newSource.src = newSrc;
+  newSource.type = 'video/mp4';
+  bg.appendChild(newSource);
+
+  if (window.innerWidth <= 768) {
+    bg.style.maxWidth = "100vw";
+  } else {
+    bg.style.maxWidth = "";
+  }
+
+  bg.load();
+  bg.play();
 }
-source.setAttribute('type', 'video/mp4');
-bg.appendChild(source);
-bg.play();
+
+// ✅ 加在這裡
+updateLoadVideoSource();
+updateBgVideoSource();
+
+window.addEventListener('resize', () => {
+  updateLoadVideoSource();
+  updateBgVideoSource();
+});
+
 
 
 //載入

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hide on Bush</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="ui">
+    <div class="world-panel" id="counter">
+      <span class="big"><span id="found-n"> 0</span> / <span id="total-n">37</span></span>
+    </div>
+  </div>
+
+  <div id="minimap">
+    <div class="world-panel">
+      <div id="mm-vp"></div>
+      <div id="mm-dots"></div>
+    </div>
+  </div>
+
+  <div id="spotlight">
+    <div id="spotlight-card">
+      <div id="spotlight-close">✕</div>
+      <img id="spotlight-img" src="" alt="">
+      <div id="spotlight-group"></div>
+      <div id="spotlight-label"></div>
+      <div id="spotlight-socials">
+        <a class="social-btn instagram" id="sl-instagram" href="#" target="_blank" onclick="return false;">
+          <img src="https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/iglogosvg.svg" alt="Instagram">
+        </a>
+        <a class="social-btn youtube" id="sl-youtube" href="#" target="_blank" onclick="return false;">
+          <img src="https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/playiconsvg.svg" alt="YouTube">
+        </a>
+      </div>
+      <a id="spotlight-work" href="#" target="_blank" onclick="return false;">前往作品 →</a>
+    </div>
+  </div>
+
+  <div id="drag-hint">
+    <img src="https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/drag01.svg" alt="Drag to explore">
+    <p>DRAG TO EXPLORE</p>
+  </div>
+
+  <div id="world">
+    <div id="bg"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

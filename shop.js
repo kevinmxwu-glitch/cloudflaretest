@@ -1048,7 +1048,7 @@ if (window.innerWidth > 768) {
 }
 else {
   source.setAttribute('src', 'video/loading/loading.mp4');
-  load.style.maxWidth = "100%";
+  //load.style.maxWidth = "100%";
 }
 source.setAttribute('type', 'video/mp4');
 load.appendChild(source);

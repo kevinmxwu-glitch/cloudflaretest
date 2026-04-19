@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>《在那出現之前 Before Zero》展覽開幕茶會｜活動資訊</title>
+
+  <style>
+    :root {
+      --text: #101010;
+      --muted: #2b2b2b;
+      --subtle: #575757;
+      --button: #e45733;
+      --button-hover: #ef6b49;
+      --card: rgba(245, 245, 245, 0.92);
+      --line: rgba(0,0,0,.12);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+
+    body {
+      font-family: "Noto Sans TC", sans-serif;
+      color: var(--text);
+      background:
+        linear-gradient(rgba(0,0,0,.08), rgba(0,0,0,.18)),
+        url('https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/scrolling3/bg_gray.webp') center / cover no-repeat fixed;
+    }
+
+    .page {
+      width: min(100%, 980px);
+      margin: 0 auto;
+      padding: 22px 18px 48px;
+    }
+
+    .panel {
+      background: var(--card);
+      padding: 18px 18px 28px;
+      box-shadow: 0 12px 38px rgba(0,0,0,.18);
+    }
+
+    .top-icon {
+      display: inline-block;
+      width: 42px;
+      margin-bottom: 14px;
+    }
+
+    .top-icon img {
+      width: 100%;
+      filter: invert(1);
+    }
+
+    .title {
+      font-size: clamp(28px, 4.8vw, 54px);
+      font-weight: 900;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    /* ✅ CLEAN HERO */
+    .hero {
+      width: 100%;
+      aspect-ratio: 1.48 / 1;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .content {
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .desc {
+      margin-bottom: 18px;
+      white-space: pre-line;
+    }
+
+    .meta-item {
+      margin-bottom: 6px;
+      color: var(--subtle);
+    }
+
+    .meta-item strong {
+      color: #000;
+    }
+
+    .button {
+      display: inline-flex;
+      padding: 12px 28px;
+      border-radius: 999px;
+      background: var(--button);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 800;
+      margin-top: 12px;
+    }
+
+    .button:hover {
+      background: var(--button-hover);
+    }
+
+    .button.is-disabled {
+      background: rgba(0,0,0,.12);
+      color: rgba(0,0,0,.6);
+      pointer-events: none;
+    }
+
+    .pager {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+
+    .pager-link {
+      text-decoration: none;
+      color: #000;
+      font-weight: 700;
+    }
+
+    .dots {
+      display: flex;
+      gap: 10px;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.2);
+    }
+
+    .dot.active {
+      width: 26px;
+      background: #000;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="page">
+    <section class="panel">
+
+      <!-- back -->
+      <a class="top-icon" href="index.html">
+        <img src="https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/scrolling3/faviconW.webp">
+      </a>
+
+      <h1 class="title">
+        《在那出現之前 Before Zero》展覽開幕茶會
+      </h1>
+
+      <!-- ✅ IMAGE -->
+      <div class="hero">
+        <img src="https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/rebuild_01/openshow.webp">
+      </div>
+
+      <section class="content">
+
+        <p class="desc">
+北藝新媒 111 級畢業展覽《在那出現之前 Before Zero》
+誠摯邀請您一同見證展覽正式揭幕
+
+開幕表演嘉賓：電動橘皮、Luca Bonaccorsi  
+DJ：Khula Huang
+        </p>
+
+        <p class="meta-item"><strong>時間:</strong> 5/9（六）15:00–17:30（14:30開放入場）</p>
+        <p class="meta-item"><strong>地點:</strong> 國立臺灣科學教育館 七樓東北側走道</p>
+        <p class="meta-item"><strong>參加方法:</strong> Accupass報名</p>
+
+        <span class="button is-disabled">報名資訊待補</span>
+
+        <!-- navigation -->
+        <div class="pager">
+          <a class="pager-link" href="event-2.html">PREV</a>
+
+          <div class="dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot active"></div>
+          </div>
+
+          <a class="pager-link" href="event-1.html">NEXT</a>
+        </div>
+
+      </section>
+    </section>
+  </main>
+
+</body>
+</html>

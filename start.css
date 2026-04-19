@@ -46,57 +46,102 @@ html {
 }*/
 
 /* ===== Main ===== */
-.start-1 {
+/* ===== 共用文字風格 ===== */
+.start-group {
   position: absolute;
-  right: 0%;
-  top: 5%;
+  display: flex;
+  flex-direction: column;
+  /*max-width: 420px;*/
+}
+
+/* 右上 */
+.start-top-right {
+  top: 6%;
+  right: 6%;
   text-align: right;
-  font-size: 45px;
-  letter-spacing: 2px;
-  line-height: 130%;
-  color: #e83928;
-  font-weight: 100;
-  animation-duration: 3s;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
-  animation-name: jump;
-  animation-play-state: running;
-  /* text-shadow: -0.5px -0.5px 0 #efefef,
-              0.5px -0.5px 0 #efefef,
-              -0.5px 0.5px 0 #efefef,
-              0.5px 0.5px 0 #efefef; */
 }
-.start-2 {
-  position: absolute;
-  left: 0%;
-  bottom: 5%;
+
+/* 右下 */
+.start-bottom-right {
+  bottom: 6%;
+  right: 6%;
   text-align: left;
-  font-size: 45px;
-  letter-spacing: 2px;
-  line-height: 130%;
-  color: #e83928;
-  font-weight: 100;
-  animation-duration: 3s;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
-  animation-name: jump;
-  animation-play-state: running;
-  animation-delay: 1.5s;
-  /* text-shadow: -0.5px -0.5px 0 #efefef,
-              0.5px -0.5px 0 #efefef,
-              -0.5px 0.5px 0 #efefef,
-              0.5px 0.5px 0 #efefef; */
+  -webkit-writing-mode: vertical-rl; /* 兼容舊版 Webkit 瀏覽器 */
+    writing-mode: vertical-rl;
 }
-.start-1::selection {
-  color: #efefef;
-  background-color: #e83928;
+
+/* 左下 */
+.start-bottom-left {
+  bottom: 6%;
+  left: 8%;
+  text-align: left;
+}
+
+/* ===== 所有文字統一風格 ===== */
+.start-group div {
+  color:#E83928;   /* 亮橘（比你現在更亮一點） */
+  line-height: 1.6;
+  letter-spacing: 0.2em;
+
+  animation: floatText 4s ease-in-out infinite;
+}
+.start-1{
+  font-size: clamp(18px, 1.5vw, 32px);
+  font-weight: 400;
+  padding: 0 0 12px 0;
+}
+
+.start-2{
+  font-size: clamp(18px, 1.5vw, 32px);
+  font-weight: 400;
+  padding: 0 12px 0 0;
+}
+
+.start-4{
+  font-size: clamp(16px, 1.35vw, 28px);
+  padding: 12px 0 0 0;
+}
+
+.start-1-2,
+.start-2-2,
+.start-4-2,
+.start-4-3 {
+  font-size: clamp(10px, 0.8vw, 15px);
+}
+
+.start-3 {
+  font-size: clamp(16px, 1.1vw, 24px);
+}
+
+.start-3-2 {
+  font-size: clamp(26px, 2.2vw, 46px);
   font-weight: 600;
 }
-.start-2::selection {
+/* ===== 飄浮動畫（取代 jump） ===== */
+@keyframes floatText {
+  0%, 100% {
+    transform: translateY(0px);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateY(-18px);
+    opacity: 1;
+  }
+}
+
+/* ===== 每組錯開動畫（更有設計感） ===== */
+
+@media (max-width: 1024px) {
+  .start-group {
+    display: none;
+  }
+}
+
+.start-group::selection {
   color: #efefef;
   background-color: #e83928;
-  font-weight: 600;
 }
+
 @keyframes jump {
   0%, 100%{
     transform: translateY(0px);
@@ -211,13 +256,16 @@ html {
   z-index: 10000;
   pointer-events: none
 }
-.loader video{
+.loader video {
   position: absolute;
-  min-height: 100%;
-  min-width: 100%;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
 }
 /* 開分背景 */
-.bg {
+.start-bg {
   position: fixed;
   top: 0;
   left: 0;
@@ -229,10 +277,13 @@ html {
   z-index: -1;
   pointer-events: none
 }
-.bg video{
+.start-bg video {
   position: absolute;
-  min-height: 100%;
-  min-width: 100%;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
 }
 
 

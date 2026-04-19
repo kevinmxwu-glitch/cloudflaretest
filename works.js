@@ -232,7 +232,7 @@ if (window.innerWidth > 768) {
   source.setAttribute('src', 'https://github.com/kevinmxwu-glitch/cloudflaretest/tree/main/video/works/bg_desktop.mp4');
 }
 else {
-  sourceld.setAttribute('src', 'https://github.com/kevinmxwu-glitch/cloudflaretest/tree/main/video/loading/loading.mp4');
+  sourceld.setAttribute('src', 'https://github.com/kevinmxwu-glitch/cloudflaretest/tree/main/video/works/bg_desktop.mp4');
   load.style.maxWidth = "100%";
   source.setAttribute('src', 'https://github.com/kevinmxwu-glitch/cloudflaretest/tree/main/video/works/bg_desktop.mp4');
   bg.style.maxWidth = "100%";

@@ -993,8 +993,10 @@ a{
   display: flex;
   align-items: center;
   justify-content: center;
+
   margin-bottom: 16px;
   border-radius: 12px;
+
   color: #EFEFEF;
   font-size: 18px;
   font-weight: 700;
@@ -1003,17 +1005,29 @@ a{
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+
   position: relative;
   overflow: hidden;
-  z-index: 1;
 }
-.section-banner.single  { background-image: url("image/shop/model1.jpg"); }
-.section-banner.combo   { background-image: url("image/shop/model3.jpg"); }
+
+.section-banner.single {
+  background-image: url("image/shop/model1.jpg");
+}
+
+.section-banner.combo {
+  background-image: url("image/shop/model3.jpg");
+}
+
 .section-banner::before {
   content: "";
   position: absolute;
   inset: 0;
   background: rgba(255, 255, 255, 0.174);
+}
+
+.section-banner {
+  position: relative;
+  z-index: 1;
 }
 
 #shop-page::before {
@@ -1234,6 +1248,13 @@ select {
 
 /* #endregion */
 /* #region===== 商品 / 組合列表 ===== */
+#product-list,
+#combo-list {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
 
 .product,
 .combo-product {
@@ -1242,7 +1263,28 @@ select {
   z-index: 1;
 }
 
-#product-list > *,
+.product,
+.combo-product {
+  color: #EFEFEF;
+  line-height: 1.4;
+  width: 100%;
+  max-width: 330px;
+  height: 220px;
+  display: flex;
+  align-items: flex-start;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+#product-list,
+#combo-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+#product-list>*,
 #combo-list>* {
   justify-self: center;
 }
@@ -1262,6 +1304,7 @@ select {
   cursor: not-allowed;
 }
 
+.loading-products {}
 
 .stock-info.is-loading {
   display: inline-block;
@@ -1335,14 +1378,28 @@ select {
 
 
 
+.product-desc {
+  flex-grow: 1;
+}
+
+
+.product-meta {
+  margin-top: auto;
+}
+
+.product-qty {
+  margin-top: 6px;
+}
+
 .product-name {
   font-size: 18px;
   font-weight: bold;
   letter-spacing: 0.1em;
+
 }
 
+
 .product-desc {
-  flex-grow: 1;
   font-size: 13px;
   opacity: 0.7;
   margin: 0 0 10px 0;
@@ -1350,10 +1407,9 @@ select {
 }
 
 .product-meta {
-  margin-top: auto;
   display: flex;
   align-items: end;
-  gap: 0;
+  gap: 0px;
 }
 
 .product-price {
@@ -1367,7 +1423,6 @@ select {
 }
 
 .product-qty {
-  margin-top: 6px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -1639,6 +1694,7 @@ select {
 }
 
 /* #endregion */
+
 
 /* #region===== 草地 ===== */
 #about .main {

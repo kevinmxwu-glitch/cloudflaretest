@@ -51,14 +51,10 @@ const bgA         = document.querySelector(".bg.A");
 const visitTrigger = document.querySelector("#visit2");
 
 let bgSwitchTicking = false;
-function getAppHeight() {
-  return window.visualViewport ? window.visualViewport.height : window.innerHeight;
-}
-
 function updateBgSwitch() {
   if (!bgA || !visitTrigger) return;
   const triggerTop = visitTrigger.getBoundingClientRect().top;
-  bgA.classList.toggle("hide", triggerTop <= getAppHeight());
+  bgA.classList.toggle("hide", triggerTop <= window.innerHeight);
 }
 
 function onBgSwitchEvent() {
@@ -974,25 +970,14 @@ function setupHover() {
     });
   });
 }
-function setAppHeight() {
-  const vh = (window.visualViewport ? window.visualViewport.height : window.innerHeight) * 0.01;
-  document.documentElement.style.setProperty('--app-vh', `${vh}px`);
-}
-setAppHeight();
 
-window.addEventListener('resize', setAppHeight);
-window.addEventListener('orientationchange', setAppHeight);
-
-if (window.visualViewport) {
-  window.visualViewport.addEventListener('resize', setAppHeight);
-}
-function getAppHeight() {
+function getViewportHeight() {
   return window.visualViewport ? window.visualViewport.height : window.innerHeight;
 }
 
 function applyLayout() {
   const vw        = window.innerWidth;
-  const vh        = getAppHeight();
+  const vh        = getViewportHeight();
   const isDesktop = vw >= 1024;
   const handy     = document.getElementById('layout-handy');
   const web       = document.getElementById('layout-web');
@@ -1017,8 +1002,13 @@ function applyLayout() {
     positionSnaps(mobileSnaps, scale);
   }
 
-  if (upDownPanel2) upDownPanel2.style.height = panelHeight + 'px';
-  if (upDownGroup)  upDownGroup.style.height  = (panelHeight + vh * 3) + 'px';
+  if (upDownPanel2) {
+    upDownPanel2.style.height = panelHeight + 'px';
+  }
+
+  if (upDownGroup) {
+    upDownGroup.style.height = (panelHeight + vh * 3) + 'px';
+  }
 
   invalidateCardCache();
   setupHover();

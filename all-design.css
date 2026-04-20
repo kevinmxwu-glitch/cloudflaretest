@@ -310,7 +310,7 @@ a{
 .upDownBg {
   position: sticky;
   top: 0;
-  height: calc(var(--app-vh, 100vh) * 100);
+  height: 100vh;
 
   z-index: 2;
 }
@@ -318,7 +318,7 @@ a{
 .upDownContent {
   position: relative;
   z-index: 3;
-  margin-top: calc(var(--app-vh, 100vh) * -100);
+  margin-top: -100vh;
   pointer-events: none;
   transform: translateY(0);
   /*transition: transform 0.5s ease;*/
@@ -329,7 +329,7 @@ a{
 }
 
 .upDownPanel {
-   height: calc(var(--app-vh, 100vh) * 100);
+  height: 100vh;
 }
 .upDownPanel2 {
   height: 500vh;
@@ -2504,10 +2504,4 @@ body.dragging { cursor: grabbing; }
 
 .bz-link-btn:hover .bz-link-arrow {
   transform: translateX(6px);
-}
-
-@media (max-width: 1023px) {
-  #layout-handy .bg-red {
-    display: none;
-  }
 }

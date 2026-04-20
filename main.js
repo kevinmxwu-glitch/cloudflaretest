@@ -75,11 +75,11 @@ window.addEventListener("load",   updateBgSwitch);
    Shop section — pseudo-3D mouse effect
 ====================== */
 const visualImages   = [
-  "image/shop/hook1.png",
-  "image/shop/sock1.png",
-  "image/shop/cup1.png",
-  "image/shop/card1.png",
-  "image/shop/poster1.png"
+  "image/shop/hook1.webp",
+  "image/shop/sock1.webp",
+  "image/shop/cup1.webp",
+  "image/shop/card1.webp",
+  "image/shop/poster1.webp"
 ];
 
 let currentIndex = 0;

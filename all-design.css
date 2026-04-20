@@ -1011,11 +1011,11 @@ a{
 }
 
 .section-banner.single {
-  background-image: url("image/shop/model1.jpg");
+  background-image: url("image/shop/model1.webp");
 }
 
 .section-banner.combo {
-  background-image: url("image/shop/model3.jpg");
+  background-image: url("image/shop/model3.webp");
 }
 
 .section-banner::before {

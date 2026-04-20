@@ -176,6 +176,43 @@ function getComboStock(combo) {
   const cartDisplay = document.getElementById('cartDisplay');
   cartDisplay.textContent = displayDetails.length > 0 ? displayDetails.join('，') : '尚未選購商品';
 }*/
+function cartHasPoster() {
+  const posterProduct = Array.from(productDivs).find(
+    product => product.dataset.code === 'poster'
+  );
+
+  if (!posterProduct) return false;
+
+  const count = parseInt(posterProduct.querySelector('.count').textContent, 10) || 0;
+  return count > 0;
+}
+function updateDeliveryOptions() {
+  const select = document.getElementById('targetSheet');
+  const hint = document.getElementById('deliveryHint');
+  if (!select) return;
+
+  const option711 = Array.from(select.options).find(opt => opt.value === '711店取');
+  if (!option711) return;
+
+  const hasPoster = cartHasPoster();
+
+  if (hasPoster) {
+    option711.disabled = true;
+    option711.textContent = '711賣貨便（海報不可選）';
+
+    if (hint) hint.style.display = 'block';
+
+    // 如果使用者原本已經選了 711，強制切回可用選項
+    if (select.value === '711店取') {
+      select.value = '匯款自取';
+    }
+  } else {
+    option711.disabled = false;
+    option711.textContent = '711賣貨便';
+
+    if (hint) hint.style.display = 'none';
+  }
+}
 function updateTotalAndProduct() {
   let total = 0;
   const displayDetails = [];
@@ -260,22 +297,26 @@ function bindProductButtons() {
     const count = product.querySelector('.count');
 
     plus.onclick = () => {
-      if (plus.disabled) return;
-      let current = parseInt(count.textContent, 10) || 0;
-      count.textContent = current + 1;
-      updateTotalAndProduct();
-      refreshAllStocks();
-    };
+  if (plus.disabled) return;
+  let current = parseInt(count.textContent, 10) || 0;
+  count.textContent = current + 1;
+  updateTotalAndProduct();
+  updateDeliveryOptions();
+  updateFieldVisibility();
+  refreshAllStocks();
+};
 
-    minus.onclick = () => {
-      if (minus.disabled) return;
-      let current = parseInt(count.textContent, 10) || 0;
-      if (current > 0) {
-        count.textContent = current - 1;
-        updateTotalAndProduct();
-        refreshAllStocks();
-      }
-    };
+minus.onclick = () => {
+  if (minus.disabled) return;
+  let current = parseInt(count.textContent, 10) || 0;
+  if (current > 0) {
+    count.textContent = current - 1;
+    updateTotalAndProduct();
+    updateDeliveryOptions();
+    updateFieldVisibility();
+    refreshAllStocks();
+  }
+};
   });
 }
 /* ======================
@@ -314,22 +355,26 @@ function bindComboButtons() {
     const count = comboDiv.querySelector('.count');
 
     plus.onclick = () => {
-      if (plus.disabled) return;
-      let current = parseInt(count.textContent, 10) || 0;
-      count.textContent = current + 1;
-      updateTotalAndProduct();
-      refreshAllStocks();
-    };
+  if (plus.disabled) return;
+  let current = parseInt(count.textContent, 10) || 0;
+  count.textContent = current + 1;
+  updateTotalAndProduct();
+  updateDeliveryOptions();
+  updateFieldVisibility();
+  refreshAllStocks();
+};
 
-    minus.onclick = () => {
-      if (minus.disabled) return;
-      let current = parseInt(count.textContent, 10) || 0;
-      if (current > 0) {
-        count.textContent = current - 1;
-        updateTotalAndProduct();
-        refreshAllStocks();
-      }
-    };
+minus.onclick = () => {
+  if (minus.disabled) return;
+  let current = parseInt(count.textContent, 10) || 0;
+  if (current > 0) {
+    count.textContent = current - 1;
+    updateTotalAndProduct();
+    updateDeliveryOptions();
+    updateFieldVisibility();
+    refreshAllStocks();
+  }
+};
   });
 }
 /* ======================
@@ -687,10 +732,12 @@ function loadProducts() {
       });
 
       bindProductButtons();
-      bindComboButtons();
-      updateRestrictions();
-      updateTotalAndProduct();
-      refreshAllStocks();
+bindComboButtons();
+updateRestrictions();
+updateTotalAndProduct();
+updateDeliveryOptions();
+updateFieldVisibility();
+refreshAllStocks();
 
       loadingText.style.display = 'none';
     })
@@ -702,16 +749,16 @@ function loadProducts() {
 /* ======================
    初始化
 ====================== */
-document.addEventListener('DOMContentLoaded', () => {
+function updateFieldVisibility() {
   const select = document.getElementById('targetSheet');
   const storeCodeField = document.getElementById('storeCodeField');
   const bankCodeField = document.getElementById('bankCodeField');
-  const storeCodeInput = storeCodeField.querySelector('input');
-
- function updateFieldVisibility() {
-  const method = select.value;
   const transferNote = document.getElementById('transferNote');
   const pickupNote = document.getElementById('pickupNote');
+
+  if (!select || !storeCodeField || !bankCodeField) return;
+
+  const method = select.value;
 
   if (method === '711店取') {
     storeCodeField.style.display = 'block';
@@ -730,7 +777,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (pickupNote) pickupNote.style.display = 'none';
 
   } else {
-    // 現金自取
     storeCodeField.style.display = 'none';
     bankCodeField.style.display = 'none';
     setFee(0);
@@ -739,6 +785,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (pickupNote) pickupNote.style.display = 'block';
   }
 }
+document.addEventListener('DOMContentLoaded', () => {
+  const select = document.getElementById('targetSheet');
+  const storeCodeField = document.getElementById('storeCodeField');
+  const storeCodeInput = storeCodeField.querySelector('input');
 
   const storeSearchBtn = document.querySelector('.store-search-btn');
   const storeCodeInput2 = document.getElementById('storeCode');
@@ -754,10 +804,12 @@ document.addEventListener('DOMContentLoaded', () => {
   loadProducts();
 
   select.addEventListener('change', () => {
+    updateDeliveryOptions();
     updateFieldVisibility();
     updateRestrictions();
   });
 
+  updateDeliveryOptions();
   updateFieldVisibility();
 });
 
@@ -830,6 +882,7 @@ form.addEventListener('submit', e => {
       updateRestrictions();
       setFee(select.value === '711店取' ? 38 : 0);
       updateTotalAndProduct();
+      updateDeliveryOptions();
     })
     .catch(err => {
       if (!hasSubmitted) {

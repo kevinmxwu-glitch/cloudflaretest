@@ -29,30 +29,10 @@ img {
   -webkit-user-drag: none;
   user-drag: none;
 }
-/* 開分載入中 */
-.loader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 10000;
-  pointer-events: none
-}
-.loader video{
-  position: absolute;
-  height: 100vh;
-  min-width: 100%;
-}
 a{
   text-decoration: none;
 }
-a:link, a:visited, a:hover, a:active{
-  
-}
+
 /* #endregion */
 /* #region===== start =====*/
 /* ===== 共用文字風格 ===== */
@@ -151,16 +131,7 @@ a:link, a:visited, a:hover, a:active{
   background-color: #e83928;
 }
 
-@keyframes jump {
-  0%, 100%{
-    transform: translateY(0px);
-    font-weight: 800;
-  }
-  50%{
-    transform: translateY(-20px);
-    font-weight: 700;
-  }
-}
+
 .swipe {
   color: #efefef;
   text-align: center;
@@ -374,13 +345,12 @@ a:link, a:visited, a:hover, a:active{
 
 .bg.A {
   z-index: 2;
-  background: red;
+  transition: opacity 0.5s ease;
   /* A畫面 */
 }
 
 .bg.B {
   z-index: 1;
-  background: blue;
   /* B畫面 */
 }
 
@@ -1017,10 +987,8 @@ a:link, a:visited, a:hover, a:active{
   display: flex;
   align-items: center;
   justify-content: center;
-
   margin-bottom: 16px;
   border-radius: 12px;
-
   color: #EFEFEF;
   font-size: 18px;
   font-weight: 700;
@@ -1029,29 +997,17 @@ a:link, a:visited, a:hover, a:active{
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-
   position: relative;
   overflow: hidden;
+  z-index: 1;
 }
-
-.section-banner.single {
-  background-image: url("image/shop/model1.jpg");
-}
-
-.section-banner.combo {
-  background-image: url("image/shop/model3.jpg");
-}
-
+.section-banner.single  { background-image: url("image/shop/model1.jpg"); }
+.section-banner.combo   { background-image: url("image/shop/model3.jpg"); }
 .section-banner::before {
   content: "";
   position: absolute;
   inset: 0;
   background: rgba(255, 255, 255, 0.174);
-}
-
-.section-banner {
-  position: relative;
-  z-index: 1;
 }
 
 #shop-page::before {
@@ -1272,13 +1228,6 @@ select {
 
 /* #endregion */
 /* #region===== 商品 / 組合列表 ===== */
-#product-list,
-#combo-list {
-  display: grid;
-
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 20px;
-}
 
 .product,
 .combo-product {
@@ -1287,28 +1236,7 @@ select {
   z-index: 1;
 }
 
-.product,
-.combo-product {
-  color: #EFEFEF;
-  line-height: 1.4;
-  width: 100%;
-  max-width: 330px;
-  height: 220px;
-  display: flex;
-  align-items: flex-start;
-  background: transparent;
-  border: none;
-  padding: 0;
-}
-
-#product-list,
-#combo-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-}
-
-#product-list>*,
+#product-list > *,
 #combo-list>* {
   justify-self: center;
 }
@@ -1328,7 +1256,6 @@ select {
   cursor: not-allowed;
 }
 
-.loading-products {}
 
 .stock-info.is-loading {
   display: inline-block;
@@ -1402,28 +1329,14 @@ select {
 
 
 
-.product-desc {
-  flex-grow: 1;
-}
-
-
-.product-meta {
-  margin-top: auto;
-}
-
-.product-qty {
-  margin-top: 6px;
-}
-
 .product-name {
   font-size: 18px;
   font-weight: bold;
   letter-spacing: 0.1em;
-
 }
 
-
 .product-desc {
+  flex-grow: 1;
   font-size: 13px;
   opacity: 0.7;
   margin: 0 0 10px 0;
@@ -1431,9 +1344,10 @@ select {
 }
 
 .product-meta {
+  margin-top: auto;
   display: flex;
   align-items: end;
-  gap: 0px;
+  gap: 0;
 }
 
 .product-price {
@@ -1447,6 +1361,7 @@ select {
 }
 
 .product-qty {
+  margin-top: 6px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -1720,21 +1635,12 @@ select {
 /* #endregion */
 
 /* #region===== 草地 ===== */
-/** { margin:0; padding:0; box-sizing:border-box; }*/
 #about .main {
   position: relative;
   overflow: hidden;
   width: 100%;
   height: 100%;
 }
-/*body {
-
-  
-  width: 100vw; height: 100vh;
-  cursor: grab;
-  user-select: none;
-  font-family: 'Georgia', serif;
-}*/
 body.dragging { cursor: grabbing; }
 .world-page {
   overflow: hidden;
@@ -1973,20 +1879,7 @@ body.dragging { cursor: grabbing; }
 /* #endregion */
 
 /* #region===== 主頁 ===== */
-/** { margin: 0; padding: 0; box-sizing: border-box; }
-    html {
-      background: #000;
-      scroll-snap-type: y mandatory;
-      overflow-y: scroll;
-      height: 100%;
-    }
-    body {
-      overflow-x: hidden;
-      position: relative;
-      scroll-snap-type: y mandatory;
-    }
-
-    /* Scroll-snap sentinel anchors */
+/* (former standalone html/body resets removed — already set globally above) */
     .snap-anchor {
       position: absolute;
       left: 0;
@@ -2005,7 +1898,7 @@ body.dragging { cursor: grabbing; }
 
     /* ─── MOBILE 390 × 3800 ─── */
     #layout-handy { width: 390px; height: 2600px; background: #ffffff; }
-    #layout-handy .bg-layer { position: absolute; object-fit: cover; will-change: transform; }
+    #layout-handy .bg-layer { position: absolute; object-fit: cover; }
     #layout-handy .bg-gray  { left: -296px; top: -10px; width: 1500px; height: 3000px; z-index: 0; }
     #layout-handy .bg-red   { left: -60.37px; top: -657px; width: 1153.45px; height: 2640.8px; opacity: 0.75; transform: rotate(-10.02deg); z-index: 1; }
     #layout-handy .mov-card       { position: absolute; width: 147.78px; height: 263.25px; }
@@ -2122,7 +2015,8 @@ body.dragging { cursor: grabbing; }
 
     /* ─── DESKTOP 1440 × 3800 ─── */
     #layout-web { width: 1440px; height: 3200px; background: #ffffff00; }
-    #layout-web .bg-layer { position: absolute; object-fit: cover; will-change: transform; }
+    #layout-web .bg-layer { position: absolute; object-fit: cover; }
+    .bg-layer[data-parallax] { will-change: transform; }
     #layout-web .bg-gray  { left: -123px; top: -16px; width: 1685px; height: 3300px; z-index: 0; }
     #layout-web .bg-red   { left: -359px; top: -332px; width: 1920px; height: 3500px; z-index: 1; }
     #layout-web .strait-card       { position: absolute; top: 520px; width: 222.53px; height: 396.42px; z-index: 2; }
@@ -2421,20 +2315,18 @@ body.dragging { cursor: grabbing; }
       position: absolute;
       top: 470px;
       right: 30px;
-      background:#E83928;
+      width: 200px;
+      height: 50px;
+      background: #E83928;
       color: #fff;
       border: none;
-      border-radius: 999px;
+      border-radius: 46px;
       padding: 14px 28px;
       font-family: 'Inter', sans-serif;
       font-size: 14px;
- width: 200px;
-  height: 50px;
-       border: none;
-  border-radius: 46px;
       display: flex;
       align-items: center;
-  justify-content: center;
+      justify-content: center;
       gap: 10px;
       cursor: pointer;
       opacity: 0;
@@ -2442,9 +2334,10 @@ body.dragging { cursor: grabbing; }
       transform: translateY(10px);
       transition: opacity 0.4s ease, transform 0.4s ease;
       z-index: 5;
-    }.see-more-btn:hover {
-  background: #c92f20;
-}
+    }
+    .see-more-btn:hover {
+      background: #c92f20;
+    }
 
 .see-more-btn .arrow {
   transition: transform 0.3s;

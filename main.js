@@ -1,8 +1,4 @@
-function setAppHeight() {
-  const vh = (window.visualViewport ? window.visualViewport.height : window.innerHeight) * 0.01;
-  document.documentElement.style.setProperty('--app-vh', `${vh}px`);
-}
-setAppHeight();
+/* setAppHeight() removed — layout uses dvh natively in CSS, no JS recalculation needed */
 /* ======================
    Menu / Side Menu
 ====================== */
@@ -286,8 +282,8 @@ studentData.forEach((s, idx) => {
       wrap.classList.add('just-found');
       wrap.addEventListener('animationend', () => wrap.classList.remove('just-found'), { once: true });
     }
-    const targetCamX = clamp(s.x - innerWidth  / 2, 0, WW - innerWidth);
-    const targetCamY = clamp(s.y - innerHeight / 2, 0, WH - innerHeight);
+    const targetCamX = clamp(s.x - getViewW() / 2, 0, WW - getViewW());
+    const targetCamY = clamp(s.y - getViewH() / 2, 0, WH - getViewH());
     smoothPanTo(targetCamX, targetCamY, 420, () => {
       const sl      = document.getElementById('spotlight');
       const slImg   = document.getElementById('spotlight-img');
@@ -367,13 +363,18 @@ world.appendChild(worldFrag);
 ====================== */
 const clamp = (v, mn, mx) => Math.max(mn, Math.min(mx, v));
 
-let camX = WW / 2 - innerWidth  / 2;
-let camY = WH / 2 - innerHeight / 2;
+// Read the canvas container's own size — avoids triggering continuous layout recalculation
+function getViewW() { return aboutMain ? aboutMain.clientWidth  : window.innerWidth;  }
+function getViewH() { return aboutMain ? aboutMain.clientHeight : window.innerHeight; }
+
+let camX = WW / 2 - getViewW() / 2;
+let camY = WH / 2 - getViewH() / 2;
 let drag = false, lmx = 0, lmy = 0, vx = 0, vy = 0, raf = 0;
 
 function applyCamera() {
-  camX = clamp(camX, 0, WW - innerWidth);
-  camY = clamp(camY, 0, WH - innerHeight);
+  const vw = getViewW(), vh = getViewH();
+  camX = clamp(camX, 0, WW - vw);
+  camY = clamp(camY, 0, WH - vh);
   world.style.transform = `translate3d(${-camX}px,${-camY}px,0)`;
   updateMinimap();
 }
@@ -474,8 +475,8 @@ function updateMinimap() {
   const vp = document.getElementById('mm-vp');
   vp.style.left   = (camX / WW * mw) + 'px';
   vp.style.top    = (camY / WH * mh) + 'px';
-  vp.style.width  = (innerWidth  / WW * mw) + 'px';
-  vp.style.height = (innerHeight / WH * mh) + 'px';
+  vp.style.width  = (getViewW() / WW * mw) + 'px';
+  vp.style.height = (getViewH() / WH * mh) + 'px';
 }
 
 (function buildDots() {
@@ -976,14 +977,11 @@ function setupHover() {
   });
 }
 
-function getViewportHeight() {
-  return window.visualViewport ? window.visualViewport.height : window.innerHeight;
-}
+/* getViewportHeight() removed — use getViewH() instead */
 /**/
 function applyLayout() {
-  setAppHeight();  
   const vw        = window.innerWidth;
-  const vh        = getViewportHeight();
+  const vh        = getViewH();
   const isDesktop = vw >= 1024;
   const handy     = document.getElementById('layout-handy');
   const web       = document.getElementById('layout-web');
@@ -1026,15 +1024,9 @@ let layoutResizeTimer = null;
 window.addEventListener('resize', () => {
   clearTimeout(layoutResizeTimer);
   layoutResizeTimer = setTimeout(() => {
-    setAppHeight();   // ← 加這行
     applyLayout();
   }, 150);
 });
-if (window.visualViewport) {
-  window.visualViewport.addEventListener('resize', () => {
-    setAppHeight();
-  });
-}
 if (window.visualViewport) {
   window.visualViewport.addEventListener('resize', () => {
     clearTimeout(layoutResizeTimer);

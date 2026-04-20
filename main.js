@@ -1006,13 +1006,13 @@ function applyLayout() {
     positionSnaps(mobileSnaps, scale);
   }
 
-  if (upDownPanel2) {
+  /*if (upDownPanel2) {
     upDownPanel2.style.height = panelHeight + 'px';
-  }
+  }*/
 
-  if (upDownGroup) {
+  /*if (upDownGroup) {
     upDownGroup.style.height = (panelHeight + vh * 3) + 'px';
-  }
+  }*/
 
   invalidateCardCache();
   setupHover();

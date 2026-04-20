@@ -310,7 +310,7 @@ a{
 .upDownBg {
   position: sticky;
   top: 0;
-  height: calc(var(--app-vh, 100vh) * 100);
+  height: 100dvh;
 
   z-index: 2;
 }
@@ -318,7 +318,7 @@ a{
 .upDownContent {
   position: relative;
   z-index: 3;
-  margin-top: -100vh;
+  margin-top: -100dvh;
   pointer-events: none;
   transform: translateY(0);
   /*transition: transform 0.5s ease;*/
@@ -329,7 +329,7 @@ a{
 }
 
 .upDownPanel {
-  height: 100vh;
+  height: 100dvh;
 }
 .upDownPanel2 {
   height: 500vh;

@@ -971,8 +971,13 @@ function setupHover() {
   });
 }
 
+function getViewportHeight() {
+  return window.visualViewport ? window.visualViewport.height : window.innerHeight;
+}
+
 function applyLayout() {
   const vw        = window.innerWidth;
+  const vh        = getViewportHeight();
   const isDesktop = vw >= 1024;
   const handy     = document.getElementById('layout-handy');
   const web       = document.getElementById('layout-web');
@@ -997,8 +1002,13 @@ function applyLayout() {
     positionSnaps(mobileSnaps, scale);
   }
 
-  if (upDownPanel2) upDownPanel2.style.height = panelHeight + 'px';
-  if (upDownGroup)  upDownGroup.style.height  = (panelHeight + window.innerHeight * 3) + 'px';
+  if (upDownPanel2) {
+    upDownPanel2.style.height = panelHeight + 'px';
+  }
+
+  if (upDownGroup) {
+    upDownGroup.style.height = (panelHeight + vh * 3) + 'px';
+  }
 
   invalidateCardCache();
   setupHover();
@@ -1006,13 +1016,18 @@ function applyLayout() {
 
 applyLayout();
 
-// Debounce resize for layout recalculation
 let layoutResizeTimer = null;
 window.addEventListener('resize', () => {
   clearTimeout(layoutResizeTimer);
   layoutResizeTimer = setTimeout(applyLayout, 150);
 });
 
+if (window.visualViewport) {
+  window.visualViewport.addEventListener('resize', () => {
+    clearTimeout(layoutResizeTimer);
+    layoutResizeTimer = setTimeout(applyLayout, 150);
+  });
+}
 /* ======================
    Section scroll links
 ====================== */

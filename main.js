@@ -979,7 +979,7 @@ function setupHover() {
 function getViewportHeight() {
   return window.visualViewport ? window.visualViewport.height : window.innerHeight;
 }
-/*
+/**/
 function applyLayout() {
   setAppHeight();  
   const vw        = window.innerWidth;
@@ -987,8 +987,8 @@ function applyLayout() {
   const isDesktop = vw >= 1024;
   const handy     = document.getElementById('layout-handy');
   const web       = document.getElementById('layout-web');
-  const upDownPanel2 = document.querySelector('.upDownPanel2');
-  const upDownGroup  = document.querySelector('.upDownGroup');
+  //const upDownPanel2 = document.querySelector('.upDownPanel2');
+  //const upDownGroup  = document.querySelector('.upDownGroup');
 
   let scale, panelHeight;
 
@@ -1040,7 +1040,7 @@ if (window.visualViewport) {
     clearTimeout(layoutResizeTimer);
     layoutResizeTimer = setTimeout(applyLayout, 150);
   });
-}*/
+}
 /* ======================
    Section scroll links
 ====================== */

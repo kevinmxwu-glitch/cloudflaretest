@@ -953,7 +953,7 @@ a{
   inset: 0;
   z-index: 0;
 
-  background-image: url("image/scrolling1/bg_gray2.jpg");
+  background-image: url("image/scrolling1/bg_gray2.webp");
   background-repeat: repeat-y;
   background-size: 100% auto;
 }

@@ -310,7 +310,7 @@ a{
 .upDownBg {
   position: sticky;
   top: 0;
-  height: 100vh;
+  height: calc(var(--app-vh, 100vh) * 100);
 
   z-index: 2;
 }

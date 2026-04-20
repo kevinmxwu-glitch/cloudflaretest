@@ -1,3 +1,8 @@
+function setAppHeight() {
+  const vh = (window.visualViewport ? window.visualViewport.height : window.innerHeight) * 0.01;
+  document.documentElement.style.setProperty('--app-vh', `${vh}px`);
+}
+setAppHeight();
 /* ======================
    Menu / Side Menu
 ====================== */
@@ -976,6 +981,7 @@ function getViewportHeight() {
 }
 
 function applyLayout() {
+  setAppHeight();  
   const vw        = window.innerWidth;
   const vh        = getViewportHeight();
   const isDesktop = vw >= 1024;
@@ -1019,9 +1025,16 @@ applyLayout();
 let layoutResizeTimer = null;
 window.addEventListener('resize', () => {
   clearTimeout(layoutResizeTimer);
-  layoutResizeTimer = setTimeout(applyLayout, 150);
+  layoutResizeTimer = setTimeout(() => {
+    setAppHeight();   // ← 加這行
+    applyLayout();
+  }, 150);
 });
-
+if (window.visualViewport) {
+  window.visualViewport.addEventListener('resize', () => {
+    setAppHeight();
+  });
+}
 if (window.visualViewport) {
   window.visualViewport.addEventListener('resize', () => {
     clearTimeout(layoutResizeTimer);

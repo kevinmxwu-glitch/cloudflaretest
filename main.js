@@ -1249,44 +1249,12 @@ var fetchsuccess = 0;
 fetch("https://script.google.com/macros/s/AKfycby1E_A5sVq0UCVlnjtLyyklGE1lSr-V1OHcgpDfQfuLVBCnzDTs6oL1Re4d5GUJlANiiw/exec")
 .then(res => res.json())
 .then(data => {
-  var num = 0;
-  stripWork.innerHTML = '';
-  const startWork = document.createElement("div");
-  startWork.setAttribute('style', 'flex-shrink: 0; width:50vw;');
-  stripWork.appendChild(startWork);
   data.forEach(item => {
-    for(let i = 0; i < groupWork.length; i++){
-        if(item.group && item.group == groupWork[i]){
-            const cardWork = document.createElement("div");
-            cardWork.setAttribute('class', 'strip-card');
-            cardWork.setAttribute('data-idx', 'i');
-
-            const slogoWork = document.createElement("img");
-            slogoWork.setAttribute('class', 's-logo');
-            slogoWork.setAttribute('src', 'https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/standW_horizon_B.png');
-            slogoWork.setAttribute('alt', 'Logo');
-            cardWork.appendChild(slogoWork);
-
-            const sframeWork = document.createElement("div");
-            sframeWork.setAttribute('class', 's-frame');
-            cardWork.appendChild(sframeWork);
-
-            const coverWork = document.createElement("img");
-            coverWork.setAttribute('src', item.cover);
-            coverWork.setAttribute('alt', item.group);
-            sframeWork.appendChild(coverWork);
-            cardWork.appendChild(sframeWork);
-
-            const stitleWork = document.createElement("div");
-            stitleWork.setAttribute('class', 's-title');
-            stitleWork.innerHTML = item.title;
-            cardWork.appendChild(stitleWork);
-
-            stripWork.appendChild(cardWork);
-        }
-    }
+    ART_CARDS.forEach(function(card) {
+      if(card.code == item.group){
+        card.name = item.title;
+        card.url = item.cover;
+      }
+    });
   });
-  const endWork = document.createElement("div");
-  endWork.setAttribute('style', 'flex-shrink: 0; width:50vw;');
-  stripWork.appendChild(endWork);
 });

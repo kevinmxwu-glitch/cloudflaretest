@@ -345,6 +345,7 @@ a{
 
 .bg.A {
   z-index: 2;
+   background: #EFEFEF;
   /*transition: opacity 0.5s ease;*/
   /* A畫面 */
 }

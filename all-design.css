@@ -302,7 +302,7 @@ a{
 /* #region===== 上下滑動結構 ===== */
 .upDownGroup {
   position: relative;
-  height: 800vh;
+  height: 800dvh;
   z-index: 1;
   isolation: isolate;
 }
@@ -332,13 +332,13 @@ a{
   height: 100dvh;
 }
 .upDownPanel2 {
-  height: 500vh;
+  height: 500dvh;
 }
 
 .final-fixed {
   position: sticky;
   top: 0;
-  height: 100vh;
+  height: 100dvh;
   z-index: 20;
   background: black;
 }

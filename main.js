@@ -979,7 +979,7 @@ function setupHover() {
 function getViewportHeight() {
   return window.visualViewport ? window.visualViewport.height : window.innerHeight;
 }
-
+/*
 function applyLayout() {
   setAppHeight();  
   const vw        = window.innerWidth;
@@ -1040,7 +1040,7 @@ if (window.visualViewport) {
     clearTimeout(layoutResizeTimer);
     layoutResizeTimer = setTimeout(applyLayout, 150);
   });
-}
+}*/
 /* ======================
    Section scroll links
 ====================== */

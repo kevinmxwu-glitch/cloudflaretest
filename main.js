@@ -317,7 +317,7 @@ new Image().src = 'https://raw.githubusercontent.com/Koogeocimo/beforezerosource
 
 // Build grass into fragment too
 const r2           = rng(9999);
-const RANDOM_CLUMPS = 40;
+const RANDOM_CLUMPS = 10;
 
 function placeGrass(x, y, w, z, gName, flip, bri) {
   const div = document.createElement('div');
@@ -1114,3 +1114,26 @@ fetch("https://script.google.com/macros/s/AKfycby1E_A5sVq0UCVlnjtLyyklGE1lSr-V1O
       if (item) { card.name = item.title; card.url = item.cover; }
     });
   });
+
+  /*YT*/
+  function initLazyYouTubeCards() {
+  document.querySelectorAll('.yt-card').forEach(card => {
+    card.addEventListener('click', function handleClick() {
+      const videoId = card.dataset.videoId;
+      if (!videoId) return;
+
+      card.innerHTML = `
+        <iframe
+          loading="lazy"
+          src="https://www.youtube.com/embed/${videoId}?autoplay=1&muted=1&controls=1&rel=0"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          title="YouTube video">
+        </iframe>
+      `;
+    }, { once: true });
+  });
+}
+
+window.addEventListener('load', initLazyYouTubeCards);

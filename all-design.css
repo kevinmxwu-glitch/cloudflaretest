@@ -11,6 +11,7 @@
 @font-face {
   font-family: 'MyFont';
   src: url('fonts/KozGoPr6NRegular.otf');
+  font-display: swap;
 }
 
 html {

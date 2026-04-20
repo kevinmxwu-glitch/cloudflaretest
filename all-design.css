@@ -142,7 +142,12 @@ a{
   line-height: 130%;
   letter-spacing: 2px;
   font-weight: 500;
-  bottom: 10%;
+  bottom: 5%;
+}
+@media (max-width: 1024px) {
+  .swipe  {
+    bottom: 10%;
+  }
 }
 /* 開分載入中 */
 .loader {

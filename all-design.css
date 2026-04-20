@@ -2505,3 +2505,9 @@ body.dragging { cursor: grabbing; }
 .bz-link-btn:hover .bz-link-arrow {
   transform: translateX(6px);
 }
+
+@media (max-width: 1023px) {
+  #layout-handy .bg-red {
+    display: none;
+  }
+}

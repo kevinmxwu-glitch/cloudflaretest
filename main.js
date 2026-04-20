@@ -922,11 +922,17 @@ function positionSnaps(positions, scale) {
 }
 
 // Cache card geometry once per applyLayout call — not on every mousemove
+let hoverBound = false;
 let cachedCardRects = null;
-function invalidateCardCache() { cachedCardRects = null; }
+
+function invalidateCardCache() {
+  cachedCardRects = null;
+}
 
 function setupHover() {
-  invalidateCardCache();
+  if (hoverBound) return;
+  hoverBound = true;
+
   let lockedCard = null;
 
   ['layout-handy', 'layout-web'].forEach(id => {
@@ -934,13 +940,12 @@ function setupHover() {
     if (!layout) return;
 
     layout.addEventListener('mousemove', e => {
-      const isDesktop   = window.innerWidth >= 1024;
-      const scale       = isDesktop ? window.innerWidth / 1440 : window.innerWidth / 390;
-      const layoutRect  = layout.getBoundingClientRect();
+      const isDesktop = window.innerWidth >= 1024;
+      const scale = isDesktop ? window.innerWidth / 1440 : window.innerWidth / 390;
+      const layoutRect = layout.getBoundingClientRect();
       const mx = (e.clientX - layoutRect.left) / scale;
-      const my = (e.clientY - layoutRect.top)  / scale;
+      const my = (e.clientY - layoutRect.top) / scale;
 
-      // Build cache lazily
       if (!cachedCardRects) {
         cachedCardRects = [];
         layout.querySelectorAll('.event-card').forEach(card => {
@@ -976,7 +981,6 @@ function setupHover() {
     });
   });
 }
-
 /* getViewportHeight() removed — use getViewH() instead */
 /**/
 function applyLayout() {

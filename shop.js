@@ -869,7 +869,7 @@ form.addEventListener('submit', e => {
 
     const selectedMethod = document.getElementById('targetSheet').value;
 
-    alert('✅ 訂單已送出，請確認您的gmail信箱');
+    alert('✅ 訂單已送出，請確認您的gmail信箱!');
     form.reset();
 
     productDivs.forEach(product => {

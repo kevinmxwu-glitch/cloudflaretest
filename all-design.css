@@ -1719,7 +1719,7 @@ body.dragging { cursor: grabbing; }
 #bg {
   position: absolute;
   inset: 0;
-  background-image: url('image/grass/grass_bg03_11zon.webp');
+  background-image: url('image/grass/grass_bg03_11zon_11zon.webp');
   background-repeat: no-repeat;
   background-size: 105% 105%;
   background-position: center;

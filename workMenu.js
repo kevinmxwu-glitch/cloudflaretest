@@ -7,6 +7,7 @@ const demo = document.getElementsByClassName("demo-box")[0];
 const gpInd = ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10", "A11", "A12"];
 const gpTem = ["B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9"];
 var fetchsuccess = 0;
+demo.style.opacity = 0;
 fetch("https://script.google.com/macros/s/AKfycby1E_A5sVq0UCVlnjtLyyklGE1lSr-V1OHcgpDfQfuLVBCnzDTs6oL1Re4d5GUJlANiiw/exec")
 .then(res => res.json())
 .then(data => {

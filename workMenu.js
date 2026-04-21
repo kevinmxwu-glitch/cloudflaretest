@@ -27,12 +27,12 @@ fetch("https://script.google.com/macros/s/AKfycby1E_A5sVq0UCVlnjtLyyklGE1lSr-V1O
       for(let i = 0; i < gpInd.length; i++) {
         if(item.group == gpInd[i]){
           Ind.appendChild(aLink);
+          demo.style.opacity = 1;
         }
         if(i < gpTem.length && item.group == gpTem[i]){
           Tem.appendChild(aLink);
         }
       }
-      demo.style.opacity = 0;
     }
   });
 });

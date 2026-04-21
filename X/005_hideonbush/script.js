@@ -255,26 +255,40 @@ document.addEventListener('touchmove',e=>{
 document.addEventListener('touchend',()=>{ drag=false; });
 window.addEventListener('resize', applyCamera);
 
-function updateMinimap(){
-  const mm=document.getElementById('minimap');
-  const mw=mm.clientWidth, mh=mm.clientHeight;
-  const vp=document.getElementById('mm-vp');
-  vp.style.left  =(camX/WW*mw)+'px';
-  vp.style.top   =(camY/WH*mh)+'px';
-  vp.style.width =(innerWidth/WW*mw)+'px';
-  vp.style.height=(innerHeight/WH*mh)+'px';
+function updateMinimap() {
+  const mm = document.getElementById('minimap');
+  if (!mm) return;
+
+  const mw = mm.clientWidth;
+  const mh = mm.clientHeight;
+  const vp = document.getElementById('mm-vp');
+
+  vp.style.left   = (camX / WW * mw) + 'px';
+  vp.style.top    = (camY / WH * mh) + 'px';
+  vp.style.width  = (getViewW() / WW * mw) + 'px';
+  vp.style.height = (getViewH() / WH * mh) + 'px';
 }
-(function buildDots(){
-  const mm=document.getElementById('minimap');
-  const mw=mm.clientWidth, mh=mm.clientHeight;
-  const c=document.getElementById('mm-dots');
-  studentData.forEach(s=>{
-    const d=document.createElement('div');
-    d.className='mm-dot';
-    d.style.left=(s.x/WW*mw)+'px';
-    d.style.top =(s.y/WH*mh)+'px';
-    c.appendChild(d);
+
+(function buildDots() {
+  const mm = document.getElementById('minimap');
+  if (!mm) return;
+
+  const mw = mm.clientWidth;
+  const mh = mm.clientHeight;
+  const c  = document.getElementById('mm-dots');
+  c.innerHTML = '';
+
+  const frag = document.createDocumentFragment();
+
+  studentData.forEach(s => {
+    const d = document.createElement('div');
+    d.className = 'mm-dot';
+    d.style.left = (mapX(s.x) / WW * mw) + 'px';
+    d.style.top  = (mapY(s.y) / WH * mh) + 'px';
+    frag.appendChild(d);
   });
+
+  c.appendChild(frag);
 })();
 
 applyCamera();

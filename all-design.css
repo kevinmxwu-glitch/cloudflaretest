@@ -1710,19 +1710,19 @@ body.dragging { cursor: grabbing; }
 }
 #world {
   position: absolute;
-  width: 7872px;
-  height: 3169px;
-  top: 0; left: 0;
+  width: 3756px;
+  height: 1743px;
+  top: 0;
+  left: 0;
   will-change: transform;
 }
-
 #bg {
   position: absolute;
   inset: 0;
   background-image: url('image/grass/grass_bg03.webp');
   background-repeat: no-repeat;
-  background-size: auto;
-  background-position: center center;
+  background-size: 120% 120%;
+  background-position: center;
   z-index: 0;
 }
 

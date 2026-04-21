@@ -164,7 +164,30 @@ function switchVisual(slideDir, step) {
    About section — Grass World
 ====================== */
 const aboutMain = document.querySelector("#about .main");
-const WW = 7872, WH = 3169;
+
+/* 新世界尺寸 */
+const WW = 3756, WH = 1743;
+
+/* 舊世界尺寸（人物原本擺放的座標基準） */
+const OLD_WW = 7872, OLD_WH = 3196;
+
+/* 座標縮放比例 */
+const SCALE_X = WW / OLD_WW;
+const SCALE_Y = WH / OLD_WH;
+
+/* 把舊座標映射到新世界 */
+function mapX(x) {
+  return Math.round(x * SCALE_X);
+}
+function mapY(y) {
+  return Math.round(y * SCALE_Y);
+}
+
+/* 尺寸也一起縮，才不會人物看起來過大 */
+function mapSize(size) {
+  return Math.round(size * SCALE_X);
+}
+
 const GRASS_RAW = 'image/grass/';
 const STU_RAW   = 'https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/student_04/';
 
@@ -177,7 +200,7 @@ const GRASS_WIDTHS = {
 const studentData = [
   { id:'02', x: 560,  y: 340,  size: 280, name:'梅恩寧', group:'副召',       work:'#',        instagram:'#', youtube:'#' },
   { id:'03', x: 1730, y: 2200, size: 280, name:'謝秉勳', group:'事務組',     work:'#',        instagram:'https://www.instagram.com/mei___arttttt?igsh=Yzd4aTlqY3Y3enhx', youtube:'#' },
-  { id:'04', x: 1900, y: 380,  size: 280, name:'李書皓', group:'活動組',     work:'A4.html',  instagram:'https://www.instagram.com/shuhaolee_?igsh=MzZnb3E4bDFmMTRo&utm_source=qr', youtube:'https://youtube.com/@shuhao0?si=q6YFkqVWKaFEUI2Q' },
+  { id:'04', x: 1900, y: 380,  size: 280, name:'李書皓', group:'活動組',     work:'A4.html',  instagram:'https://youtube.com/@shuhao0?si=q6YFkqVWKaFEUI2Q', youtube:'https://youtube.com/@shuhao0?si=q6YFkqVWKaFEUI2Q' },
   { id:'05', x: 2570, y: 200,  size: 280, name:'楊妮鈞', group:'視覺組',     work:'B2.html',  instagram:'https://www.instagram.com/yni_1216/', youtube:'https://www.youtube.com/@%E6%A5%8A%E5%A6%AE%E9%88%9E' },
   { id:'06', x: 3240, y: 350,  size: 280, name:'羅芷葳', group:'周邊組',     work:'#',        instagram:'https://www.instagram.com/wei.fadachai?igsh=MTd1Zmx1dHhsaDNqNQ%3D%3D&utm_source=qr', youtube:'#' },
   { id:'07', x: 3900, y: 190,  size: 280, name:'白若潔', group:'事務組',     work:'B2.html',  instagram:'https://www.instagram.com/jennypai1210?igsh=MWthNTdoMGUxZzI1eA%3D%3D&utm_source=qr', youtube:'https://youtube.com/channel/UCZwq6OVj-VhtEXBkWI0q3Xw?si=iQtOMyQsMS4BjNQK' },
@@ -235,10 +258,13 @@ const foundSet = new Set();
 const worldFrag = document.createDocumentFragment();
 
 studentData.forEach((s, idx) => {
-  const w    = s.size || 280;
+  const w    = mapSize(s.size || 280);
+  const sx   = mapX(s.x);
+  const sy   = mapY(s.y);
+
   const wrap = document.createElement('div');
   wrap.className = 'student';
-  wrap.style.cssText = `left:${s.x - w / 2}px;top:${s.y - 40}px;width:${w}px;z-index:${s.zBand * 10 + 1};`;
+  wrap.style.cssText = `left:${sx - w / 2}px;top:${sy - 40}px;width:${w}px;z-index:${s.zBand * 10 + 1};`;
 
   const bodyDiv = document.createElement('div');
   bodyDiv.className = 's-body';
@@ -282,8 +308,8 @@ studentData.forEach((s, idx) => {
       wrap.classList.add('just-found');
       wrap.addEventListener('animationend', () => wrap.classList.remove('just-found'), { once: true });
     }
-    const targetCamX = clamp(s.x - getViewW() / 2, 0, WW - getViewW());
-    const targetCamY = clamp(s.y - getViewH() / 2, 0, WH - getViewH());
+    const targetCamX = clamp(sx - getViewW() / 2, 0, WW - getViewW());
+    const targetCamY = clamp(sy - getViewH() / 2, 0, WH - getViewH());
     smoothPanTo(targetCamX, targetCamY, 420, () => {
       const sl      = document.getElementById('spotlight');
       const slImg   = document.getElementById('spotlight-img');
@@ -316,7 +342,7 @@ GRASS_IMGS.forEach(name => { new Image().src = `${GRASS_RAW}${name}.webp`; });
 new Image().src = 'image/grass/grass_bg03.webp';
 
 // Build grass into fragment too
-const r2           = rng(9999);
+const r2            = rng(9999);
 const RANDOM_CLUMPS = 10;
 
 function placeGrass(x, y, w, z, gName, flip, bri) {
@@ -339,20 +365,23 @@ for (let i = 0; i < RANDOM_CLUMPS; i++) {
   const scale = 0.9 + r2() * 1.3;
   const flip  = r2() > 0.5 ? -1 : 1;
   const bri   = (0.82 + r2() * 0.3).toFixed(2);
-  const bw    = GRASS_WIDTHS[gName] * scale;
-  const band  = byY.filter(s => s.y < cy).length;
-  placeGrass(cx - bw / 2, cy - 25, bw | 0, band * 10 + 2, gName, flip, bri);
+  const bw    = Math.round(GRASS_WIDTHS[gName] * scale * SCALE_X);
+  const band  = byY.filter(s => mapY(s.y) < cy).length;
+  placeGrass(cx - bw / 2, cy - 25, bw, band * 10 + 2, gName, flip, bri);
 }
 
 studentData.forEach(s => {
-  const w      = s.size || 280;
+  const w      = mapSize(s.size || 280);
+  const sx     = mapX(s.x);
+  const sy     = mapY(s.y);
   const gName  = GRASS_IMGS[Math.floor(r2() * GRASS_IMGS.length)];
   const scale  = 0.9 + r2() * 0.55;
-  const bw     = GRASS_WIDTHS[gName] * scale;
+  const bw     = Math.round(GRASS_WIDTHS[gName] * scale * SCALE_X);
   const flip   = r2() > 0.5 ? -1 : 1;
   const bri    = (0.88 + r2() * 0.18).toFixed(2);
-  const grassY = (s.y - 40) + (w * 1.8) * 0.42;
-  placeGrass(s.x - bw / 2 + (r2() - 0.5) * 30, grassY, bw | 0, s.zBand * 10 + 2, gName, flip, bri);
+  const grassY = (sy - 40) + (w * 1.8) * 0.42;
+
+  placeGrass(sx - bw / 2 + (r2() - 0.5) * 30, grassY, bw, s.zBand * 10 + 2, gName, flip, bri);
 });
 
 // Single DOM insertion for all students + grass
@@ -471,8 +500,12 @@ window.addEventListener('resize', applyCamera);
 ====================== */
 function updateMinimap() {
   const mm = document.getElementById('minimap');
-  const mw = mm.clientWidth, mh = mm.clientHeight;
+  if (!mm) return;
+
+  const mw = mm.clientWidth;
+  const mh = mm.clientHeight;
   const vp = document.getElementById('mm-vp');
+
   vp.style.left   = (camX / WW * mw) + 'px';
   vp.style.top    = (camY / WH * mh) + 'px';
   vp.style.width  = (getViewW() / WW * mw) + 'px';
@@ -480,17 +513,24 @@ function updateMinimap() {
 }
 
 (function buildDots() {
-  const mm   = document.getElementById('minimap');
-  const mw   = mm.clientWidth, mh = mm.clientHeight;
-  const c    = document.getElementById('mm-dots');
+  const mm = document.getElementById('minimap');
+  if (!mm) return;
+
+  const mw = mm.clientWidth;
+  const mh = mm.clientHeight;
+  const c  = document.getElementById('mm-dots');
+  c.innerHTML = '';
+
   const frag = document.createDocumentFragment();
+
   studentData.forEach(s => {
     const d = document.createElement('div');
     d.className = 'mm-dot';
-    d.style.left = (s.x / WW * mw) + 'px';
-    d.style.top  = (s.y / WH * mh) + 'px';
+    d.style.left = (mapX(s.x) / WW * mw) + 'px';
+    d.style.top  = (mapY(s.y) / WH * mh) + 'px';
     frag.appendChild(d);
   });
+
   c.appendChild(frag);
 })();
 

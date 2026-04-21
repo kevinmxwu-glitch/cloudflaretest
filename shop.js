@@ -1,4 +1,4 @@
-const scriptURL = 'https://script.google.com/macros/s/AKfycbwBUur_YYBQHmt7Tdc391mQ4RqqTj5wczgxhXHN7aXnDdP52fcgg-8tyXZxA8vDCg0n/exec';
+const scriptURL = 'https://script.google.com/macros/s/AKfycbwU7h8NU3HfUlh9OslX-XFSOjtzMb05_BVhq8lTZI6ygSTg1uoIY-Blh6s-mVDW81hB/exec';
 const form = document.forms['contact-form'];
 
 let productDivs = [];

@@ -7,13 +7,15 @@
   font-weight: 400;
   letter-spacing: 0.1em;
 }
-
 @font-face {
   font-family: 'MyFont';
-  src: url('fonts/KozGoPr6NRegular.otf');
+  src: url('fonts/KozGoPr6NRegular.woff2') format('woff2');
   font-display: swap;
 }
 
+body {
+  font-family: 'MyFont', sans-serif;
+}
 html {
   scroll-behavior: smooth;
 }html,

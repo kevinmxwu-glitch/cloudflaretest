@@ -100,7 +100,7 @@ function showError(msg) {
   const submitBtn = document.getElementById('submit-button');
   const loadingIndicator = document.getElementById('loading-indicator');
   submitBtn.disabled = false;
-  submitBtn.textContent = 'Submit';
+  submitBtn.textContent = '送出訂單';
   loadingIndicator.style.display = 'none';
 }
 

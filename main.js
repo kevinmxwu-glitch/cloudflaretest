@@ -597,19 +597,28 @@ window.addEventListener('load', () => {
 const RAW  = 'https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/';
 const S3   = RAW + 'scrolling3/';
 const RB   = RAW + 'rebuild_01/';
+const isMobileImg = window.innerWidth <= 768;
+
 const IMGS = {
-  bg_gray:  'image/scrolling1/' + 'bg_gray.webp',
-  bg_red:   'image/scrolling1/' + '00_redlight.webp',
-  logo:     S3 + 'standW_horizon_W.webp',
+  bg_gray: isMobileImg
+    ? 'image/scrolling1/bg_gray_s.webp'
+    : 'image/scrolling1/bg_gray.webp',
+
+  bg_red: isMobileImg
+    ? 'image/scrolling1/00_redlight_s.webp'
+    : 'image/scrolling1/00_redlight.webp',
+
+logo:     S3 + 'standW_horizon_W.webp',
   favicon:  S3 + 'faviconW.webp',
-  bg0104:   'image/scrolling1/' + '0104_02.webp',
-  bg0510:   'image/scrolling1/' + '0510_02.webp',
-  bg1115:   'image/scrolling1/' + '1115_02.webp',
-  bg1619:   'image/scrolling1/' + '1619_02.webp',
-  openshow: 'image/main/' + 'openshow.webp',
-  workshop: 'image/main/' + 'workshop.webp',
-  speaking: 'image/main/' + 'speaking.webp',
+  bg0104:   'image/scrolling1/0104_02.webp',
+  bg0510:   'image/scrolling1/0510_02.webp',
+  bg1115:   'image/scrolling1/1115_02.webp',
+  bg1619:   'image/scrolling1/1619_02.webp',
+  openshow: 'image/main/openshow.webp',
+  workshop: 'image/main/workshop.webp',
+  speaking: 'image/main/speaking.webp',
 };
+
 const ARTWORK  = "https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/cards/cardback01.webp";
 const NULL_IMG = "image/main/nullfront.webp";
 const LOGO_URL = "image/main/standW_horizon_B.png";

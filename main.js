@@ -339,7 +339,7 @@ studentData.forEach((s, idx) => {
 
 // Preload grass images
 GRASS_IMGS.forEach(name => { new Image().src = `${GRASS_RAW}${name}.webp`; });
-new Image().src = 'image/grass/grass_bg03.webp';
+new Image().src = 'image/grass/grass_bg03_11zon_11zon.webp';
 
 // Build grass into fragment too
 const r2            = rng(9999);

@@ -848,54 +848,61 @@ form.addEventListener('submit', e => {
   let hasSubmitted = false;
 
   fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-    .then(res => {
-      if (!res.ok) throw new Error('Network error');
-      return res.text();
-    })
-    .then(() => {
-      if (hasSubmitted) return;
-      hasSubmitted = true;
+  .then(res => {
+    if (!res.ok) throw new Error('Network error');
+    return res.json();
+  })
+  .then(data => {
+    if (hasSubmitted) return;
 
-      const selectedMethod = document.getElementById('targetSheet').value;
-
-      alert('✅ 訂單已送出，請確認您的gmail信箱');
-      form.reset();
-      // 清空所有商品數量
-      productDivs.forEach(product => {
-        product.querySelector('.count').textContent = '0';
-      });
-
-      // 清空所有組合數量
-      comboDivs.forEach(combo => {
-        combo.querySelector('.count').textContent = '0';
-      });
-
-      // 同步清空購物車相關欄位
-      updateTotalAndProduct();
-      refreshAllStocks();
-      loadProducts();
-
-      const select = document.getElementById('targetSheet');
-      select.value = selectedMethod;
-
-      updateFieldVisibility();
-      updateRestrictions();
-      setFee(select.value === '711店取' ? 38 : 0);
-      updateTotalAndProduct();
-      updateDeliveryOptions();
-    })
-    .catch(err => {
-      if (!hasSubmitted) {
-        console.error(err);
-        alert('❌ 無法送出訂單，請稍後再試');
+    if (data.result !== 'success') {
+      if (data.errorType === 'OUT_OF_STOCK' && data.errorData) {
+        const itemName = data.errorData.name || '商品';
+        const remain = Number(data.errorData.remain || 0);
+        throw new Error(`❌ ${itemName} 庫存不足，目前剩餘 ${remain} 件`);
       }
-    })
-    .finally(() => {
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Submit';
-      loadingIndicator.style.display = 'none';
+
+      throw new Error('❌ 訂單未成立，請重新確認商品庫存');
+    }
+
+    hasSubmitted = true;
+
+    const selectedMethod = document.getElementById('targetSheet').value;
+
+    alert('✅ 訂單已送出，請確認您的gmail信箱');
+    form.reset();
+
+    productDivs.forEach(product => {
+      product.querySelector('.count').textContent = '0';
     });
-});
+
+    comboDivs.forEach(combo => {
+      combo.querySelector('.count').textContent = '0';
+    });
+
+    updateTotalAndProduct();
+    refreshAllStocks();
+    loadProducts();
+
+    const select = document.getElementById('targetSheet');
+    select.value = selectedMethod;
+
+    updateFieldVisibility();
+    updateRestrictions();
+    setFee(select.value === '711店取' ? 38 : 0);
+    updateTotalAndProduct();
+    updateDeliveryOptions();
+  })
+  .catch(err => {
+    console.error(err);
+    alert(err.message || '❌ 無法送出訂單，請稍後再試');
+    loadProducts();
+  })
+  .finally(() => {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit';
+    loadingIndicator.style.display = 'none';
+  });
 /* ======================
    浮動購物車按鈕
 ====================== */

@@ -32,7 +32,7 @@ fetch("https://script.google.com/macros/s/AKfycby1E_A5sVq0UCVlnjtLyyklGE1lSr-V1O
           Tem.appendChild(aLink);
         }
       }
-      demo.style.opacity = 1;
+      demo.style.opacity = 0;
     }
   });
 });

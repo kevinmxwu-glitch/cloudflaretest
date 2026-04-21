@@ -611,7 +611,7 @@ const IMGS = {
   speaking: 'image/main/' + 'speaking.webp',
 };
 const ARTWORK  = "https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/cards/cardback01.webp";
-const NULL_IMG = "https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/cards/nullfront.jpg";
+const NULL_IMG = "image/main/nullfront.webp";
 const LOGO_URL = "https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/standW_horizon_B.png";
 
 const ART_CARDS = [

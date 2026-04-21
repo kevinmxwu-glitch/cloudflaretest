@@ -189,7 +189,7 @@ function mapSize(size) {
 }
 
 const GRASS_RAW = 'image/grass/';
-const STU_RAW   = 'https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/student_04/';
+const STU_RAW   = 'image/student/';
 
 const GRASS_IMGS   = ['g1','g2','g3','g4','g5','g6','g7','g8','g9','g10','g11','g12'];
 const GRASS_WIDTHS = {
@@ -612,7 +612,7 @@ const IMGS = {
 };
 const ARTWORK  = "https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/cards/cardback01.webp";
 const NULL_IMG = "image/main/nullfront.webp";
-const LOGO_URL = "https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/standW_horizon_B.png";
+const LOGO_URL = "image/main/standW_horizon_B.png";
 
 const ART_CARDS = [
   { code:"A1",  name:"",                                   url:"https://i.pinimg.com/736x/15/10/51/151051efc7df1eb665a233d3bbc16235.jpg" },

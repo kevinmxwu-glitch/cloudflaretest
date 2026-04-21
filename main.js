@@ -630,7 +630,7 @@ const ART_CARDS = [
   { code:"B1",  name:"菌絲覆生計畫",                        url:NULL_IMG },
   { code:"B2",  name:"Is There Anyone Home?",              url:"https://i.pinimg.com/736x/71/52/65/715265d105743dba14e7066fc300388a.jpg" },
   { code:"B3",  name:"眼冒金星Seeing star",                 url:NULL_IMG },
-  { code:"B4",  name:"lasso",                              url:"https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/cards/B4front.jpg" },
+  { code:"B4",  name:"lasso",                              url:NULL_IMG },
   { code:"B5",  name:"跟你說一個故事",                      url:"https://i.pinimg.com/736x/a0/36/a2/a036a2dfbc6b1e7e6d777cc633a25040.jpg" },
   { code:"B6",  name:"click clack crack",                  url:"https://i.pinimg.com/736x/6d/72/b5/6d72b5df13a142d3188928fce67b3162.jpg" },
   { code:"B7",  name:"P. E. G.",                           url:"https://i.pinimg.com/736x/29/dc/d4/29dcd43f38a49985dcbfddbfc42ca676.jpg" },
@@ -1147,12 +1147,33 @@ window.addEventListener('load', () => {
 fetch("https://script.google.com/macros/s/AKfycby1E_A5sVq0UCVlnjtLyyklGE1lSr-V1OHcgpDfQfuLVBCnzDTs6oL1Re4d5GUJlANiiw/exec")
   .then(res => res.json())
   .then(data => {
-    // Build a quick lookup map — O(n) instead of nested O(n²) loops
     const itemMap = Object.fromEntries(data.map(item => [item.group, item]));
+
     ART_CARDS.forEach(card => {
       const item = itemMap[card.code];
-      if (item) { card.name = item.title; card.url = item.cover; }
+      if (item) {
+        card.name = item.title || card.name;
+        card.url  = item.cover || card.url;
+      }
     });
+
+    // fetch 完後重畫 strip
+    document.querySelectorAll('.card-zone').forEach(zone => {
+      buildStrip(zone);
+      centerStrip(zone);
+    });
+
+    // 更新背面那張隨機卡
+    const picked = ART_CARDS[_pickedIdx];
+    document.querySelectorAll('.back-art-img').forEach(img => {
+      img.src = picked.url;
+    });
+    document.querySelectorAll('.back-art-title').forEach(el => {
+      el.textContent = picked.name || picked.code;
+    });
+  })
+  .catch(err => {
+    console.error('作品資料載入失敗', err);
   });
 
   /*YT*/

@@ -1719,7 +1719,7 @@ body.dragging { cursor: grabbing; }
 #bg {
   position: absolute;
   inset: 0;
-  background-image: url('https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/grass_pack/grass_bg01.webp');
+  background-image: url('image/grass/grass_bg03.webp');
   background-repeat: no-repeat;
   background-size: auto;
   background-position: center center;

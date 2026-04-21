@@ -165,7 +165,7 @@ function switchVisual(slideDir, step) {
 ====================== */
 const aboutMain = document.querySelector("#about .main");
 const WW = 7872, WH = 3169;
-const GRASS_RAW = 'https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/grass_pack/';
+const GRASS_RAW = 'image/grass/';
 const STU_RAW   = 'https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/student_04/';
 
 const GRASS_IMGS   = ['g1','g2','g3','g4','g5','g6','g7','g8','g9','g10','g11','g12'];
@@ -313,7 +313,7 @@ studentData.forEach((s, idx) => {
 
 // Preload grass images
 GRASS_IMGS.forEach(name => { new Image().src = `${GRASS_RAW}${name}.webp`; });
-new Image().src = 'https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/grass_pack/grass_bg01.webp';
+new Image().src = 'image/grass/grass_bg03.webp';
 
 // Build grass into fragment too
 const r2           = rng(9999);
@@ -558,17 +558,17 @@ const RAW  = 'https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main
 const S3   = RAW + 'scrolling3/';
 const RB   = RAW + 'rebuild_01/';
 const IMGS = {
-  bg_gray:  S3 + 'bg_gray.webp',
-  bg_red:   S3 + '00_redlight.webp',
+  bg_gray:  'image/scrolling1/' + 'bg_gray.webp',
+  bg_red:   'image/scrolling1/' + '00_redlight.webp',
   logo:     S3 + 'standW_horizon_W.webp',
   favicon:  S3 + 'faviconW.webp',
-  bg0104:   RB + '0104_02.webp',
-  bg0510:   RB + '0510_02.webp',
-  bg1115:   RB + '1115_02.webp',
-  bg1619:   RB + '1619_02.webp',
-  openshow: RB + 'openshow.webp',
-  workshop: RB + 'workshop.webp',
-  speaking: RB + 'speaking.webp',
+  bg0104:   'image/scrolling1/' + '0104_02.webp',
+  bg0510:   'image/scrolling1/' + '0510_02.webp',
+  bg1115:   'image/scrolling1/' + '1115_02.webp',
+  bg1619:   'image/scrolling1/' + '1619_02.webp',
+  openshow: 'image/main/' + 'openshow.webp',
+  workshop: 'image/main/' + 'workshop.webp',
+  speaking: 'image/main/' + 'speaking.webp',
 };
 const ARTWORK  = "https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/cards/cardback01.webp";
 const NULL_IMG = "https://raw.githubusercontent.com/Koogeocimo/beforezerosource/main/01_image/cards/nullfront.jpg";

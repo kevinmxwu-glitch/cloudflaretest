@@ -1,6 +1,9 @@
 const menuIcon = document.querySelector(".menu-icon");
 const sideMenu = document.querySelector(".side-menu");
 const overlay = document.querySelector(".overlay");
+const Ind = document.getElementsByClassName("individual")[0];
+const Tem = document.getElementsByClassName("team")[0];
+const demo = document.getElementsByClassName("demo-box")[0];
 const gpInd = ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10", "A11", "A12"];
 const gpTem = ["B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9"];
 var fetchsuccess = 0;
@@ -9,8 +12,6 @@ fetch("https://script.google.com/macros/s/AKfycby1E_A5sVq0UCVlnjtLyyklGE1lSr-V1O
 .then(data => {
   var num = 0;
   data.forEach(item => {
-    const Ind = document.getElementsByClassName("individual")[0];
-    const Tem = document.getElementsByClassName("team")[0];
     if(item.group){
       const aLink = document.createElement("a");
       const wrkContain = document.createElement("div");
@@ -31,6 +32,7 @@ fetch("https://script.google.com/macros/s/AKfycby1E_A5sVq0UCVlnjtLyyklGE1lSr-V1O
           Tem.appendChild(aLink);
         }
       }
+      demo.style.opacity = 1;
     }
   });
 });
@@ -124,82 +126,32 @@ function checkArtist(item, ul) {
 
 
 //響應載入影片切換
-const load = document.getElementById('loadVideo');
-let currentLoadSrc = '';
-
-function updateLoadVideoSource() {
-  if (!load) return;
-
-  const newSrc =
-    window.innerWidth > 768
-      ? 'video/loading/loading2.mp4'
-      : 'video/loading/loading.mp4';
-
-  if (currentLoadSrc === newSrc) return;
-
-  currentLoadSrc = newSrc;
-
-  load.pause();
-  load.innerHTML = '';
-
-  const newSource = document.createElement('source');
-  newSource.src = newSrc;
-  newSource.type = 'video/mp4';
-  load.appendChild(newSource);
-
-  if (window.innerWidth <= 768) {
-    load.style.minWidth = "100%";
-  } else {
-    load.style.maxWidth = "";
-  }
-
-  load.load();
-  load.play();
+var load = document.getElementById('loadVideo');
+var source = document.createElement('source');
+if (window.innerWidth > 768) {
+  source.setAttribute('src', 'video/loading/loading2.mp4');
 }
-
-const bg = document.getElementById('bgVideo');
-let currentBgSrc = '';
-
-function updateBgVideoSource() {
-  if (!bg) return;
-
-  const newSrc =
-    window.innerWidth > 768
-      ? 'video/works/bg_desktop.mp4'
-      : 'video/works/bg_mobile.mp4';
-
-  // 如果來源沒變，就不要重設
-  if (currentBgSrc === newSrc) return;
-
-  currentBgSrc = newSrc;
-
-  bg.pause();
-  bg.innerHTML = '';
-
-  const newSource = document.createElement('source');
-  newSource.src = newSrc;
-  newSource.type = 'video/mp4';
-  bg.appendChild(newSource);
-
-  if (window.innerWidth <= 768) {
-    bg.style.maxWidth = "100vw";
-  } else {
-    bg.style.maxWidth = "";
-  }
-
-  bg.load();
-  bg.play();
-  
+else {
+  source.setAttribute('src', 'video/loading/loading.mp4');
+  load.style.maxWidth = "100%";
 }
+source.setAttribute('type', 'video/mp4');
+load.appendChild(source);
+load.play();
 
-// ✅ 加在這裡
-updateLoadVideoSource();
-updateBgVideoSource();
-
-window.addEventListener('resize', () => {
-  updateLoadVideoSource();
-  updateBgVideoSource();
-});
+//響應背景影片切換
+var bg = document.getElementById('bgVideo');
+var source = document.createElement('source');
+if (window.innerWidth > 768) {
+  source.setAttribute('src', 'video/works/bg_desktop.mp4');
+}
+else {
+  source.setAttribute('src', 'video/works/bg_mobile.mp4');
+  bg.style.maxWidth = "100%";
+}
+source.setAttribute('type', 'video/mp4');
+bg.appendChild(source);
+bg.play();
 
 
 

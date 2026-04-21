@@ -900,7 +900,7 @@ form.addEventListener('submit', e => {
     })
     .finally(() => {
       submitBtn.disabled = false;
-      submitBtn.textContent = 'Submit';
+      submitBtn.textContent = '送出訂單';
       loadingIndicator.style.display = 'none';
     });
 });

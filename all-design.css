@@ -2208,7 +2208,10 @@ body.dragging { cursor: grabbing; }
     /* ═══════════════════════════════════════════
        CARD ZONE
     ═══════════════════════════════════════════ */
-
+.card-strip {
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
+}
     /* Mobile zone */
     #layout-handy .card-zone {
       position: absolute;

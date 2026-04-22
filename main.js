@@ -709,27 +709,77 @@ window.addEventListener('load', () => {
 
 // Mouse/touch drag on card strip
 function enableStripDrag(strip) {
-  let isDragging = false, startX = 0, startScroll = 0, dragMoved = false;
+  let isDragging = false;
+  let startX = 0;
+  let startScroll = 0;
+  let dragMoved = false;
 
-  strip.addEventListener('mousedown', e => {
-    isDragging = true; dragMoved = false;
-    startX = e.pageX; startScroll = strip.scrollLeft;
+  function startDrag(clientX) {
+    isDragging = true;
+    dragMoved = false;
+    startX = clientX;
+    startScroll = strip.scrollLeft;
     strip.classList.add('dragging');
-    e.preventDefault();
-  });
-  document.addEventListener('mousemove', e => {
+  }
+
+  function moveDrag(clientX) {
     if (!isDragging) return;
-    const dx = e.pageX - startX;
-    if (Math.abs(dx) > 3) dragMoved = true;
+    const dx = clientX - startX;
+    if (Math.abs(dx) > 6) dragMoved = true;
     strip.scrollLeft = startScroll - dx;
-  });
-  document.addEventListener('mouseup', () => {
+  }
+
+  function endDrag() {
     if (!isDragging) return;
     isDragging = false;
     strip.classList.remove('dragging');
+  }
+
+  // mouse
+  strip.addEventListener('mousedown', function (e) {
+    startDrag(e.pageX);
+    e.preventDefault();
   });
-  strip.addEventListener('click', e => {
-    if (dragMoved) { e.stopPropagation(); e.preventDefault(); dragMoved = false; }
+
+  document.addEventListener('mousemove', function (e) {
+    moveDrag(e.pageX);
+  });
+
+  document.addEventListener('mouseup', function () {
+    endDrag();
+  });
+
+  // touch
+  strip.addEventListener('touchstart', function (e) {
+    if (!e.touches.length) return;
+    startDrag(e.touches[0].pageX);
+  }, { passive: true });
+
+  strip.addEventListener('touchmove', function (e) {
+    if (!isDragging || !e.touches.length) return;
+    moveDrag(e.touches[0].pageX);
+
+    // 有明顯水平拖曳時，避免整頁跟著上下滑
+    if (dragMoved) {
+      e.preventDefault();
+    }
+  }, { passive: false });
+
+  strip.addEventListener('touchend', function () {
+    endDrag();
+  });
+
+  strip.addEventListener('touchcancel', function () {
+    endDrag();
+  });
+
+  // 拖曳後不要觸發點擊
+  strip.addEventListener('click', function (e) {
+    if (dragMoved) {
+      e.stopPropagation();
+      e.preventDefault();
+      dragMoved = false;
+    }
   }, true);
 }
 

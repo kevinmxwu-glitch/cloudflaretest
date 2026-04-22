@@ -2028,7 +2028,7 @@ body.dragging { cursor: grabbing; }
     }
     #layout-handy .date-range {
       position: relative;
-      color: #efefef; font-size: 12vw; font-weight: 300;
+      color: #efefef; font-size: 10.5vw; font-weight: 300;
       letter-spacing: 1vw; line-height: 1.15;
       white-space: nowrap;
     }

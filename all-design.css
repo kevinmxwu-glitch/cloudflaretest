@@ -2021,7 +2021,7 @@ body.dragging { cursor: grabbing; }
     /* ── Mobile date / venue / trailer / body text ── */
     #layout-handy .date-group { position: absolute; left: 36px; top: 670px; z-index: 12; }
     #layout-handy .date-range {
-      position: absolute; left: -20; top: 0;
+      position: absolute; left: 0; top: 0;
       width: 257px; height: 53px;
       color: #efefef; font-size: 40px; font-weight: 300;
       letter-spacing: 4px; line-height: 1.15;
@@ -2029,7 +2029,7 @@ body.dragging { cursor: grabbing; }
       display: flex; align-items: center; justify-content: center;
     }
     #layout-handy .date-year {
-      position: absolute; left: 200px; top: 27px;
+      position: absolute; left: 220px; top: 27px;
       width: 74px; height: 19px;
       color: #efefef; font-size: 16px; font-weight: 300;
       letter-spacing: 1.6px; line-height: 1.25;
@@ -2037,9 +2037,9 @@ body.dragging { cursor: grabbing; }
       display: flex; align-items: flex-end; justify-content: flex-end;
     }
     #layout-handy .venue {
-      position: absolute; left: -20; top: 100px;
+      position: absolute; left: 0; top: 38px;
       width: 328px; height: 43px;
-      color: #efefef; font-size: 14px; font-weight: 300;
+      color: #efefef; font-size: 16px; font-weight: 300;
       letter-spacing: 1.6px; line-height: 1.375;
       text-align: right;
       display: flex; align-items: center; justify-content: flex-end;

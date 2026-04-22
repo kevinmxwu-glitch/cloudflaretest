@@ -2018,10 +2018,10 @@ body.dragging { cursor: grabbing; }
       border: none; display: block;
     }
 
-       /* ── Mobile date / venue / trailer / body text ── */
+     /* ── Mobile date / venue / trailer / body text ── */
     #layout-handy .date-group {
       position: absolute; left: 3vw; top: 670px; z-index: 12;
-      width: 90vw;
+      width: 94vw;
     }
     #layout-handy .date-range {
       position: absolute; left: 0; top: 0;
@@ -2031,18 +2031,19 @@ body.dragging { cursor: grabbing; }
       display: flex; align-items: center; justify-content: flex-start;
     }
     #layout-handy .date-year {
-      position: absolute; left: 57vw; top: 1vw;
+      position: absolute; left: 57vw; top: 0;
       width: auto; height: auto;
       color: #efefef; font-size: 3vw; font-weight: 300;
-      letter-spacing: 0.3vw; line-height: 1.25;
+      letter-spacing: 0.3vw; line-height: 1;
       display: flex; align-items: flex-start; justify-content: flex-start;
     }
     #layout-handy .venue {
       position: absolute; left: 0; top: 10vw;
-      width: 85vw; height: auto;
-      color: #efefef; font-size: 3vw; font-weight: 300;
+      width: 94vw; height: auto;
+      color: #efefef; font-size: 3.2vw; font-weight: 300;
       letter-spacing: 0.3vw; line-height: 1.375;
       display: flex; align-items: center; justify-content: flex-start;
+      white-space: nowrap;
     }
     #layout-handy .promo-horizontal {
       position: absolute;

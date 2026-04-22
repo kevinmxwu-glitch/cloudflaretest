@@ -2037,7 +2037,7 @@ body.dragging { cursor: grabbing; }
       display: flex; align-items: flex-end; justify-content: flex-end;
     }
     #layout-handy .venue {
-      position: absolute; left: -20; top: 72px;
+      position: absolute; left: -20; top: 100px;
       width: 328px; height: 43px;
       color: #efefef; font-size: 14px; font-weight: 300;
       letter-spacing: 1.6px; line-height: 1.375;

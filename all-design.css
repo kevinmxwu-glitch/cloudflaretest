@@ -2033,7 +2033,7 @@ body.dragging { cursor: grabbing; }
       white-space: nowrap;
     }
     #layout-handy .date-year {
-      position: absolute; left: 57vw; top: 5vw;
+      position: absolute; left: 60vw; top: 5vw;
       color: #efefef; font-size: 5vw; font-weight: 300;
       letter-spacing: 0.2vw; line-height: 1;
       white-space: nowrap;

@@ -1458,7 +1458,9 @@ select {
   pointer-events: none;
 }
 
-
+.product-meta del {
+  font-size: 12px;
+}
 
 /* #endregion */
 /* #region===== 購物車 ===== */

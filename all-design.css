@@ -2019,7 +2019,7 @@ body.dragging { cursor: grabbing; }
     }
 
     /* ── Mobile date / venue / trailer / body text ── */
-    #layout-handy .date-group { position: absolute; left: 36px; top: 670px; z-index: 12; }
+    #layout-handy .date-group { position: absolute; left: 20px; top: 670px; z-index: 12; }
     #layout-handy .date-range {
       position: absolute; left: 0; top: 0;
       width: 257px; height: 53px;

@@ -2020,18 +2020,18 @@ body.dragging { cursor: grabbing; }
 
     /* ── Mobile date / venue / trailer / body text ── */
     #layout-handy .date-group {
-      position: absolute; left: 6vw; top: 670px; z-index: 12;
+      position: absolute; left: 10vw; top: 670px; z-index: 12;
       width: 92vw;
       display: flex; flex-direction: column; align-items: flex-start;
     }
     #layout-handy .date-range {
       position: relative;
-      color: #efefef; font-size: 8vw; font-weight: 300;
+      color: #efefef; font-size: 10vw; font-weight: 300;
       letter-spacing: 1vw; line-height: 1.15;
       white-space: nowrap;
     }
     #layout-handy .date-year {
-      position: absolute; left: 62vw; top: 0.5vw;
+      position: absolute; left: 60vw; top: 0.5vw;
       color: #efefef; font-size: 2.8vw; font-weight: 300;
       letter-spacing: 0.2vw; line-height: 1;
       white-space: nowrap;

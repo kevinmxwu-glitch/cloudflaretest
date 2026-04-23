@@ -461,6 +461,7 @@ html {
   .demo-box{
     width: 100vw;
     padding: 20px 7px;
+    -webkit-overflow-scrolling: touch
     overflow: scroll;
     scroll-behavior: auto;
     scrollbar-width: none;

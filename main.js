@@ -34,11 +34,30 @@ menuIcon.addEventListener("mouseleave", () => {
 
 menuIcon.addEventListener("click", () => {
   if (window.innerWidth <= 768) {
-    sideMenu.classList.toggle("active");
-    overlay.classList.toggle("active");
+    const isOpen = sideMenu.classList.contains("active");
+
+    if (isOpen) {
+      closeSideMenu();
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    } else {
+      sideMenu.classList.add("active");
+      overlay.classList.add("active");
+    }
+  } else {
+    const isOpen = sideMenu.classList.contains("active");
+
+    if (isOpen) {
+      closeSideMenu();
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
   }
 });
-
 overlay.addEventListener("click", closeSideMenu);
 
 document.querySelectorAll(".side-menu a").forEach(link => {
@@ -207,7 +226,7 @@ const studentData = [
   { id:'08', x: 4580, y: 370,  size: 280, name:'楊昀臻', group:'活動組',     work:'B1.html',  instagram:'https://www.instagram.com/uc.artlab?igsh=MXA5OTgwcGJia2prZg%3D%3D&utm_source=qr', youtube:'#' },
   { id:'09', x: 5250, y: 215,  size: 280, name:'蔡佳蓁', group:'公關組',     work:'B1.html',  instagram:'https://www.instagram.com/jia.z047?igsh=cmhhNjN5a3F5cWNh&utm_source=qr', youtube:'#' },
   { id:'10', x: 5920, y: 360,  size: 280, name:'周玟妤', group:'周邊組',     work:'B3.html',  instagram:'https://www.instagram.com/__cwy.__?igsh=MXZuNzVtMGxsODByZQ%3D%3D&utm_source=qr', youtube:'#' },
-  { id:'11', x: 6600, y: 200,  size: 280, name:'江敏豐', group:'視覺組',     work:'B8.html',  instagram:'https://www.instagram.com/j.minfeng/', youtube:'www.youtube.com/@electric_feng' },
+  { id:'11', x: 6600, y: 200,  size: 280, name:'江敏豐', group:'視覺組',     work:'B8.html',  instagram:'https://www.instagram.com/j.minfeng/', youtube:'https://youtube.com/@electric_feng' },
   { id:'12', x: 7270, y: 340,  size: 280, name:'徐蕎安', group:'紀錄組',     work:'#',        instagram:'#', youtube:'#' },
   { id:'13', x: 390,  y: 720,  size: 280, name:'趙育旋', group:'周邊組',     work:'A12.html', instagram:'https://www.instagram.com/nao_ii0?igsh=eDZ1MW8ya3hjeDg%3D&utm_source=qr', youtube:'#' },
   { id:'14', x: 1060, y: 870,  size: 280, name:'林當宏', group:'視覺組',     work:'#',        instagram:'#', youtube:'#' },

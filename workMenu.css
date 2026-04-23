@@ -85,6 +85,7 @@ html {
   flex-direction: column;
   text-align: center;
   list-style: none;
+  min-height: 120%;
 }
 .title{
   font-size: 40px;

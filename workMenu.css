@@ -484,6 +484,9 @@ html {
     align-items: initial;
     height: 40px;
   }
+  .work-cover img {
+    min-height: 500px;
+  }
   .title{
     word-break: keep-all;
     font-size: 26px;

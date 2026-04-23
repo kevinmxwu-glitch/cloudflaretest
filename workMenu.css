@@ -75,6 +75,7 @@ html {
 
   width:900px;
   overflow: scroll;
+  -webkit-overflow-scrolling: touch
   scroll-behavior: auto;
   scrollbar-width: none;
 }

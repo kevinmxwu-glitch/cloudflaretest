@@ -77,7 +77,6 @@ html {
   overflow: scroll;
   scroll-behavior: auto;
   scrollbar-width: none;
-  opacity: 0;
 }
 
 .demo-box ul{
@@ -123,7 +122,7 @@ html {
   padding: 20px;
 }
 .work-container:hover img{
-  max-width: 150px;
+  width: 100%;
   transition: 0.3s;
 }
 .work-container:hover ul li{
@@ -139,14 +138,16 @@ html {
 }
 
 .work-title {
+  margin-top: 20px;
   font-size: 15px;
   line-height: 120%;
   block-size: 40px; 
-  display: flex;
+  display: block;
   justify-content: center;
   align-items: center;
   color: #343C55;
   font-weight: bolder;
+  height: 40px;
 }
 .work-title::selection {
   font-weight: bolder;
@@ -163,8 +164,10 @@ html {
 }
 
 .work-cover img {
-  max-width: 150px;
+  width: 100%;
   border-radius: 6px;
+  aspect-ratio: 108 / 135;
+  object-fit: cover;
 }
 .work-artist {
   font-size: 10px;
@@ -234,8 +237,11 @@ html {
 }
 .loader video{
   position: absolute;
-  min-height: 100%;
-  min-width: 100%;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
   
 }
 /* 開分背景 */
@@ -403,6 +409,7 @@ html {
 
   /* 開分作品區 */
   .demo-box {
+    opacity: 0;
     width: 100%;
   }
   
@@ -469,9 +476,10 @@ html {
     font-size: 12px;
     line-height: 120%;
     block-size: 40px; 
-    display: flex;
+    display: block;
     justify-content: center;
-    align-items: center;
+    align-items: initial;
+    height: 40px;
   }
   .title{
     word-break: keep-all;
@@ -479,6 +487,8 @@ html {
     font-weight: bold;
     line-height: 90%;
     text-align: center;
+    vertical-align: bottom;
+    margin-bottom: 0%;
   }
 
 }

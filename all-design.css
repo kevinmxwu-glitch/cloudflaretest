@@ -458,7 +458,19 @@ a{
   flex-direction: column;
   justify-content: space-between;
 }
+.visit-info-text {
+  margin-top: 16px;
+  color: #343C55;
+  font-size: clamp(12px, 1vw, 15px);
+  line-height: 1.8;
+  letter-spacing: 0.08em;
+  text-align: left;
+  max-width: 520px;
+}
 
+.visit-info-text p {
+  margin: 0 0 6px 0;
+}
 /* 標題 */
 .visit-title {
   display: flex;
@@ -920,6 +932,15 @@ a{
 
   .footer-logos .nma-logo {
     width: 68px;
+  }
+  .visit-info-text {
+    display: none;
+  }
+
+
+  .visit-title {
+    align-items: center;
+    text-align: center;
   }
 }
 
@@ -1838,7 +1859,7 @@ body.dragging { cursor: grabbing; }
   inset: 0;
   background-image: url('image/grass/grass_bg03_11zon_11zon.webp');
   background-repeat: no-repeat;
-  background-size: 105% 105%;
+  background-size: 120% 120%;
   background-position: center;
   z-index: 0;
 }

@@ -638,7 +638,43 @@ a{
   top: 60%;
   left: 5%;
 }
+.early-bird-badge {
+  position: absolute;
 
+  top: 0;
+  right: 0;
+
+  transform: translate(40%, 10%) rotate(12deg);
+
+  width: 6em;
+  height: 6em;
+
+  border-radius: 50%;
+
+  background: #ffffff80;
+  color: #E83928;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  font-size: 0.12em; 
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.3;
+}
+@media (max-width: 768px) {
+  .early-bird-badge {
+    transform: translate(20%, -40%) rotate(12deg);
+
+  }
+}
+.early-bird-badge span {
+  font-size: 0.5em;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
 .shop-corner-text {
   position: absolute;
   z-index: 4;

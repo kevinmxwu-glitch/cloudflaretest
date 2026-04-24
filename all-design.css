@@ -2409,7 +2409,7 @@ body.dragging { cursor: grabbing; }
     .card-face.back .art-logo { width: 90px; height: auto; margin-bottom: 20px; object-fit: contain; flex-shrink: 0; }
     .card-face.back .art-image-frame { width: 230px; height: 288px; flex-shrink: 0; overflow: hidden; background: #111; display: flex; justify-content: center; align-items: center; }
     .card-face.back .art-image-frame img { width: 230px; height: 348px; object-fit: cover; display: block; }
-    .card-face.back .art-card-title { width: 100%; margin-top: 20px; margin-right: 50px; text-align: right; font-family: "Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif; font-size: 17px; font-weight: 500; color: #3f4a69; letter-spacing: 1px; flex-shrink: 0; }
+    .card-face.back .art-card-title { width: 100%; margin-top: 20px; margin-right: 20px; text-align: right; font-family: "Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif; font-size: 17px; font-weight: 500; color: #3f4a69; letter-spacing: 1px; flex-shrink: 0; }
 
     /* ── Card strip ── */
     .card-strip-outer {

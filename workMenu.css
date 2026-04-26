@@ -163,8 +163,10 @@ html {
 }
 
 .work-cover img {
-  max-width: 150px;
+  width: 100%;
   border-radius: 6px;
+  aspect-ratio: 108 / 135;
+  object-fit: cover;
 }
 .work-artist {
   font-size: 10px;

@@ -475,10 +475,11 @@ html {
     justify-content: center;
     align-items: center;
     word-wrap: break-word;
+    word-break: break-word;
   }
   .title{
     word-wrap: break-word;
-    word-break: keep-all;
+    word-break: break-word;
     font-size: 26px;
     font-weight: bold;
     line-height: 90%;

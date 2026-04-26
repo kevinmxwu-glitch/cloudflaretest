@@ -476,7 +476,8 @@ html {
     align-items: center;
   }
   .title{
-    word-break: keep-all;
+    width: 
+    word-break: break-word;
     font-size: 26px;
     font-weight: bold;
     line-height: 90%;

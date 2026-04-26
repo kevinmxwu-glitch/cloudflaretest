@@ -126,45 +126,57 @@ function checkArtist(item, ul) {
 }
 
 
-//響應載入影片切換
-var load = document.getElementById('loadVideo');
-var source = document.createElement('source');
-if (window.innerWidth > 768) {
-  source.setAttribute('src', 'video/loading/loading2.mp4');
+/* ======================
+   Video sources (responsive)
+====================== */
+const loadVideo = document.getElementById('loadVideo');
+const bgVideo   = document.getElementById('bgVideo');
+let currentLoadSrc = '';
+let currentBgSrc   = '';
+
+function updateLoadVideoSource() {
+  if (!loadVideo) return;
+  const newSrc = window.innerWidth > 768 ? 'video/loading/loading2.mp4' : 'video/loading/loading.mp4';
+  if (currentLoadSrc === newSrc) return;
+  currentLoadSrc = newSrc;
+  loadVideo.pause();
+  loadVideo.innerHTML = `<source src="${newSrc}" type="video/mp4">`;
+  loadVideo.style.minWidth = window.innerWidth <= 768 ? '100%' : '';
+  loadVideo.load();
+  loadVideo.play();
 }
-else {
-  source.setAttribute('src', 'video/loading/loading.mp4');
-  load.style.maxWidth = "100%";
+
+function updateBgVideoSource() {
+  if (!bgVideo) return;
+  const newSrc = window.innerWidth > 768 ? 'video/start/start_desktop.mp4' : 'video/start/start_mobile.mp4';
+  if (currentBgSrc === newSrc) return;
+  currentBgSrc = newSrc;
+  bgVideo.pause();
+  bgVideo.innerHTML = `<source src="${newSrc}" type="video/mp4">`;
+  bgVideo.style.maxWidth = window.innerWidth <= 768 ? '100vw' : '';
+  bgVideo.load();
+  bgVideo.play();
 }
-source.setAttribute('type', 'video/mp4');
-load.appendChild(source);
-load.play();
 
-//響應背景影片切換
-var bg = document.getElementById('bgVideo');
-var source = document.createElement('source');
-if (window.innerWidth > 768) {
-  source.setAttribute('src', 'video/works/bg_desktop.mp4');
-}
-else {
-  source.setAttribute('src', 'video/works/bg_mobile.mp4');
-  bg.style.maxWidth = "100%";
-}
-source.setAttribute('type', 'video/mp4');
-bg.appendChild(source);
-bg.play();
+updateLoadVideoSource();
+updateBgVideoSource();
 
+// Debounce resize for video source switching
+let videoResizeTimer = null;
+window.addEventListener('resize', () => {
+  clearTimeout(videoResizeTimer);
+  videoResizeTimer = setTimeout(() => {
+    updateLoadVideoSource();
+    updateBgVideoSource();
+  }, 200);
+});
 
-
-//載入
-var loader = document.getElementsByClassName("loader");
-
-function fadeOut() {
-  if (load.style.opacity > 0) {
-    setTimeout(function() {
-      load.style.opacity = load.style.opacity - 0.1;
-      fadeOut()
-    }, 23)
+/* ======================
+   Loader fade-out (CSS transition instead of JS loop)
+====================== */
+window.addEventListener('load', () => {
+  if (loadVideo) {
+    loadVideo.style.transition = 'opacity 0.5s ease';
+    loadVideo.style.opacity = '0';
   }
-};
-window.addEventListener("load", fadeOut);
+});

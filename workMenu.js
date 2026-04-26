@@ -87,7 +87,7 @@ document.querySelectorAll(".side-menu a").forEach(link => {
   });
 });
 function checkTitle(item, ul) {
-  const tt = document.createElement("li");
+  const tt = document.createElement("div");
   tt.setAttribute('class', 'work-title');
   if(item.title) {
     tt.innerHTML = item.title;

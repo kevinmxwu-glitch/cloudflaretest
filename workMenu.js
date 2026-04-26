@@ -148,7 +148,7 @@ function updateLoadVideoSource() {
 
 function updateBgVideoSource() {
   if (!bgVideo) return;
-  const newSrc = window.innerWidth > 768 ? 'video/start/start_desktop.mp4' : 'video/start/start_mobile.mp4';
+  const newSrc = window.innerWidth > 768 ? 'video/works/bg_desktop.mp4' : 'video/works/bg_mobile.mp4';
   if (currentBgSrc === newSrc) return;
   currentBgSrc = newSrc;
   bgVideo.pause();

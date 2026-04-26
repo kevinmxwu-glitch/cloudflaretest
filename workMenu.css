@@ -471,7 +471,7 @@ html {
     font-size: 12px;
     line-height: 120%;
     block-size: 40px; 
-    display: flex;
+    display: block;
     justify-content: center;
     align-items: center;
   }

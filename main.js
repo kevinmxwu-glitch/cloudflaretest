@@ -450,7 +450,13 @@ document.getElementById('spotlight-close').addEventListener('click', e => {
 spotlight.addEventListener('click', () => spotlight.classList.remove('active'));
 document.getElementById('spotlight-card').addEventListener('click', e => e.stopPropagation());
 
-aboutMain.addEventListener('mousedown', e => {
+// Use window-level pointerdown so overlapping UI panels (counter, drag-hint, etc.)
+// never swallow the event. We check the event originates inside aboutMain.
+window.addEventListener('mousedown', e => {
+  if (!aboutMain) return;
+  const rect = aboutMain.getBoundingClientRect();
+  if (e.clientX < rect.left || e.clientX > rect.right ||
+      e.clientY < rect.top  || e.clientY > rect.bottom) return;
   drag = true;
   lmx = e.clientX;
   lmy = e.clientY;
@@ -485,8 +491,13 @@ window.addEventListener('mouseup', () => {
   })();
 });
 
-aboutMain.addEventListener('touchstart', e => {
+// Window-level touchstart so overlapping UI elements don't swallow touches in upper area
+window.addEventListener('touchstart', e => {
+  if (!aboutMain) return;
   const t = e.touches[0];
+  const rect = aboutMain.getBoundingClientRect();
+  if (t.clientX < rect.left || t.clientX > rect.right ||
+      t.clientY < rect.top  || t.clientY > rect.bottom) return;
   drag = true;
   lmx = t.clientX;
   lmy = t.clientY;
@@ -495,7 +506,7 @@ aboutMain.addEventListener('touchstart', e => {
   document.getElementById('drag-hint').classList.add('hidden');
 }, { passive: true });
 
-aboutMain.addEventListener('touchmove', e => {
+window.addEventListener('touchmove', e => {
   if (!drag) return;
   const t = e.touches[0];
   vx = t.clientX - lmx;

@@ -2030,8 +2030,8 @@ body.dragging { cursor: grabbing; }
   backdrop-filter: blur(10px);
   border: 1px solid #a09e9a; border-radius: 11px;
 }
-#counter { padding: 9px 18px; text-align: right; }
-#counter .big { display: block; font-size: 30px; color: #e83928; line-height: 1; }
+#counter { padding: 9px 18px; text-align: center; }
+#counter .big {  font-size: 30px; color: #e83928; line-height: 1; font-weight: bold;}
 #counter .small { font-size: 11px; color: #a09e9a; letter-spacing: 0.07em; }
 
 #minimap {

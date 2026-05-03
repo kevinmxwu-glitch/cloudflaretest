@@ -1287,3 +1287,18 @@ fetch("https://script.google.com/macros/s/AKfycby1E_A5sVq0UCVlnjtLyyklGE1lSr-V1O
 }
 
 window.addEventListener('load', initLazyYouTubeCards);
+
+function openAndDownloadPDF() {
+  const url = "pdf/main/before-zero-guide.pdf";
+
+  // 1️⃣ 開新頁
+  window.open(url, "_blank");
+
+  // 2️⃣ 下載
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "在那出現之前-電子導覽手冊.pdf";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}

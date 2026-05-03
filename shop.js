@@ -1,4 +1,4 @@
-const scriptURL = 'https://script.google.com/macros/s/AKfycbwU7h8NU3HfUlh9OslX-XFSOjtzMb05_BVhq8lTZI6ygSTg1uoIY-Blh6s-mVDW81hB/exec';
+const scriptURL = 'https://script.google.com/macros/s/AKfycbwimMpl-ZBslns8kSWk3zND6ET92WVzevZb8qBUAbRnZnPfSC-q6vEy1kAgeYD3-Oty/exec';
 const form = document.forms['contact-form'];
 
 let productDivs = [];
@@ -22,7 +22,7 @@ const combos = [
   {
     id: "comboA",
     name: "在那出現之後(襪子+登山扣+杯套+卡套)",
-    price: 550,
+    price: 640,
     items: [
       { id: "sock", qty: 1 },
       { id: "cup", qty: 1 },
@@ -33,7 +33,7 @@ const combos = [
   {
     id: "comboB",
     name: "逛街之前(杯套+卡套)",
-    price: 270,
+    price: 310,
     items: [
       { id: "cup", qty: 1 },
       { id: "card", qty: 1 }
@@ -42,7 +42,7 @@ const combos = [
   {
     id: "comboD",
     name: "登山露營之前(襪子+登山扣)",
-    price: 290,
+    price: 320,
     items: [
       { id: "sock", qty: 1 },
       { id: "hook", qty: 1 }

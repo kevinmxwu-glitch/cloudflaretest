@@ -155,6 +155,45 @@ bg.appendChild(source);
 bg.play();
 
 
+//載入
+var loader = document.getElementsByClassName("loader");
+
+function fadeOut() {
+  if (load.style.opacity > 0) {
+    setTimeout(function() {
+      load.style.opacity = load.style.opacity - 0.1;
+      fadeOut()
+    }, 23)
+  }
+};
+window.addEventListener("load", fadeOut);//響應載入影片切換
+var load = document.getElementById('loadVideo');
+var source = document.createElement('source');
+if (window.innerWidth > 768) {
+  source.setAttribute('src', 'video/loading/loading2.mp4');
+}
+else {
+  source.setAttribute('src', 'video/loading/loading.mp4');
+  load.style.maxWidth = "100%";
+}
+source.setAttribute('type', 'video/mp4');
+load.appendChild(source);
+load.play();
+
+//響應背景影片切換
+var bg = document.getElementById('bgVideo');
+var source = document.createElement('source');
+if (window.innerWidth > 768) {
+  source.setAttribute('src', 'video/works/bg_desktop.mp4');
+}
+else {
+  source.setAttribute('src', 'video/works/bg_mobile.mp4');
+  bg.style.maxWidth = "100%";
+}
+source.setAttribute('type', 'video/mp4');
+bg.appendChild(source);
+bg.play();
+
 
 //載入
 var loader = document.getElementsByClassName("loader");
